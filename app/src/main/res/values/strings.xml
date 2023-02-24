@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">apprent</string>
     <string name="login_email">ПО E-MAIL</string>
-    <string name="login_number">ПО НОМЕРУ\nТЕЛЕФОНА</string>
+    <string name="login_number">ПО НОМЕРУ ТЕЛЕФОНА</string>
     <string name="enter_email">E-mail</string>
     <string name="enter_password">Пароль</string>
     <string name="forgot_password">Забыли пароль?</string>
