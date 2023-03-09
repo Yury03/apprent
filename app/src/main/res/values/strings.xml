@@ -8,6 +8,7 @@
     <string name="new_user">Новый пользователь?</string>
     <string name="sign_in">ВОЙТИ</string>
     <string name="sign_up"><u>Зарегистрируйтесь</u></string>
+    <string name="default_nick"><b>?</b></string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
