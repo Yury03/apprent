@@ -104,8 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/alpha_null"
-
-            android:text="Вернуться на первое активити"
+            android:text="Вернуться на первый фрагмент"
             android:textColor="@color/main_text"
             android:textSize="16sp" />
     </LinearLayout>
