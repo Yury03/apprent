@@ -9,11 +9,11 @@
     <!-- TODO: Update blank fragment layout -->
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
@@ -51,7 +51,7 @@
                 android:layout_weight="1"
                 android:background="@color/alpha_null"
                 android:text="@string/login_number"
-                android:textColor="@color/black"
+                android:textColor="@color/main_text"
                 android:textSize="16sp" />
 
         </LinearLayout>
@@ -62,7 +62,8 @@
             android:layout_height="50dp"
             android:ems="10"
             android:hint="@string/enter_email"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:textColor="@color/main_text" />
 
         <EditText
             android:id="@+id/editTextTextPassword"
@@ -70,7 +71,8 @@
             android:layout_height="50dp"
             android:ems="10"
             android:hint="@string/enter_password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@color/main_text" />
 
         <Button
             android:id="@+id/textView"
@@ -78,7 +80,7 @@
             android:layout_height="wrap_content"
             android:background="@color/alpha_null"
             android:text="@string/forgot_password"
-            android:textColor="@color/black" />
+            android:textColor="@color/main_text" />
 
         <Button
             android:id="@+id/signIn"
@@ -87,7 +89,7 @@
             android:background="@color/alpha_null"
             android:onClick="forExample"
             android:text="@string/sign_in"
-            android:textColor="@color/black"
+            android:textColor="@color/main_text"
             tools:ignore="InvalidId" />
 
         <TextView

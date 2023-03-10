@@ -12,5 +12,6 @@
 <color name="main_text">#FFFFFF</color>
 <color name="optional_text">#AAAAAA</color>
 <color name="for_icons">#FFFFFF</color>
+    <color name="white_or_black">#FFFFFF</color>
 
 </resources>
