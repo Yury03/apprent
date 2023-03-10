@@ -5,24 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/alpha_null"
+    android:outlineProvider="none"
     tools:context=".MainFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="352dp"
-            android:text="Фрагмент авторизации"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.66"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -37,24 +28,14 @@
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="4">
+                android:layout_weight="1">
 
-                <ImageView
-                    android:id="@+id/imageView2"
+                <ImageButton
+                    android:id="@+id/profile_button"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
-                    android:src="@drawable/default_avatar_background" />
-
-                <TextView
-                    android:id="@+id/nick"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-
-                    android:gravity="center"
-                    android:text="@string/default_nick"
-                    android:textColor="@color/white"
-                    android:textSize="20dp" />
-
+                    android:layout_weight="1"
+                    android:background="@drawable/default_avatar_background" />
             </FrameLayout>
 
             <Space
@@ -79,7 +60,7 @@
                 android:layout_weight="1" />
 
             <ImageButton
-                android:id="@+id/imageButton4"
+                android:id="@+id/cart_button"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
 
@@ -89,6 +70,7 @@
 
 
         </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

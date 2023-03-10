@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class MainFragment extends Fragment {
@@ -26,18 +27,18 @@ public class MainFragment extends Fragment {
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		Button button = view.findViewById(R.id.button2);
-		TextView textView = view.findViewById(R.id.nick);
+		ImageButton profileButton = view.findViewById(R.id.profile_button);
+
 		Log.i(Tag, "onViewCreated [MainFragment]");
 		getParentFragmentManager().setFragmentResultListener("request2",
 				this, (requestKey, result) -> {
 					signIn = result.getBoolean("isSignIn");
 					
-//					if (signIn) {
-//						textView.setText("Вход выполнен");
-//					} else {
-//						textView.setText("Вход не выполнен");
-//					}
+					if (signIn) {
+						profileButton.setText("Вход выполнен");
+					} else {
+						textView.setText("Вход не выполнен");
+					}
 				});
 //		if (signIn) {
 //			textView.setText("Вход выполнен");
