@@ -1,9 +1,11 @@
-package com.example.apprent;
+package com.example.apprent.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.os.Bundle;
+
+import com.example.apprent.R;
 
 public class LoginActivity extends AppCompatActivity {
 

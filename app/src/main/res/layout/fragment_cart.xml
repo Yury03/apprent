@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".CartFragment">
+    android:layout_height="wrap_content"
+    tools:context=".fragments.CartFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -36,6 +36,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center|left"
+                android:scrollbars="vertical"
                 android:text="@string/cart"
                 android:textColor="@color/main_text"
                 android:textSize="18sp" />
@@ -43,11 +44,9 @@
         </LinearLayout>
 
         <ListView
-            android:layout_width="409dp"
-            android:layout_height="676dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="1dp"
+            android:id="@+id/cartProducts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />

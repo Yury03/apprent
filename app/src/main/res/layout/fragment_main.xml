@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/alpha_null"
     android:outlineProvider="none"
-    tools:context=".MainFragment">
+    tools:context=".fragments.MainFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -93,7 +93,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            tools:listitem="@layout/icon_product">
+            tools:listitem="@layout/product_item">
 
 
         </androidx.recyclerview.widget.RecyclerView>
