@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,8 +19,9 @@ import com.example.apprent.fragments.MainFragment;
 
 public class LoginFragment extends Fragment {
 	Boolean signIn;
-
+	
 	private static final String Tag = "MyApp";
+
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -33,17 +36,7 @@ public class LoginFragment extends Fragment {
 		Button signInButton = view.findViewById(R.id.signIn);
 		Button signUpButton = view.findViewById(R.id.signUp);
 		Log.i(Tag, "onViewCreated [LoginFragment]");
-		getParentFragmentManager().setFragmentResultListener("request",
-				this, (requestKey, result) -> {
-					signIn = result.getBoolean("isSignIn");
-					if (signIn) {
-						signInButton.setText("Выйти");
-					} else {
-						signInButton.setText("Войти");
-					}
-				});
-		
-		signInButton.setOnClickListener(v -> {
+		signInButton.setOnClickListener(view12 -> {
 			signIn = !(signIn);
 			if (signIn) {
 				signInButton.setText("Выйти");
@@ -52,18 +45,25 @@ public class LoginFragment extends Fragment {
 			}
 			Log.i(Tag, signIn.toString());
 		});
+		try {
+			signIn = getArguments() != null && getArguments().getBoolean("isSignIn");
+			if (signIn) {
+				signInButton.setText("Выйти");
+			} else {
+				signInButton.setText("Войти");
+			}
+		} catch (Exception exception) {
+			Log.e("MyApp", exception.getMessage());
+		}
+		
+		
 		signUpButton.setOnClickListener(view1 -> {
 			Bundle bundle = new Bundle();
 			bundle.putBoolean("isSignIn", signIn);
-			getParentFragmentManager().setFragmentResult(
-					"request2", bundle);
-			Fragment fragment = new MainFragment();
-			getParentFragmentManager()
-					.beginTransaction()
-					.setReorderingAllowed(true)
-					.replace(R.id.fragmentContainerView, fragment)
-					.commit();
+			Navigation.findNavController(view).navigate(R.id.action_loginFragment2_to_mainFragment, bundle);
 		});
+		
+		
 	}
 	
 	@Override
@@ -99,6 +99,7 @@ public class LoginFragment extends Fragment {
 	@Override
 	public void onSaveInstanceState(@NonNull Bundle outState) {
 		super.onSaveInstanceState(outState);
+		
 		Log.i(Tag, "onSaveInstanceState [LoginFragment]");
 	}
 	
@@ -115,8 +116,7 @@ public class LoginFragment extends Fragment {
 	}
 	
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-							 Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		Log.i(Tag, "onCreateView [LoginFragment]");
 		return inflater.inflate(R.layout.fragment_login, container, false);
 	}

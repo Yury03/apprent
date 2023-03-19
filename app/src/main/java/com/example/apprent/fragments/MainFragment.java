@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,66 +34,47 @@ public class MainFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		Log.i(Tag, "onCreate [MainFragment]");
 	}
-
+	
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		setInitialData();
 		recyclerView = view.findViewById(R.id.productList);
-		// создаем адаптер
 		AdapterProductList adapter = new AdapterProductList(this.getContext(), products);
-		// устанавливаем для списка адаптер
 		recyclerView.setAdapter(adapter);
 		recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
 		ImageButton profileButton = view.findViewById(R.id.profile_button);
 		ImageButton goToCart = view.findViewById(R.id.cart_button);
 		TextView profileNick = view.findViewById(R.id.profile_IN);
+		try {
+			signIn = getArguments() != null && getArguments().getBoolean("isSignIn");
+			if (signIn) {
+				profileNick.setText("ЮК");
+			} else {
+				profileNick.setText(R.string.default_nick);
+			}
+		} catch (Exception exception) {
+			Log.e("MyApp", exception.getMessage());
+		}
 		Log.i(Tag, "onViewCreated [MainFragment]");
-		goToCart.setOnClickListener(view12 -> {
-			Fragment fragment = new CartFragment();
-			getParentFragmentManager()
-					.beginTransaction()
-					.setReorderingAllowed(true)
-					.replace(R.id.fragmentContainerView, fragment)
-					.commit();
-		});
-		getParentFragmentManager().setFragmentResultListener("request2",
-				this, (requestKey, result) -> {
-					signIn = result.getBoolean("isSignIn");
-					if (signIn) {
-						profileNick.setText("ЮК");
-					} else {
-						profileNick.setText(R.string.default_nick);
-					}
-				});
 		profileButton.setOnClickListener(view1 -> {
-			Bundle bundle = new Bundle();
+			Bundle bundle=new Bundle();
 			bundle.putBoolean("isSignIn", signIn);
-			getParentFragmentManager().setFragmentResult(
-					"request", bundle);
-			Fragment fragment = new LoginFragment();
-			getParentFragmentManager()
-					.beginTransaction()
-					.setReorderingAllowed(true)
-					.replace(R.id.fragmentContainerView, fragment)
-					.commit();
-		});
+			Navigation.findNavController(view1).navigate(R.id.action_mainFragment_to_loginFragment2, bundle);
+			
+		}
+		);
+		goToCart.setOnClickListener(view12 -> Navigation.findNavController(view12).navigate(R.id.action_mainFragment_to_cartFragment));
 	}
 	
 	
-	
 	private void setInitialData() {
-		products.add(new ProductItem("249$", "Nikon EOD. Digital Camera For Good Guys", R.drawable.cake1));
-		products.add(new ProductItem("249$", "Nikon EOD. Digital Camera For Good Guys", R.drawable.cake2));
-		products.add(new ProductItem("249$", "Nikon EOD. Digital Camera For Good Guys", R.drawable.cake1));
-		products.add(new ProductItem("249$", "Nikon EOD. Digital Camera For Good Guys", R.drawable.cake2));
-		products.add(new ProductItem("249$", "Nikon EOD. Digital Camera For Good Guys", R.drawable.cake1));
-		products.add(new ProductItem("249$", "Nikon EOD. Digital Camera For Good Guys", R.drawable.cake2));
-		products.add(new ProductItem("249$", "Nikon EOD. Digital Camera For Good Guys", R.drawable.cake1));
-		products.add(new ProductItem("249$", "Nikon EOD. Digital Camera For Good Guys", R.drawable.cake2));
+		for (int i = 0; i < 8; i++) {
+			products.add(new ProductItem("249$", "Nikon EOD. Digital Camera For Good Guys", R.drawable.cake1));
+			products.add(new ProductItem("249$", "Nikon EOD. Digital Camera For Good Guys", R.drawable.cake2));
+		}
 		
 	}
 	
