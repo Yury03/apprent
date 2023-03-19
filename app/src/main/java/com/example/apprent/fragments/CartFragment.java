@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +27,7 @@ import com.example.apprent.listClasses.ProductItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NavigableMap;
 
 public class CartFragment extends Fragment {
 	List<ProductItem> products = new ArrayList<>();
@@ -43,36 +45,21 @@ public class CartFragment extends Fragment {
 		ImageButton backToMain = view.findViewById(R.id.back_button_cart);
 		setInitialData();
 		Log.i("MyApp", "onViewCreated [CartFragment]");
-		
 		listView = view.findViewById(R.id.cartProducts);
-		// создаем адаптер
-		
 		AdapterCartList adapter = new AdapterCartList(this.getContext(), R.layout.product_item, products);
-		// устанавливаем для списка адаптер
 		listView.setOnItemClickListener((adapterView, view12, i, l) -> Log.i("MyApp", "onItemClickListener"));
-		
 		listView.setAdapter(adapter);
-		backToMain.setOnClickListener(view1 -> {
-			Fragment fragment = new MainFragment();
-			getParentFragmentManager()
-					.beginTransaction()
-					.setReorderingAllowed(true)
-					.replace(R.id.fragmentContainerView, fragment)
-					.commit();
+		backToMain.setOnClickListener(view1 ->{
+			Navigation.findNavController(view1).navigate(R.id.action_cartFragment_to_mainFragment);
+			Log.i("MyApp", "navigation: cart fragment replace to main fragment");
 		});
-		
 	}
 	
 	private void setInitialData() {
-		products.add(new ProductItem("249$", "Nikon EOD. Digital Camera For Good Guys", R.drawable.cake1));
-		products.add(new ProductItem("249$", "Nikon EOD. Digital Camera For Good Guys", R.drawable.cake2));
-		products.add(new ProductItem("249$", "Nikon EOD. Digital Camera For Good Guys", R.drawable.cake1));
-		products.add(new ProductItem("249$", "Nikon EOD. Digital Camera For Good Guys", R.drawable.cake2));
-		products.add(new ProductItem("249$", "Nikon EOD. Digital Camera For Good Guys", R.drawable.cake1));
-		products.add(new ProductItem("249$", "Nikon EOD. Digital Camera For Good Guys", R.drawable.cake2));
-		products.add(new ProductItem("249$", "Nikon EOD. Digital Camera For Good Guys", R.drawable.cake1));
-		products.add(new ProductItem("249$", "Nikon EOD. Digital Camera For Good Guys", R.drawable.cake2));
-		
+		for (int i = 0; i < 8; i++) {
+			products.add(new ProductItem("249$", "Nikon EOD. Digital Camera For Good Guys", R.drawable.cake1));
+			products.add(new ProductItem("249$", "Nikon EOD. Digital Camera For Good Guys", R.drawable.cake2));
+		}
 	}
 	
 	@Override
