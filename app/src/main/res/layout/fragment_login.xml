@@ -9,7 +9,7 @@
     <!-- TODO: Update blank fragment layout -->
 
     <LinearLayout
-        android:layout_width="349dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
@@ -27,20 +27,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="2"
+            android:layout_weight="0"
             app:srcCompat="@drawable/logo" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="3" />
+            android:layout_height="70dp"
+            android:layout_weight="0" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/loginFragmentContainer"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="25"
+            android:layout_weight="0"
             app:defaultNavHost="true"
             app:navGraph="@navigation/nav_graph_login" />
 

@@ -22,12 +22,7 @@ Button goToSignIn;
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         goToSignIn=view.findViewById(R.id.go_to_sign_in);
-        goToSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_signUpFragment_to_signInFragment);
-            }
-        });
+        goToSignIn.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_signUpFragment_to_signInFragment));
     }
 
     @Override
