@@ -1,13 +1,16 @@
 <resources>
     <string name="app_name">apprent</string>
-    <string name="login_email">ПО E-MAIL</string>
-    <string name="login_number">ПО НОМЕРУ ТЕЛЕФОНА</string>
+    <string name="login_email"><b>Авторизация</b></string>
+    <string name="login_number"><b>Регистрация</b></string>
     <string name="enter_email">E-mail</string>
     <string name="enter_password">Пароль</string>
+    <string name="repeat_password">Повторите пароль</string>
     <string name="forgot_password">Забыли пароль?</string>
     <string name="new_user">Новый пользователь?</string>
     <string name="sign_in">ВОЙТИ</string>
-    <string name="sign_up"><u>Зарегистрируйтесь</u></string>
+    <string name="sign_up">Регистрация</string>
+    <string name="privacy_policy">Подтверждая регистрацию, Вы даете свое согласие на обработку персональных данных и соглашаетесь с <a href="https://msk.aura-rent.ru/privacy-policy/">политикой конфиденциальности</a>.</string>
+    <string name="remember_me_checkbox">Запомнить меня</string>
     <string name="default_nick"><b>?</b></string>
     <string name="cart">Корзина</string>
     <string name="defaultPrice">249 $</string>

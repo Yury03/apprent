@@ -33,30 +33,30 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button signInButton = view.findViewById(R.id.signIn);
-        Button signUpButton = view.findViewById(R.id.signUp);
-        Log.i(Tag, "onViewCreated [LoginFragment]");
-        signIn = sharedPreferences.getBoolean(getString(R.string.saved_log_in_key), false);
-        if (signIn) {
-            signInButton.setText("Выйти");
-        } else {
-            signInButton.setText("Войти");
-        }
-        signInButton.setOnClickListener(view12 -> {
-            signIn = !(signIn);
-            if (signIn) {
-                signInButton.setText("Выйти");
-            } else {
-                signInButton.setText("Войти");
-            }
-            Log.i(Tag, signIn.toString());
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean(getString(R.string.saved_log_in_key), signIn);
-            editor.apply();
-        });
-        signUpButton.setOnClickListener(view1 -> {
-            Navigation.findNavController(view).navigate(R.id.action_loginFragment2_to_mainFragment);
-        });
+//        Button signInButton = view.findViewById(R.id.signUp);
+//        Button signUpButton = view.findViewById(R.id.signUp);
+//        Log.i(Tag, "onViewCreated [LoginFragment]");
+//        signIn = sharedPreferences.getBoolean(getString(R.string.saved_log_in_key), false);
+//        if (signIn) {
+//            signInButton.setText("Выйти");
+//        } else {
+//            signInButton.setText("Войти");
+//        }
+//        signInButton.setOnClickListener(view12 -> {
+//            signIn = !(signIn);
+//            if (signIn) {
+//                signInButton.setText("Выйти");
+//            } else {
+//                signInButton.setText("Войти");
+//            }
+//            Log.i(Tag, signIn.toString());
+//            SharedPreferences.Editor editor = sharedPreferences.edit();
+//            editor.putBoolean(getString(R.string.saved_log_in_key), signIn);
+//            editor.apply();
+//        });
+//        signUpButton.setOnClickListener(view1 -> {
+//            Navigation.findNavController(view).navigate(R.id.action_loginFragment2_to_mainFragment);
+//        });
     }
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {

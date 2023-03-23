@@ -9,8 +9,8 @@
     <!-- TODO: Update blank fragment layout -->
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="349dp"
+        android:layout_height="match_parent"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
@@ -23,92 +23,27 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/logoInLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_weight="2"
             app:srcCompat="@drawable/logo" />
 
-        <LinearLayout
+        <Space
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_weight="3" />
 
-            <Button
-                android:id="@+id/email"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/alpha_null"
-                android:text="@string/login_email"
-                android:textColor="@color/main_text"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/phoneNumber"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/alpha_null"
-                android:text="@string/login_number"
-                android:textColor="@color/main_text"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/editTextTextEmailAddress"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/loginFragmentContainer"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:ems="10"
-            android:hint="@string/enter_email"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/main_text" />
-
-        <EditText
-            android:id="@+id/editTextTextPassword"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:ems="10"
-            android:hint="@string/enter_password"
-            android:inputType="textPassword"
-            android:textColor="@color/main_text" />
-
-        <Button
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/alpha_null"
-            android:text="@string/forgot_password"
-            android:textColor="@color/main_text" />
+            android:layout_weight="25"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/nav_graph_login" />
 
-        <Button
-            android:id="@+id/signIn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/alpha_null"
-            android:onClick="forExample"
-            android:text="@string/sign_in"
-            android:textColor="@color/main_text"
-            tools:ignore="InvalidId" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/new_user"
-            android:textColor="@color/main_text"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/signUp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/alpha_null"
-            android:text="Вернуться на первый фрагмент"
-            android:textColor="@color/main_text"
-            android:textSize="16sp" />
     </LinearLayout>
 
 </FrameLayout>
