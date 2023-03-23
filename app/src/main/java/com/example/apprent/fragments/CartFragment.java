@@ -32,11 +32,11 @@ import java.util.NavigableMap;
 public class CartFragment extends Fragment {
 	List<ProductItem> products = new ArrayList<>();
 	private ListView listView;
-	
+	private static final String Tag = "MyApp";
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.i("MyApp", "onCreate [CartFragment]");
+		Log.i(Tag, "onCreate [CartFragment]");
 	}
 	
 	@Override
@@ -44,14 +44,14 @@ public class CartFragment extends Fragment {
 		super.onViewCreated(view, savedInstanceState);
 		ImageButton backToMain = view.findViewById(R.id.back_button_cart);
 		setInitialData();
-		Log.i("MyApp", "onViewCreated [CartFragment]");
+		Log.i(Tag, "onViewCreated [CartFragment]");
 		listView = view.findViewById(R.id.cartProducts);
 		AdapterCartList adapter = new AdapterCartList(this.getContext(), R.layout.product_item, products);
-		listView.setOnItemClickListener((adapterView, view12, i, l) -> Log.i("MyApp", "onItemClickListener"));
+		listView.setOnItemClickListener((adapterView, view12, i, l) -> Log.i(Tag, "onItemClickListener"));
 		listView.setAdapter(adapter);
 		backToMain.setOnClickListener(view1 ->{
 			Navigation.findNavController(view1).navigate(R.id.action_cartFragment_to_mainFragment);
-			Log.i("MyApp", "navigation: cart fragment replace to main fragment");
+			Log.i(Tag, "navigation: cart fragment replace to main fragment");
 		});
 	}
 	
