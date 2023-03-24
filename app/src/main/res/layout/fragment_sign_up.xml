@@ -45,11 +45,8 @@
             android:id="@+id/view2"
             android:layout_width="match_parent"
             android:layout_height="2dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/bottom_frame_right" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="30dp" />
 
         <EditText
             android:id="@+id/email_for_sign_up"
@@ -73,58 +70,33 @@
             android:id="@+id/repeat_password_for_sign_up"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
             android:ems="10"
             android:hint="@string/repeat_password"
             android:inputType="textPassword"
             android:textColor="@color/main_text" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="20dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/signUp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/signUp"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@drawable/button_style"
-                android:backgroundTint="@color/alpha_null"
-                android:hapticFeedbackEnabled="false"
-                android:onClick="forExample"
-                android:shadowColor="#00BAA4A4"
-                android:text="@string/sign_up"
-                android:textColor="@color/button_aura_text"
-                app:cornerRadius="3dp"
-                tools:ignore="InvalidId" />
-
-            <Space
-                android:layout_width="15dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0" />
-
-            <Button
-                android:id="@+id/forgot_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|fill_vertical"
-                android:layout_weight="0"
-                android:background="@color/alpha_null"
-                android:gravity="center_horizontal|center_vertical"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:text="@string/forgot_password"
-                android:textColor="@color/for_hyperlink"
-                android:textColorLink="@color/for_hyperlink" />
-        </LinearLayout>
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_style"
+            android:backgroundTint="@color/alpha_null"
+            android:hapticFeedbackEnabled="false"
+            android:onClick="forExample"
+            android:shadowColor="#00BAA4A4"
+            android:text="@string/sign_up"
+            android:textColor="@color/button_aura_text"
+            app:cornerRadius="3dp"
+            tools:ignore="InvalidId" />
 
         <TextView
             android:id="@+id/privacy_policy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingEnd="5dp"
             android:text="@string/privacy_policy"
             android:textAlignment="textStart"
             android:textColor="@color/main_text"

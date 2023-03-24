@@ -1,3 +1,5 @@
+//ActionBar actionBAr = getActionBar()
+//ActionBar.setBackgroundDrawable
 package com.example.apprent.fragments;
 
 import android.content.Context;
