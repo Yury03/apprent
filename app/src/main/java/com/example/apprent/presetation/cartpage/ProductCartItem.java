@@ -1,4 +1,4 @@
-package com.example.apprent.listClasses;
+package com.example.apprent.presetation.cartpage;
 
 public class ProductCartItem {
 	private String price, productName, from, to, dayCounter;

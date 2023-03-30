@@ -1,4 +1,4 @@
-package com.example.apprent.fragments;
+package com.example.apprent.presetation.cartpage;
 
 import android.os.Bundle;
 
@@ -6,28 +6,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.Toast;
 
 import com.example.apprent.R;
-import com.example.apprent.adapters.AdapterCartList;
-import com.example.apprent.adapters.AdapterProductList;
-import com.example.apprent.listClasses.ProductItem;
+import com.example.apprent.presetation.mainpage.ProductItem;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NavigableMap;
 
 public class CartFragment extends Fragment {
 	List<ProductItem> products = new ArrayList<>();

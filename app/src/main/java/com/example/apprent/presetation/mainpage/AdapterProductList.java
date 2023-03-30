@@ -1,22 +1,18 @@
-package com.example.apprent.adapters;
+package com.example.apprent.presetation.mainpage;
 
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.apprent.listClasses.ProductItem;
 import com.example.apprent.R;
 
 

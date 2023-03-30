@@ -1,4 +1,4 @@
-package com.example.apprent.adapters;
+package com.example.apprent.presetation.cartpage;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,11 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.apprent.R;
 
-import com.example.apprent.listClasses.ProductItem;
+import com.example.apprent.presetation.mainpage.ProductItem;
 
 import java.util.List;
 	

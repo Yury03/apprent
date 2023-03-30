@@ -1,4 +1,4 @@
-package com.example.apprent.fragments;
+package com.example.apprent.presetation.mainpage;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -18,8 +18,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apprent.R;
-import com.example.apprent.adapters.AdapterProductList;
-import com.example.apprent.listClasses.ProductItem;
 
 import java.util.ArrayList;
 import java.util.List;

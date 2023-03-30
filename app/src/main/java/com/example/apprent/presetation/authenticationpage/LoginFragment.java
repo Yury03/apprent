@@ -1,6 +1,6 @@
 //ActionBar actionBAr = getActionBar()
 //ActionBar.setBackgroundDrawable
-package com.example.apprent.fragments;
+package com.example.apprent.presetation.authenticationpage;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,12 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import com.example.apprent.R;
 

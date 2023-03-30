@@ -1,4 +1,4 @@
-package com.example.apprent.fragments;
+package com.example.apprent.presetation.authenticationpage;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

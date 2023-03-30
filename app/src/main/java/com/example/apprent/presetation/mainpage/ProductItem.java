@@ -1,4 +1,4 @@
-package com.example.apprent.listClasses;
+package com.example.apprent.presetation.mainpage;
 
 public class ProductItem {
 	private String price;
