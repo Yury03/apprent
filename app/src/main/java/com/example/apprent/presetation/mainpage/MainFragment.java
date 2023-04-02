@@ -47,24 +47,8 @@ public class MainFragment extends Fragment {
         AdapterProductList adapter = new AdapterProductList(this.getContext(), products);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
-        ImageButton profileButton = view.findViewById(R.id.profile_button);
-        ImageButton goToCart = view.findViewById(R.id.cart_button);
-        TextView profileNick = view.findViewById(R.id.profile_IN);
         signIn = sharedPreferences.getBoolean(getString(R.string.saved_log_in_key), false);
-        if (signIn) {
-            profileNick.setText("ЮК");
-        } else {
-            profileNick.setText(R.string.default_nick);
-        }
         Log.i(Tag, "onViewCreated [MainFragment]");
-        profileButton.setOnClickListener(view1 -> {
-            Navigation
-                    .findNavController(view1)
-                    .navigate(R.id.action_mainFragment_to_loginFragment2);
-        });
-        goToCart.setOnClickListener(view1 -> Navigation
-                .findNavController(view1)
-                .navigate(R.id.action_mainFragment_to_cartFragment));
     }
 
 

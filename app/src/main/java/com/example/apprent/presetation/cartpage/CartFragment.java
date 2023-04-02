@@ -33,17 +33,9 @@ public class CartFragment extends Fragment {
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		ImageButton backToMain = view.findViewById(R.id.back_button_cart);
-		setInitialData();
 		Log.i(Tag, "onViewCreated [CartFragment]");
-		listView = view.findViewById(R.id.cartProducts);
-		AdapterCartList adapter = new AdapterCartList(this.getContext(), R.layout.product_item, products);
-		listView.setOnItemClickListener((adapterView, view12, i, l) -> Log.i(Tag, "onItemClickListener"));
-		listView.setAdapter(adapter);
-		backToMain.setOnClickListener(view1 ->{
-			Navigation.findNavController(view1).navigate(R.id.action_cartFragment_to_mainFragment);
-			Log.i(Tag, "navigation: cart fragment replace to main fragment");
-		});
+
+
 	}
 	
 	private void setInitialData() {
