@@ -12,8 +12,11 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.apprent.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DatabaseReference;
 
 public class MainActivity extends AppCompatActivity {
+     // Create Object of the Adapter class
+    DatabaseReference mbase;
     MainActivityVM vm;
     NavController navController;
     BottomNavigationView bottomNavigationView;
@@ -23,9 +26,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+
+
+
         vm = new ViewModelProvider(this).get(MainActivityVM.class);
         bottomNavigationView.setSelectedItemId(vm.getFragmentID().getValue());
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
@@ -36,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
                     navController.navigate(R.id.cartFragment);
                     return true;
                 case R.id.home_page:
+                    navController.navigate(R.id.mainFragment);
                     return true;
                 case R.id.profile_page:
                     navController.navigate(R.id.loginFragment2);
