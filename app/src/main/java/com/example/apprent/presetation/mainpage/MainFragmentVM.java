@@ -1,9 +1,7 @@
 package com.example.apprent.presetation.mainpage;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
 import com.example.apprent.domain.models.CategoryItem;
 import com.example.apprent.domain.usecase.CategoryListCallback;
 import com.example.apprent.domain.usecase.GetCategoryList;
@@ -21,7 +19,7 @@ public class MainFragmentVM extends ViewModel {
     public void getCategoryList() {
         categoryUseCase.execute(categoryItems -> {
             categoryItemList = categoryItems;
-            categoryItemListLiveData.setValue(categoryItemList);
+            categoryItemListLiveData.postValue(categoryItemList);
         });
     }
     public LiveData<List<CategoryItem>> getCategoryItemArrayList() {

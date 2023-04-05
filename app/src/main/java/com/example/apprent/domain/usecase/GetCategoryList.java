@@ -14,13 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GetCategoryList {
-    private ArrayList<CategoryItem> categoryItemArrayList;
-
-    public GetCategoryList() {
-
-    }
-
-
     public void execute(CategoryListCallback callback) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference().child("category");
