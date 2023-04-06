@@ -6,5 +6,4 @@ import java.util.List;
 
 public interface CategoryListCallback {
     void onCategoryListLoaded(List<CategoryItem> categoryItems);
-
 }
