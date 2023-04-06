@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.example.apprent.domain.MainContract;
 import com.example.apprent.domain.models.CategoryItem;
-import com.example.apprent.domain.usecase.CategoryListCallback;
+import com.example.apprent.domain.usecase.ItemsListCallback;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -14,7 +14,7 @@ import java.util.List;
 public class GetCategoryListImpl implements MainContract.GetItemsListData {
 
     @Override
-    public void getCategoryList(CategoryListCallback callback) {
+    public void getCategoryList(ItemsListCallback callback) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference().child("category");
         storageRef.listAll().addOnSuccessListener(listResult -> {
@@ -32,7 +32,7 @@ public class GetCategoryListImpl implements MainContract.GetItemsListData {
     }
 
     @Override
-    public void getCategoryList(CategoryListCallback callback, String subCategory) {
+    public void getCategoryList(ItemsListCallback callback, String subCategory) {
         //todo
     }
 

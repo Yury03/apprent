@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/alpha_null"
-    android:outlineProvider="none"
-    tools:context=".presetation.mainpage.MainFragment">
-
-
-    <Button
-        android:id="@+id/call_notification"
+    tools:context=".presetation.categorypage.CategoryFragment">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/productList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:text="вызвать уведомление" />
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:listitem="@layout/category_item">
+    </androidx.recyclerview.widget.RecyclerView>
 </FrameLayout>

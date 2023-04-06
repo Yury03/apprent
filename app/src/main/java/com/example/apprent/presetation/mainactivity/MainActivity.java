@@ -2,21 +2,19 @@ package com.example.apprent.presetation.mainactivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentContainer;
-import androidx.fragment.app.FragmentContainerView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.apprent.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.database.DatabaseReference;
 
 public class MainActivity extends AppCompatActivity {
-     // Create Object of the Adapter class
-    DatabaseReference mbase;
+    // Create Object of the Adapter class
     MainActivityVM vm;
     NavController navController;
     BottomNavigationView bottomNavigationView;
@@ -27,41 +25,36 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-
-
-
-
         vm = new ViewModelProvider(this).get(MainActivityVM.class);
         bottomNavigationView.setSelectedItemId(vm.getFragmentID().getValue());
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
-        navController = navHostFragment.getNavController();
+        navController = navHostFragment.getNavController();//todo это надо обрабатывать?
         bottomNavigationView.setOnItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.cart_page:
-                    navController.navigate(R.id.cartFragment);
-                    return true;
-                case R.id.home_page:
-                    navController.navigate(R.id.mainFragment);
-                    return true;
-                case R.id.profile_page:
-                    navController.navigate(R.id.loginFragment2);
-                case R.id.category_page:
-                    return true;
-                case R.id.search_page:
-                    return true;
-                default:
-                    return false;
+            Log.d("profile", item.toString());
+            int id = navController.getCurrentDestination().getId();
+            if (item.getItemId() != id) {
+                switch (item.getItemId()) {
+                    case R.id.cart_page:
+                        navController.navigate(R.id.cartFragment);
+                        return true;
+                    case R.id.home_page:
+                        navController.navigate(R.id.mainFragment);
+                        return true;
+                    case R.id.profile_page:
+                        navController.navigate(R.id.loginFragment);
+                        return true;
+                    case R.id.category_page:
+                        navController.navigate(R.id.categoryFragment);
+                        return true;
+                    case R.id.search_page:
+                        Toast.makeText(getApplicationContext(), "В РАЗРАБОТКЕ", Toast.LENGTH_SHORT).show();
+                        return false;
+                    default:
+                        return false;
+                }
+            } else {
+                return false;
             }
         });
-//        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-//            int destId = destination.getId();
-//            if (destId == R.id.mainFragment) {
-//                bottomNavigationView.setSelectedItemId(R.id.home_page);
-//            } else if (destId == R.id.cartFragment) {
-//                bottomNavigationView.setSelectedItemId(R.id.cart_page);
-//            } else if (destId == R.id.loginFragment2) {
-//                bottomNavigationView.setSelectedItemId(R.id.profile_page);
-//            }
-//        });//todo для обработки меню нижней навигации после нажатия системной кнопки "назад"
     }
 }

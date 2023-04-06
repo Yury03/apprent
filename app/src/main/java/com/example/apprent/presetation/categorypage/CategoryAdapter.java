@@ -1,4 +1,4 @@
-package com.example.apprent.presetation.mainpage;
+package com.example.apprent.presetation.categorypage;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide;
 import com.example.apprent.R;
 import com.example.apprent.domain.models.CategoryItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {

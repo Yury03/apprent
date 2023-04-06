@@ -1,11 +1,11 @@
 package com.example.apprent.domain;
 
-import com.example.apprent.domain.usecase.CategoryListCallback;
+import com.example.apprent.domain.usecase.ItemsListCallback;
 
 public interface MainContract {
     interface GetItemsListData{
-        public void getCategoryList(CategoryListCallback callback);
-        public void getCategoryList(CategoryListCallback callback, String subCategory);
+        public void getCategoryList(ItemsListCallback callback);
+        public void getCategoryList(ItemsListCallback callback, String subCategory);
         public void getProductsList();
     }
 

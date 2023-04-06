@@ -24,4 +24,5 @@
     <string name="category_page">Категории</string>
     <string name="cart_page">Корзина</string>
     <string name="profile_page">Профиль</string>
+    <string name="task_complete_notification_message">текст уведомления</string>
 </resources>

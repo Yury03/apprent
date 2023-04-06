@@ -10,6 +10,7 @@ public class MainActivityVM extends ViewModel {
     private final MutableLiveData<Integer> fragmentID = new MutableLiveData<>(R.id.home_page);
 
     public LiveData<Integer> getFragmentID() {
+
         return fragmentID;
     }
 

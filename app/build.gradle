@@ -57,8 +57,7 @@ dependencies {
     //
     implementation 'com.firebaseui:firebase-ui-database:8.0.0'
     implementation 'com.google.firebase:firebase-appcheck-debug:16.1.2'
-
-    implementation 'androidx.databinding:databinding-runtime:7.1.2'
+    implementation 'androidx.work:work-runtime:2.8.1'
     implementation 'com.google.firebase:firebase-storage:20.1.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
