@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/cart_page"
+        android:enabled="true"
+        android:icon="@drawable/cart_appbar"
+        android:title="@string/cart_page"/>
+    <item
+        android:id="@+id/search_page"
+        android:enabled="true"
+        android:icon="@drawable/search_appbar"
+        android:title="@string/search_page"/>
+    <item
+        android:id="@+id/home_page"
+        android:enabled="true"
+        android:icon="@drawable/home_appbar"
+        android:title="@string/home_page"/>
+
+    <item
+        android:id="@+id/category_page"
+        android:enabled="true"
+        android:icon="@drawable/categoty_appbar"
+        android:title="@string/category_page"/>
+    <item
+        android:id="@+id/profile_page"
+        android:enabled="true"
+        android:icon="@drawable/profile_appbar"
+        android:title="@string/profile_page"/>
+</menu>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "551902092840",
+    "firebase_url": "https://apprent-e0c9d-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "apprent-e0c9d",
+    "storage_bucket": "apprent-e0c9d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:551902092840:android:4c211d0f992dde09bf1f1d",
+        "android_client_info": {
+          "package_name": "com.example.apprent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "551902092840-vaf1ppo4vjgk70lj54lgibjbe43saegv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2VQRUSFD-jj64uzwZJcPMaF7JUGmju90"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "551902092840-vaf1ppo4vjgk70lj54lgibjbe43saegv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
