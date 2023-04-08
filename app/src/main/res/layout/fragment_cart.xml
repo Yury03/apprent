@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".presetation.cartpage.CartFragment">
+    tools:context=".presentation.cartpage.CartFragment">
 
     <TextView
         android:id="@+id/textView"

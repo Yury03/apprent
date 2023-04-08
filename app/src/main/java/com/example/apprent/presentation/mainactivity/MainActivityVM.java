@@ -1,4 +1,4 @@
-package com.example.apprent.presetation.mainactivity;
+package com.example.apprent.presentation.mainactivity;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

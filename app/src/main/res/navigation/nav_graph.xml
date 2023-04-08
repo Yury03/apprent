@@ -6,22 +6,22 @@
     app:startDestination="@id/mainFragment">
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.apprent.presetation.mainpage.MainFragment"
+        android:name="com.example.apprent.presentation.mainpage.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.example.apprent.presetation.cartpage.CartFragment"
+        android:name="com.example.apprent.presentation.cartpage.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" />
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.apprent.presetation.authenticationpage.LoginFragment"
+        android:name="com.example.apprent.presentation.authenticationpage.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.example.apprent.presetation.categorypage.CategoryFragment"
+        android:name="com.example.apprent.presentation.categorypage.CategoryFragment"
         android:label="fragment_category"
         tools:layout="@layout/fragment_category" />
 </navigation>

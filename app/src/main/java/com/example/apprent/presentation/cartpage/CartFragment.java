@@ -1,33 +1,40 @@
-package com.example.apprent.presetation.authenticationpage;
+package com.example.apprent.presentation.cartpage;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import com.example.apprent.R;
 
+public class CartFragment extends Fragment {
+//    List<ProductItem> products = new ArrayList<>();
+//    private ListView listView;
+    private static final String Tag = "MyApp";
 
-public class SignInFragment extends Fragment {
-    Button goToSignUp;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.i(Tag, "onCreate [CartFragment]");
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        goToSignUp = view.findViewById(R.id.go_to_sign_up);
-        goToSignUp.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_signInFragment_to_signUpFragment));
+        Log.i(Tag, "onViewCreated [CartFragment]");
+
+
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_in, container, false);
+        return inflater.inflate(R.layout.fragment_cart, container, false);
     }
 }

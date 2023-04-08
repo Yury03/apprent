@@ -1,4 +1,4 @@
-package com.example.apprent.presetation.categorypage;
+package com.example.apprent.presentation.categorypage;
 
 import android.content.Context;
 import android.view.LayoutInflater;

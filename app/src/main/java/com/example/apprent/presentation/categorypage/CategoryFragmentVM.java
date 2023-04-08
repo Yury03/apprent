@@ -1,4 +1,4 @@
-package com.example.apprent.presetation.categorypage;
+package com.example.apprent.presentation.categorypage;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

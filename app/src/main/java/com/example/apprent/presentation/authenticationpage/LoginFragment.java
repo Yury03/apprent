@@ -1,6 +1,6 @@
 //ActionBar actionBAr = getActionBar()
 //ActionBar.setBackgroundDrawable
-package com.example.apprent.presetation.authenticationpage;
+package com.example.apprent.presentation.authenticationpage;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -1,4 +1,4 @@
-package com.example.apprent.presetation.categorypage;
+package com.example.apprent.presentation.categorypage;
 
 import android.os.Bundle;
 

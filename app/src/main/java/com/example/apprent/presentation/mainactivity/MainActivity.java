@@ -1,4 +1,4 @@
-package com.example.apprent.presetation.mainactivity;
+package com.example.apprent.presentation.mainactivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

@@ -12,17 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GetCategoryListImpl implements MainContract.GetItemsListData {
+    private String pathString = "category/";
 
     @Override
     public void getCategoryList(ItemsListCallback callback) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference().child("category");
+        StorageReference storageRef = storage.getReference().child(pathString);
         storageRef.listAll().addOnSuccessListener(listResult -> {
             List<CategoryItem> categoryItemArrayList = new ArrayList<>();//todo чью модель данных использовать(слой domain)?
             for (StorageReference file : listResult.getItems()) {
                 file.getDownloadUrl().addOnSuccessListener(uri -> {
                     categoryItemArrayList.add(new CategoryItem(uri.toString(), "description"));
-                    Log.d("HELP", uri.toString());
+                    Log.d("HELP", file.toString());
                     if (categoryItemArrayList.size() == listResult.getItems().size()) {
                         callback.onCategoryListLoaded(categoryItemArrayList);
                     }
@@ -33,7 +34,8 @@ public class GetCategoryListImpl implements MainContract.GetItemsListData {
 
     @Override
     public void getCategoryList(ItemsListCallback callback, String subCategory) {
-        //todo
+        pathString = "subcategory/" + subCategory;
+        this.getCategoryList(callback);
     }
 
     @Override

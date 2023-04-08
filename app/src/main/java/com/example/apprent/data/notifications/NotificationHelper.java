@@ -13,18 +13,14 @@ import androidx.core.app.NotificationCompat;
 import com.example.apprent.R;
 
 public class NotificationHelper {
-
     private static final String CHANNEL_ID = "my_channel";
     private static final int NOTIFICATION_ID = 1;
-
     private final Context mContext;
     private final NotificationManager mNotificationManager;
-
     public NotificationHelper(Context context) {
         mContext = context;
         mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
     }
-
     public void createNotificationChannel() {
         // Создание канала уведомлений для Android 8.0 и выше
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -35,9 +31,7 @@ public class NotificationHelper {
             channel.setDescription(description);
             mNotificationManager.createNotificationChannel(channel);
         }
-
     }
-
     public void showNotification(String title, String message, Intent intent) {
         this.createNotificationChannel();
         PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_IMMUTABLE);
