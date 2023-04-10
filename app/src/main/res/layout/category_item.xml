@@ -14,7 +14,7 @@
     <TextView
         android:id="@+id/category_description"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center|center_horizontal|center_vertical"
         android:paddingStart="4dp"
         android:textColor="@color/main_text"

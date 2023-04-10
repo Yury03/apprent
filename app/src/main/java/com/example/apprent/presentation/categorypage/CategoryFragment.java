@@ -32,7 +32,7 @@ public class CategoryFragment extends Fragment {
         recyclerView = view.findViewById(R.id.productList);//todo? где выполнять поиск по id
         vm.getCategoryItemArrayList().observe(getViewLifecycleOwner(), categoryItemArrayList -> {
             Log.e("HELP", "OK");
-            CategoryAdapter adapter = new CategoryAdapter(categoryItemArrayList, getContext());
+            CategoryAdapter adapter = new CategoryAdapter(categoryItemArrayList, getContext(), vm);
             recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
             recyclerView.setAdapter(adapter);
         });

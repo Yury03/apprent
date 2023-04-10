@@ -20,12 +20,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     private List<CategoryItem> categoryItemArrayList;
     private Context context;
+    CategoryFragmentVM categoryFragmentVM;
 
-    public CategoryAdapter(List<CategoryItem> categoryItemArrayList, Context context) {
+    public CategoryAdapter(List<CategoryItem> categoryItemArrayList, Context context, CategoryFragmentVM categoryFragmentVM) {
         this.categoryItemArrayList = categoryItemArrayList;
         this.context = context;
+        this.categoryFragmentVM = categoryFragmentVM;
     }
 
+    private void goNext(CategoryItem categoryItem) {
+        //todo доработать до перехода на фрагмент товара
+        String category = categoryItem.getName();
+
+    }
 
     @NonNull
     @Override
@@ -38,7 +45,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
         // loading the images from the position
         Glide.with(holder.itemView.getContext()).load(categoryItemArrayList.get(position).getImagePath()).into(holder.imageView);
-        holder.description.setText(categoryItemArrayList.get(position).getDescription());
+        holder.description.setText(categoryItemArrayList.get(position).getName());
+        holder.itemView.setOnClickListener(v -> goNext(categoryItemArrayList.get(position)));
     }
 
     @Override
@@ -53,7 +61,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.category_image_view);
-            description=itemView.findViewById(R.id.category_description);
+            description = itemView.findViewById(R.id.category_description);
         }
     }
+
+
 }
+
