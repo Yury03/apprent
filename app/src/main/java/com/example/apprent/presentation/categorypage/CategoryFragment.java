@@ -1,6 +1,9 @@
 package com.example.apprent.presentation.categorypage;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,16 +12,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.apprent.R;
 
 public class CategoryFragment extends Fragment {
     private RecyclerView recyclerView;
     private CategoryFragmentVM vm;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,11 +26,9 @@ public class CategoryFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         vm = new ViewModelProvider(this).get(CategoryFragmentVM.class);
-        recyclerView = view.findViewById(R.id.productList);//todo? где выполнять поиск по id
+        recyclerView = view.findViewById(R.id.productList);//todo где выполнять поиск по id
         vm.getCategoryItemArrayList().observe(getViewLifecycleOwner(), categoryItemArrayList -> {
-            Log.e("HELP", "OK");
             CategoryAdapter adapter = new CategoryAdapter(categoryItemArrayList, getContext(), vm);
             recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
             recyclerView.setAdapter(adapter);

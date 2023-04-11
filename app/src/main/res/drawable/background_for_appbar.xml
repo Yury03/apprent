@@ -4,10 +4,10 @@
     <item>
         <shape android:layout_width="match_parent" android:layout_height="match_parent" android:shape="rectangle">
             <corners android:radius="85dp" />
-            <solid android:color="@color/for_icons"/>
+            <solid android:color="#D95F5F5F"/>
             <stroke
                 android:width="1dp"
-                android:color="#FF000000" />
+                android:color="#B3000000" />
         </shape>
     </item>
 </selector>

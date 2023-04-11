@@ -11,12 +11,12 @@ import com.example.apprent.domain.usecase.GetCategoryList;
 import java.util.List;
 
 public class CategoryFragmentVM extends ViewModel {
-    private GetCategoryList categoryUseCase;
+    private final GetCategoryList categoryUseCase;
     private List<CategoryItem> categoryItemList;
-    private MutableLiveData<List<CategoryItem>> categoryItemListLiveData;
-    private GetCategoryListImpl getCategoryListImpl = new GetCategoryListImpl();
+    private final MutableLiveData<List<CategoryItem>> categoryItemListLiveData;
 
     public CategoryFragmentVM() {
+        GetCategoryListImpl getCategoryListImpl = new GetCategoryListImpl();
         categoryUseCase = new GetCategoryList(getCategoryListImpl);
         categoryItemListLiveData = new MutableLiveData<>();
 
@@ -29,9 +29,17 @@ public class CategoryFragmentVM extends ViewModel {
         });
     }
 
+    public void getCategoryList(String subcategory) {
+        categoryUseCase.execute(categoryItems -> {
+            categoryItemList = categoryItems;
+            categoryItemListLiveData.postValue(categoryItemList);
+        }, subcategory);
+    }
+
     public LiveData<List<CategoryItem>> getCategoryItemArrayList() {
         return categoryItemListLiveData;
     }
+
 
     @Override
     protected void onCleared() {

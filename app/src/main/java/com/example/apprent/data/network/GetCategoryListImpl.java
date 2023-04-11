@@ -16,43 +16,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GetCategoryListImpl implements MainContract.GetItemsListData {
-    private final String pathStringForStorage = "/category";
-    private final String pathStringForDB = "/aura";
-    private List<Task<CategoryItem>> tasks = new ArrayList<>();
+    private String pathStringForStorage = "/category";
+    private String pathStringForDB = "/aura";
     private String name;
 
     @Override
     public void getCategoryList(ItemsListCallback callback) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference().child(pathStringForStorage);
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference databaseRef = database.getReference(pathStringForDB);
-
         storageRef.listAll().addOnSuccessListener(listResult -> {
             List<Task<CategoryItem>> tasks = new ArrayList<>();
-
             for (StorageReference file : listResult.getItems()) {
-                if (file.getName().endsWith(".png") || file.getName().endsWith(".jpeg")) {
-                    // Создаем задачи для загрузки файлов из Firebase Storage и чтения данных из Firebase Realtime Database
+                Log.d("loadJSON", file.getPath());
+                if (file.getName().endsWith(".png") || file.getName().endsWith(".jpeg") || file.getName().endsWith(".jpg")) {
                     tasks.add(file.getDownloadUrl().continueWithTask(task -> {
-                            String imageUrl = String.valueOf(task.getResult());
-                            String temp = file.getPath().substring(0, file.getPath().lastIndexOf("."));
-
-                            return databaseRef.child(temp).get().addOnSuccessListener(dataSnapshot -> {
-                                Log.e("MyTag", temp + "/" + "name");
-                                name = dataSnapshot.child("name").getValue(String.class);
-                                if (name != null) Log.e("MyTag1", name);
-                            }).continueWith(task1 -> new CategoryItem(imageUrl, name)).addOnFailureListener(e -> {
-                                Log.e("MyTag", "Error getting name from database", e);
-                            });
-
+                        String imageUrl = String.valueOf(task.getResult());
+                        String temp = file.getPath().substring(0, file.getPath().lastIndexOf('.'));
+                        Log.d("loadJSON", temp.substring(temp.lastIndexOf('/')));
+                        return databaseRef.child(temp).get().addOnSuccessListener(dataSnapshot -> {
+                            name = dataSnapshot.child("name").getValue(String.class);
+                        }).continueWith(task1 -> new CategoryItem(imageUrl, name, temp.substring(temp.lastIndexOf('/')))).addOnFailureListener(e -> {
+                        });
                     }));
-
-
                 }
             }
-
             Tasks.whenAllSuccess(tasks).addOnSuccessListener(results -> {
                 List<CategoryItem> categoryItemList = new ArrayList<>();
                 for (Object obj : results) {
@@ -66,7 +55,8 @@ public class GetCategoryListImpl implements MainContract.GetItemsListData {
 
     @Override
     public void getCategoryList(ItemsListCallback callback, String subCategory) {
-//        pathStringForStorage = "subcategory/" + subCategory;
+        pathStringForStorage += subCategory;
+        Log.d("loadJSON", "default+subCategory = " + pathStringForStorage);
         this.getCategoryList(callback);
     }
 

@@ -27,13 +27,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         this.context = context;
         this.categoryFragmentVM = categoryFragmentVM;
     }
-
     private void goNext(CategoryItem categoryItem) {
         //todo доработать до перехода на фрагмент товара
-        String category = categoryItem.getName();
+        String category = categoryItem.getPath();
+        categoryFragmentVM.getCategoryList(category);
 
     }
-
     @NonNull
     @Override
     public CategoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -64,7 +63,5 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             description = itemView.findViewById(R.id.category_description);
         }
     }
-
-
 }
 
