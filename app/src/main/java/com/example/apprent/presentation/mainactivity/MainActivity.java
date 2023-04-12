@@ -15,9 +15,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
     // Create Object of the Adapter class
-    MainActivityVM vm;
-    NavController navController;
-    BottomNavigationView bottomNavigationView;
+    private MainActivityVM vm;
+    private NavController navController;
+    private BottomNavigationView bottomNavigationView;
+
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -29,9 +30,10 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(vm.getFragmentID().getValue());
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
         navController = navHostFragment.getNavController();//todo это надо обрабатывать?
+
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Log.d("profile", item.toString());
-            int id = navController.getCurrentDestination().getId();
+            int id = bottomNavigationView.getSelectedItemId();
             if (item.getItemId() != id) {
                 switch (item.getItemId()) {
                     case R.id.cart_page:
@@ -53,8 +55,16 @@ public class MainActivity extends AppCompatActivity {
                         return false;
                 }
             } else {
+                Log.e("repeat", "else");
                 return false;
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        navController.navigate(R.id.mainFragment);
+        bottomNavigationView.setSelectedItemId(R.id.home_page);
+        bottomNavigationView.performClick();
     }
 }

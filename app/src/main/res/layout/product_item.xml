@@ -1,57 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingLeft="4dp"
-    android:paddingTop="4dp"
-    android:paddingEnd="4dp"
-    android:paddingBottom="4dp">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="wrap_content">
+<androidx.cardview.widget.CardView
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_gravity="bottom"
+    android:layout_marginLeft="3dp"
+    android:layout_marginRight="3dp"
+    android:layout_marginBottom="6dp"
+    app:cardBackgroundColor="@color/lightGray"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="0dp"
+    app:contentPadding="1dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintDimensionRatio="1:1.3"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
-
-    <ImageButton
-        android:id="@+id/go_to_product_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/what"
-        android:scaleX="1.2"
-        android:scaleY="1.2"
-        tools:ignore="SpeakableTextPresentCheck" />
-    <!--todo УБРАТЬ SCALE -->
-
-    <Button
-        android:id="@+id/go_to_product"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/alpha_null"
-        android:backgroundTint="@color/alpha_null"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        app:cardCornerRadius="5dp">
 
-        android:gravity="fill_horizontal|fill_vertical"
-        android:paddingTop="1dp"
-        android:paddingRight="3dp"
-        android:paddingBottom="2dp"
-        android:text="@string/defaultNameProduct"
-        android:textAllCaps="false"
-        android:textColor="@color/main_text"
-        android:textSize="12sp" />
+        <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="4dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="4dp">
 
-    <TextView
-        android:id="@+id/priceText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="fill_horizontal|fill_vertical"
-        android:paddingStart="16dp"
-        android:paddingBottom="4dp"
-        android:text="@string/defaultPrice"
-        android:textColor="@color/main_text"
-        android:textSize="18sp" />
 
-<View
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:background="@color/for_icons">
+            <ImageButton
+                android:id="@+id/go_to_product_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="1.2"
+                android:scaleY="1.2"
+                app:srcCompat="@drawable/what"
+                tools:ignore="SpeakableTextPresentCheck" />
+            <!--todo УБРАТЬ SCALE -->
 
-</View>
-</LinearLayout>
+            <Button
+                android:id="@+id/go_to_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/alpha_null"
+                android:backgroundTint="@color/alpha_null"
+
+                android:gravity="fill_horizontal|fill_vertical"
+                android:paddingTop="1dp"
+                android:paddingRight="3dp"
+                android:paddingBottom="2dp"
+                android:text="@string/defaultNameProduct"
+                android:textAllCaps="false"
+                android:textColor="@color/main_text"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/priceText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="fill_horizontal|fill_vertical"
+                android:paddingStart="16dp"
+                android:paddingBottom="4dp"
+                android:text="@string/defaultPrice"
+                android:textColor="@color/main_text"
+                android:textSize="18sp" />
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

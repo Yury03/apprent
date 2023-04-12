@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.apprent.R;
 
@@ -30,7 +31,8 @@ public class CategoryFragment extends Fragment {
         recyclerView = view.findViewById(R.id.productList);//todo где выполнять поиск по id
         vm.getCategoryItemArrayList().observe(getViewLifecycleOwner(), categoryItemArrayList -> {
             CategoryAdapter adapter = new CategoryAdapter(categoryItemArrayList, getContext(), vm);
-            recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
+            StaggeredGridLayoutManager staggeredGridLayoutManager=new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(staggeredGridLayoutManager);
             recyclerView.setAdapter(adapter);
         });
         vm.getCategoryList();
