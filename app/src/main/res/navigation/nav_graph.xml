@@ -6,22 +6,36 @@
     app:startDestination="@id/mainFragment">
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.apprent.presentation.mainpage.MainFragment"
+        android:name="com.example.apprent.ui.main_page.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.example.apprent.presentation.cartpage.CartFragment"
+        android:name="com.example.apprent.ui.cart_page.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" />
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.apprent.presentation.authenticationpage.LoginFragment"
+        android:id="@+id/athenticationFragment"
+        android:name="com.example.apprent.ui.authentication_page.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.example.apprent.presentation.categorypage.CategoryFragment"
+        android:name="com.example.apprent.ui.category_page.CategoryFragment"
         android:label="fragment_category"
-        tools:layout="@layout/fragment_category" />
+        tools:layout="@layout/fragment_category" >
+        <action
+            android:id="@+id/action_categoryFragment_to_productFragment"
+            app:destination="@id/productFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.example.apprent.ui.product_page.ProductFragment"
+        android:label="ProductFragment"
+        tools:layout="@layout/fragment_product"/>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.apprent.ui.profile_page.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

@@ -1,13 +1,11 @@
 <resources>
     <string name="app_name">apprent</string>
-    <string name="login_email"><b>Авторизация</b></string>
-    <string name="login_number"><b>Регистрация</b></string>
     <string name="enter_email">E-mail</string>
     <string name="enter_password">Пароль</string>
     <string name="repeat_password">Повторите пароль</string>
     <string name="forgot_password">Забыли пароль?</string>
     <string name="new_user">Новый пользователь?</string>
-    <string name="sign_in">ВОЙТИ</string>
+    <string name="sign_in">Авторизация</string>
     <string name="sign_up">Регистрация</string>
     <string name="privacy_policy">Подтверждая регистрацию, Вы даете свое согласие на обработку персональных данных и соглашаетесь с <a href="https://msk.aura-rent.ru/privacy-policy/">политикой конфиденциальности</a>.</string>
     <string name="remember_me_checkbox">Запомнить меня</string>
@@ -25,4 +23,24 @@
     <string name="cart_page">Корзина</string>
     <string name="profile_page">Профиль</string>
     <string name="task_complete_notification_message">текст уведомления</string>
+    <string name="price_from">Цена за сутки от</string>
+    <string name="reservationButton">БРОНЬ ПО ТЕЛЕФОНУ</string>
+    <string name="changeDateButton">ВЫБОР ДАТ</string>
+    <string name="search">поиск</string>
+    <string name="more">Больше</string>
+    <string name="category_fragment_name">Категории</string>
+    <string name="cart_fragment_name">Корзина</string>
+    <string name="profile_fragment_name">Профиль</string>
+    <string name="search_fragment_name">Поиск</string>
+    <string name="home_fragment_name">Домашняя страница</string>
+    <string name="product_fragment_neme"></string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
 </resources>

@@ -1,22 +1,16 @@
 package com.example.apprent.domain.models;
 
 public class CategoryItem {
-    private String imagePath;
-    private String name;
-    private String path;//example: subcategory_1/
+    private final String imagePath;
+    private final String name;
+    private final String path;
+    private final Boolean hasChild;
 
-    public CategoryItem(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
-    public CategoryItem(String imagePath, String name, String path) {
+    public CategoryItem(String imagePath, String name, String path, Boolean hasChild) {
         this.imagePath = imagePath;
         this.name = name;
         this.path = path;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+        this.hasChild=hasChild;
     }
 
     public String getPath() {
@@ -27,12 +21,11 @@ public class CategoryItem {
         return this.imagePath;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getName() {
         return this.name;
     }
 
+    public Boolean getHasChild() {
+        return hasChild;
+    }
 }

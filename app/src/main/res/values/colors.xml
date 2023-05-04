@@ -18,4 +18,6 @@
     <color name="button_aura_text">#FFFFFF</color>
     <color name="blue_frame">#1A73E9</color>
     <color name="lightGray">#858585</color>
+    <color name="bottom_navigation_items">#B5B5B5</color>
+    <color name="bottom_navigation_active_item">#FFFFFF</color>
 </resources>
