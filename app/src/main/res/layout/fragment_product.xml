@@ -24,22 +24,10 @@
 <!--            app:sliderIndicatorUnselectedColor="#BCB8B8"-->
 <!--            app:sliderScrollTimeInSec="1" />-->
 
-    <ImageSwitcher
-        android:id="@+id/product_image_switcher"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/images_pager"
         android:layout_width="match_parent"
-        android:layout_height="300dp">
-
-        <ImageView
-            android:id="@+id/product_image_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:paddingStart="3dp"
-            android:paddingTop="6dp"
-            android:paddingEnd="3dp"
-            android:paddingBottom="6dp" />
-
-    </ImageSwitcher>
+        android:layout_height="300dp" />
 
     <TextView
         android:id="@+id/product_name_fragment"

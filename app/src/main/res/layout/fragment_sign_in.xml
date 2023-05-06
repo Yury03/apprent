@@ -47,27 +47,19 @@
                 android:text="@string/sign_in"
                 android:textColor="@color/button_aura_text"
                 tools:ignore="InvalidId" />
-            <Space
-                android:layout_width="15dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0" />
-            <CheckBox
-                android:id="@+id/remember_me_check_box"
+
+            <Button
+                android:id="@+id/forgot_password_for_sign_in"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/remember_me_checkbox" />
+                android:background="@color/alpha_null"
+                android:paddingLeft="10dp"
+                android:text="@string/forgot_password"
+                android:textColor="@color/for_hyperlink">
+
+            </Button>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/forgot_password_for_sign_in"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/alpha_null"
-            android:paddingLeft="2dp"
-            android:text="@string/forgot_password"
-            android:textColor="@color/for_hyperlink">
-
-        </Button>
     </LinearLayout>
 
 </FrameLayout>

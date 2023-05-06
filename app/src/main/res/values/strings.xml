@@ -43,4 +43,6 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="invalid_email">Ошибка при вводе почты</string>
+    <string name="pass1_is_not_equal_pass2">Пароли не совпадают</string>
 </resources>

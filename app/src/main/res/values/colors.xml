@@ -20,4 +20,5 @@
     <color name="lightGray">#858585</color>
     <color name="bottom_navigation_items">#B5B5B5</color>
     <color name="bottom_navigation_active_item">#FFFFFF</color>
+    <color name="skeleton">#7A7A7A</color>
 </resources>

@@ -41,16 +41,13 @@ public class LoginFragment extends Fragment {
         }
         TabLayout tabLayout = view.findViewById(R.id.tab_buttons_authentication);
         ViewPager2 loginPager = view.findViewById(R.id.view_pager);
-        LoginPagerAdapter loginPagerAdapter = new LoginPagerAdapter(this);
+        LoginPagerAdapter loginPagerAdapter = new LoginPagerAdapter(this, vm);
         loginPager.setAdapter(loginPagerAdapter);
-        new TabLayoutMediator(tabLayout, loginPager, new TabLayoutMediator.TabConfigurationStrategy() {
-            @Override
-            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                if (position == 0) {
-                    tab.setText(getString(R.string.sign_in));
-                } else if (position == 1) {
-                    tab.setText(getString(R.string.sign_up));
-                }
+        new TabLayoutMediator(tabLayout, loginPager, (tab, position) -> {
+            if (position == 0) {
+                tab.setText(getString(R.string.sign_in));
+            } else if (position == 1) {
+                tab.setText(getString(R.string.sign_up));
             }
         }).attach();
     }

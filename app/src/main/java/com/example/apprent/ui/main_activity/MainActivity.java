@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private MaterialToolbar topAppBar;
 
-    @SuppressLint("NonConstantResourceId")//todo как исправить?
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

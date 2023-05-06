@@ -1,15 +1,11 @@
 package com.example.apprent.data.network;
 
 import android.annotation.SuppressLint;
-
-import androidx.annotation.NonNull;
+import android.util.Log;
 
 import com.example.apprent.domain.MainContract;
 import com.example.apprent.domain.models.AuraUser;
 import com.example.apprent.domain.usecase.AuthenticationCallback;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.auth.User;
@@ -67,7 +63,7 @@ public class AuthenticationImpl implements MainContract.Authentication {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                        if(firebaseUser!=null) {
+                        if (firebaseUser != null) {
                             @SuppressLint("RestrictedApi") User user = new User(firebaseUser.getUid());//todo
                         }
                         //todo user->auraUser
@@ -76,13 +72,7 @@ public class AuthenticationImpl implements MainContract.Authentication {
                         callback.isNotAuthorized(task.getException());
                     }
                 });
-
-
     }
-
-
-
-
 //private void sendMessageToPhone()
 
 
@@ -91,10 +81,16 @@ public class AuthenticationImpl implements MainContract.Authentication {
         String email = auraUser.getLogin();
         String password = auraUser.getPassword();
         firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-
+                .addOnCompleteListener(task -> {
+                    String TAG = "Login";
+                    if (task.isSuccessful()) {
+                        Log.d(TAG, "createUserWithEmail:success");
+                        auraUser.setState(1);//todo
+                        callback.accountIsCreated(auraUser);
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                        callback.accountIsNotCreated(task.getException());
                     }
                 });
     }

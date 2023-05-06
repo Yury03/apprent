@@ -4,14 +4,19 @@ package com.example.apprent.domain.usecase;
 import com.example.apprent.domain.models.AuraUser;
 
 public interface AuthenticationCallback {
-    interface signInCallback{
+    interface signInCallback {
         void isAuthorized(AuraUser user);
+
         void isNotAuthorized(Exception e);
     }
-    interface signUpCallback{
 
+    interface signUpCallback {
+        void accountIsCreated(AuraUser user);
+
+        void accountIsNotCreated(Exception e);
     }
-    interface restoreAccessCallback{
+
+    interface restoreAccessCallback {
 //        void isRestore
     }
 

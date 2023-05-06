@@ -4,19 +4,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageSwitcher;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.apprent.R;
 import com.example.apprent.domain.models.ProductItem;
 import com.example.apprent.ui.main_activity.MainActivityVM;
+import com.example.apprent.ui.product_page.adapters.ImagesPagerAdapter;
 
 import java.util.List;
 
@@ -43,31 +42,14 @@ public class ProductFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         vm = new ViewModelProvider(this).get(ProductFragmentVM.class);
         vm.setContext(getContext());
-
         product = (ProductItem) getArguments().getSerializable("openProduct"); //todo
-        ImageSwitcher productImageSwitcher = view.findViewById(R.id.product_image_switcher);
-        //todo?        productImageSwitcher.setImageURI();
-        vm.setProductImageSwitcher(productImageSwitcher);
         List<String> imagesList = product.getImagesPath();
-        vm.setImage(product.getMainImagePath());
+
+        ViewPager2 imagesPager = view.findViewById(R.id.images_pager);
+        ImagesPagerAdapter imagesPagerAdapter = new ImagesPagerAdapter(this, imagesList);
+        imagesPager.setAdapter(imagesPagerAdapter);
         vm.loadImages(imagesList);
-        Animation slideInLeftAnimation = AnimationUtils.loadAnimation(getContext(), android.R.anim.slide_in_left);
-        Animation slideOutRight = AnimationUtils.loadAnimation(getContext(), android.R.anim.slide_out_right);
-
-
-//        productImageSwitcher.setOutAnimation(slideOutRight);
-        productImageSwitcher.setOnClickListener(v -> {
-            imageNum++;
-            if (imageNum > imagesList.size() - 1) {
-                imageNum = 0;
-            }
-            vm.setImage(imagesList.get(imageNum));
-//            productImageSwitcher.setInAnimation(slideInLeftAnimation);
-        });
-
-
         mainActivityVM = (MainActivityVM) getArguments().getSerializable("MainActivityVM");
-
         TextView price = view.findViewById(R.id.product_price_fragment);
         price.setText(product.getMinPrice());
         TextView name = view.findViewById(R.id.product_name_fragment);

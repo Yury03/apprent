@@ -5,22 +5,57 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import com.example.apprent.R;
+import com.example.apprent.domain.models.AuraUser;
 
 
 public class SignInFragment extends Fragment {
-    private Button goToSignUp;
+    private String email;
+    private String password;
+    private Bundle arguments;
+    private LoginFragmentVM loginFragmentVM;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        EditText emailEditText = view.findViewById(R.id.email_for_sign_in);
+        EditText passwordEditText = view.findViewById(R.id.password_for_sign_in);
+        Button logIn = view.findViewById(R.id.signIn);
+        arguments = getArguments();
+        if (arguments != null) {
+            loginFragmentVM = (LoginFragmentVM) arguments.getSerializable("LoginFragmentVM");
+        }
+        logIn.setOnClickListener(v -> {
+            email = emailEditText.getText().toString();
+            password = passwordEditText.getText().toString();
+            if (checkForValidity() && loginFragmentVM != null) {
+                AuraUser auraUser = new AuraUser(email, password);
+                loginFragmentVM.signIn(auraUser);
+            }
+        });
+    }
 
+    private boolean checkForValidity() {
+
+        boolean resultEmail = loginFragmentVM.checkEmail(email), resultPassword = false;
+
+        if (!resultEmail) {
+            Toast.makeText(getContext(), getResources().getString(R.string.invalid_email), Toast.LENGTH_LONG).show();
+        }
+
+        if (password != null) {
+            resultPassword = password.length() > 5;
+            if (!resultPassword)
+                Toast.makeText(getContext(), getResources().getString(R.string.invalid_password), Toast.LENGTH_LONG).show();
+        }
+        return resultEmail && resultPassword;
     }
 
     @Override
