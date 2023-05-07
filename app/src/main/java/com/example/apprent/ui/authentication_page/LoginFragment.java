@@ -24,7 +24,6 @@ import com.google.android.material.tabs.TabLayoutMediator;
 public class LoginFragment extends Fragment {
 
     private SharedPreferences sharedPreferences;
-    private Boolean signIn;
     private LoginFragmentVM vm;
     private MainActivityVM mainActivityVM;
     private static final String Tag = "MyApp";
@@ -36,7 +35,6 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         vm = new ViewModelProvider(this).get(LoginFragmentVM.class);
         arguments = getArguments();
-
         if (arguments != null) {
             mainActivityVM = (MainActivityVM) arguments.getSerializable("MainActivityVM");
         } else {
@@ -54,7 +52,6 @@ public class LoginFragment extends Fragment {
                 tab.setText(getString(R.string.sign_up));
             }
         }).attach();
-
         vm.getUserLiveData().observe(getViewLifecycleOwner(), auraUser -> {
             switch (auraUser.getState()) {
                 case AuraUser.SIGN_IN:
@@ -65,7 +62,12 @@ public class LoginFragment extends Fragment {
                 case AuraUser.RESTORE_ACCESS:
                     Toast.makeText(getContext(), "Ссылка на восстановление была отправлена на почту", Toast.LENGTH_LONG).show();
                     break;
-
+                case AuraUser.SIGN_IN_ERROR:
+                    Toast.makeText(getContext(), "Неправильная почта или пароль", Toast.LENGTH_LONG).show();
+                    break;
+                case AuraUser.SIGN_UP_ERROR:
+                    Toast.makeText(getContext(), "Пользователь с такой почтой уже зарегестрирован", Toast.LENGTH_LONG).show();
+                    break;
                 default:
                     break;
             }

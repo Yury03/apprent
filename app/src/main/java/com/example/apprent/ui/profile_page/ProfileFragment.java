@@ -20,12 +20,12 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button logoutButton = view.findViewById(R.id.log_out_button);
-        logoutButton.setOnClickListener(v -> {
-            MainActivityVM mainActivityVM = (MainActivityVM) getArguments().getSerializable("MainActivityVM");
-            mainActivityVM.getNavController().navigate(R.id.authenticationFragment, getArguments());
-            mainActivityVM.getSharedPreferences().edit().putBoolean(getResources().getString(R.string.saved_log_in_key), false).apply();
-        });
+//        Button logoutButton = view.findViewById(R.id.log_out_button);
+//        logoutButton.setOnClickListener(v -> {
+//            MainActivityVM mainActivityVM = (MainActivityVM) getArguments().getSerializable("MainActivityVM");
+//            mainActivityVM.getNavController().navigate(R.id.authenticationFragment, getArguments());
+//            mainActivityVM.getSharedPreferences().edit().putBoolean(getResources().getString(R.string.saved_log_in_key), false).apply();
+//        });
     }
 
     @Override

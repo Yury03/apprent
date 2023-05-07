@@ -20,6 +20,12 @@ public class CategoryFragmentVM extends ViewModel {
     private String fragmentPath = "/category";
     private MutableLiveData<List<CategoryItem>> categoryListLiveData;
     private MutableLiveData<List<ProductItem>> productListLiveData;
+
+    public LiveData<Boolean> getShowProgressBar() {
+        return showProgressBar;
+    }
+
+    private MutableLiveData<Boolean> showProgressBar = new MutableLiveData<>(true);
     private MutableLiveData<String> title = new MutableLiveData<>();
     private MutableLiveData<RecyclerView.Adapter> adapter = new MutableLiveData<>();
 
@@ -41,24 +47,26 @@ public class CategoryFragmentVM extends ViewModel {
     }
 
     public void getCategoryList(String path) {
-        /**subcategory contains only the latest directory
-         Example: /subcategory_1 */
+        showProgressBar.postValue(true);
         categoryUseCase.execute(categoryItems -> {
             categoryListLiveData.postValue(categoryItems);
         }, path);
         fragmentPath = path;
-
+//        showProgressBar.postValue(false);
     }
 
     public void setAdapter(RecyclerView.Adapter adapter) {
+        showProgressBar.postValue(false);
         this.adapter.postValue(adapter);
     }
 
     public LiveData<RecyclerView.Adapter> getAdapter() {
+
         return this.adapter;
     }
 
     public void getProductList(String path) {
+        showProgressBar.postValue(true);
         productUseCase.execute(productItems -> {
             productListLiveData.postValue(productItems);
         }, path);
@@ -84,10 +92,12 @@ public class CategoryFragmentVM extends ViewModel {
     }
 
     public void goToProductFragment(ProductItem productItem) {
+        showProgressBar.setValue(true);
         if (this.openProduct.getValue() != null && productItem.getName().equals(this.openProduct.getValue().getName())) {
             this.openProduct.postValue(null);
         }
         this.openProduct.postValue(productItem);
+        showProgressBar.postValue(false);
     }
 
     public String getFragmentPath() {
