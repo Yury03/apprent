@@ -43,6 +43,7 @@ public class SignUpFragment extends Fragment {
             if (checkForValidity() && loginFragmentVM != null) {
                 AuraUser user = new AuraUser(email, password1);
                 loginFragmentVM.signUp(user);
+
             }
         });
     }

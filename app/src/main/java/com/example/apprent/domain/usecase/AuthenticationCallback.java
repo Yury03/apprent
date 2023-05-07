@@ -17,7 +17,8 @@ public interface AuthenticationCallback {
     }
 
     interface restoreAccessCallback {
-//        void isRestore
+        void letterWasSent(AuraUser user);
+        void letterWasNotSent(Exception e);
     }
 
 }

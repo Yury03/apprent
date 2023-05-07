@@ -15,7 +15,7 @@
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" />
     <fragment
-        android:id="@+id/athenticationFragment"
+        android:id="@+id/authenticationFragment"
         android:name="com.example.apprent.ui.authentication_page.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />

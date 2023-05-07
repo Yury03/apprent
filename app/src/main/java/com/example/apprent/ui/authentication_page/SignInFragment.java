@@ -28,14 +28,26 @@ public class SignInFragment extends Fragment {
         EditText emailEditText = view.findViewById(R.id.email_for_sign_in);
         EditText passwordEditText = view.findViewById(R.id.password_for_sign_in);
         Button logIn = view.findViewById(R.id.signIn);
+        Button restoreAccess = view.findViewById(R.id.forgot_password_for_sign_in);
         arguments = getArguments();
         if (arguments != null) {
             loginFragmentVM = (LoginFragmentVM) arguments.getSerializable("LoginFragmentVM");
         }
+        restoreAccess.setOnClickListener(v -> {
+            email = emailEditText.getText().toString();
+            if (loginFragmentVM != null)
+                if (loginFragmentVM.checkEmail(email)) {
+                    AuraUser auraUser = new AuraUser(email, null);
+                    loginFragmentVM.restoreAccess(auraUser);
+                    //todo call fragment forgot pass
+                } else {
+                    Toast.makeText(getContext(), getResources().getString(R.string.invalid_email), Toast.LENGTH_LONG).show();
+                }
+        });
         logIn.setOnClickListener(v -> {
             email = emailEditText.getText().toString();
             password = passwordEditText.getText().toString();
-            if (checkForValidity() && loginFragmentVM != null) {
+            if (loginFragmentVM != null && checkForValidity()) {
                 AuraUser auraUser = new AuraUser(email, password);
                 loginFragmentVM.signIn(auraUser);
             }
@@ -43,13 +55,10 @@ public class SignInFragment extends Fragment {
     }
 
     private boolean checkForValidity() {
-
         boolean resultEmail = loginFragmentVM.checkEmail(email), resultPassword = false;
-
         if (!resultEmail) {
             Toast.makeText(getContext(), getResources().getString(R.string.invalid_email), Toast.LENGTH_LONG).show();
         }
-
         if (password != null) {
             resultPassword = password.length() > 5;
             if (!resultPassword)

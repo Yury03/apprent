@@ -1,6 +1,5 @@
 package com.example.apprent.ui.main_activity;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -49,14 +48,13 @@ public class MainActivity extends AppCompatActivity {
                     navController.navigate(R.id.mainFragment);
                     return true;
                 } else if (itemId == R.id.profile_page) {
-//                    SharedPreferences.Editor editor = sp.edit();
-                    boolean isLogIn = sp.getBoolean("isLogIn", false);
-                    if (isLogIn){
-                        navController.navigate(R.id.profileFragment);
-                    }else {
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("MainActivityVM", vm);
-                        navController.navigate(R.id.athenticationFragment, bundle);
+                    boolean isLogIn = sp.getBoolean(getResources().getString(R.string.saved_log_in_key), false);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("MainActivityVM", vm);
+                    if (isLogIn) {
+                        navController.navigate(R.id.profileFragment, bundle);
+                    } else {
+                        navController.navigate(R.id.authenticationFragment, bundle);
                     }
                     return true;
                 } else if (itemId == R.id.category_page) {
@@ -81,15 +79,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             } else if (navDestination.getId() == R.id.cartFragment) {
                 vm.setTitleOfTopBar(getResources().getString(R.string.cart_fragment_name));
-            } else if (navDestination.getId() == R.id.athenticationFragment) {
+            } else if (navDestination.getId() == R.id.authenticationFragment) {
                 vm.setTitleOfTopBar(getResources().getString(R.string.profile_fragment_name));
-                //                case R.id.:
-                //                    topAppBar.setTitle(R.string.search_fragment_name);
-                //                    break;
             } else if (navDestination.getId() == R.id.mainFragment) {
                 vm.setTitleOfTopBar(getResources().getString(R.string.home_fragment_name));
             } else if (navDestination.getId() == R.id.productFragment) {
-                vm.setTitleOfTopBar(getResources().getString(R.string.product_fragment_neme));
+                vm.setTitleOfTopBar(getResources().getString(R.string.product_fragment_name));
             }
         });
         vm.getTitleOfTopBar().observe(this, s -> topAppBar.setTitle(s));
