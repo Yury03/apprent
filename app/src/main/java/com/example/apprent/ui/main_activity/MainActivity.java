@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
         navController = navHostFragment.getNavController();//todo
         vm.setNavController(navController);
+        vm.setSupportFragmentManager(getSupportFragmentManager());
+        vm.setBottomNavigationView(bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Log.d("profile", item.toString());
             int id = bottomNavigationView.getSelectedItemId();

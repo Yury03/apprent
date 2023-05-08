@@ -16,6 +16,8 @@ import com.example.apprent.R;
 import com.example.apprent.domain.models.ProductItem;
 import com.example.apprent.ui.main_activity.MainActivityVM;
 import com.example.apprent.ui.product_page.adapters.ImagesPagerAdapter;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -24,12 +26,7 @@ public class ProductFragment extends Fragment {
 
     private ProductItem product;
     private MainActivityVM mainActivityVM;
-    private int imageNum = 0;
     private ProductFragmentVM vm;
-
-    public ProductFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,21 +39,23 @@ public class ProductFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         vm = new ViewModelProvider(this).get(ProductFragmentVM.class);
         vm.setContext(getContext());
-        product = (ProductItem) getArguments().getSerializable("openProduct"); //todo
-        List<String> imagesList = product.getImagesPath();
-
+        FloatingActionButton reservation = view.findViewById(R.id.reservation_action_button);
+        FloatingActionButton calendar = view.findViewById(R.id.calendar_action_button);
         ViewPager2 imagesPager = view.findViewById(R.id.images_pager);
+        TextView price = view.findViewById(R.id.product_price_fragment);
+        TextView name = view.findViewById(R.id.product_name_fragment);
+        TextView description = view.findViewById(R.id.product_description_fragment);
+
+        product = (ProductItem) getArguments().getSerializable("openProduct"); //todo
+        mainActivityVM = (MainActivityVM) getArguments().getSerializable("MainActivityVM");
+        List<String> imagesList = product.getImagesPath();
         ImagesPagerAdapter imagesPagerAdapter = new ImagesPagerAdapter(this, imagesList);
         imagesPager.setAdapter(imagesPagerAdapter);
         vm.loadImages(imagesList);
-        mainActivityVM = (MainActivityVM) getArguments().getSerializable("MainActivityVM");
-        TextView price = view.findViewById(R.id.product_price_fragment);
         price.setText(product.getMinPrice());
-        TextView name = view.findViewById(R.id.product_name_fragment);
         name.setText(product.getName());
-        TextView description = view.findViewById(R.id.product_description_fragment);
         description.setText(product.getDescription());
-//        mainActivityVM.getBottomNavigationView().setVisibility(BottomNavigationView.INVISIBLE);
+        mainActivityVM.getBottomNavigationView().setVisibility(BottomNavigationView.INVISIBLE);
         mainActivityVM.getBackButtonState().observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean) {
                 mainActivityVM.setBackButtonState(false);
@@ -66,7 +65,10 @@ public class ProductFragment extends Fragment {
                 mainActivityVM.getNavController().navigate(R.id.categoryFragment, bundle);
             }
         });
+        calendar.setOnClickListener(v -> mainActivityVM.selectDate(product));
+        reservation.setOnClickListener(v -> {
 
+        });
     }
 
     @Override
@@ -77,8 +79,8 @@ public class ProductFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_product, container, false);
+        View view = inflater.inflate(R.layout.fragment_product, container, false);
+        return view;
     }
 
 

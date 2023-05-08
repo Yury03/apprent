@@ -71,16 +71,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource
                             dataSource, boolean isFirstResource) {
-//                        boolean isCachedInMemory = requestOptions.isMemoryCacheable();
-//                        boolean isCachedOnDisk = requestOptions.isDiskCacheStrategySet();
-//                        Log.i("Cache", "isCachedOnDisk: " + isCachedOnDisk + "\nisCachedInMemory: " + isCachedInMemory);
                         return false;
                     }
                 })
                 .into(holder.productImage);
-        holder.productName.setText(((ProductItem) itemArrayList.get(position)).getName());
-        holder.productPrice.setText((((ProductItem) itemArrayList.get(position)).getMinPrice()));
-        holder.itemView.setOnClickListener(v -> goNext((ProductItem) itemArrayList.get(position)));
+        holder.productName.setText((itemArrayList.get(position)).getName());
+        holder.productPrice.setText(((itemArrayList.get(position)).getMinPrice()));
+        holder.itemView.setOnClickListener(v -> goNext(itemArrayList.get(position)));
+        holder.productReservation.setOnClickListener(v -> categoryFragmentVM.reservation());
+        holder.productSelectDate.setOnClickListener(v -> categoryFragmentVM.selectDate(itemArrayList.get(position)));
     }
 
     @Override

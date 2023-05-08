@@ -47,6 +47,10 @@ public class CategoryFragment extends Fragment {
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
         mainActivityVM = (MainActivityVM) arguments.getSerializable("MainActivityVM");
+        if (mainActivityVM.getBottomNavigationView().getVisibility()==View.INVISIBLE){
+            mainActivityVM.getBottomNavigationView().setVisibility(View.VISIBLE);
+        }
+        vm.setMainVM(mainActivityVM);
         vm.getShowProgressBar().observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean) {
                 progressBar.setVisibility(ProgressBar.VISIBLE);

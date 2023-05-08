@@ -15,17 +15,11 @@ import com.example.apprent.R;
 import java.util.List;
 
 public class ProductFragmentVM extends ViewModel {
-
-
     @SuppressLint("StaticFieldLeak")//todo стоит ли передавать это в конструкторе?
     private Context context;
-
-
     public void setContext(Context context) {
         this.context = context;
     }
-
-
 
     public void loadImages(List<String> imagePaths) {
         for (int i = 1; i < imagePaths.size(); i++) {
@@ -36,8 +30,4 @@ public class ProductFragmentVM extends ViewModel {
                     .preload();
         }
     }
-
-
-
-
 }

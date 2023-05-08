@@ -10,10 +10,12 @@ import com.example.apprent.domain.models.CategoryItem;
 import com.example.apprent.domain.models.ProductItem;
 import com.example.apprent.domain.usecase.GetCategoryList;
 import com.example.apprent.domain.usecase.GetProductList;
+import com.example.apprent.ui.main_activity.MainActivityVM;
 
 import java.util.List;
 
 public class CategoryFragmentVM extends ViewModel {
+    private MainActivityVM mainActivityVM;
     private final GetCategoryList categoryUseCase;
     private final GetProductList productUseCase;
     private MutableLiveData<ProductItem> openProduct;
@@ -52,7 +54,6 @@ public class CategoryFragmentVM extends ViewModel {
             categoryListLiveData.postValue(categoryItems);
         }, path);
         fragmentPath = path;
-//        showProgressBar.postValue(false);
     }
 
     public void setAdapter(RecyclerView.Adapter adapter) {
@@ -107,4 +108,20 @@ public class CategoryFragmentVM extends ViewModel {
     public void setPath(String fragmentPath) {
         this.fragmentPath = fragmentPath;
     }
+
+    public void reservation() {
+        mainActivityVM.reservation();
+    }
+
+    public void selectDate(ProductItem productItem) {
+        mainActivityVM.selectDate(productItem);
+    }
+
+    public void setMainVM(MainActivityVM mainActivityVM) {
+        this.mainActivityVM = mainActivityVM;
+    }
+
+//    public MainActivityVM getMainActivityVM() {
+//        return mainActivityVM;
+//    }
 }
