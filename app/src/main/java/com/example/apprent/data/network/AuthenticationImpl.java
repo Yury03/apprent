@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.auth.User;
 
 public class AuthenticationImpl implements MainContract.Authentication {
+
     private final FirebaseAuth firebaseAuth;
     private final String TAG = "Login";
 
