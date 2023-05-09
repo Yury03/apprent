@@ -4,13 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".presentation.cartpage.CartFragment">
+    tools:context=".ui.cart_page.CartFragment">
 
-    <TextView
-        android:id="@+id/textView"
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="Cart"
-        android:textSize="100dp" />
+        android:layout_height="match_parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/empty_cart" />
+
+        <TextView
+            android:id="@+id/cart_is_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/cart_is_empty"
+            android:textAlignment="center"
+            android:textColor="@color/main_text"
+            android:textSize="45sp" />
+
+    </LinearLayout>
 </FrameLayout>

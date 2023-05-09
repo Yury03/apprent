@@ -1,57 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingLeft="4dp"
-    android:paddingTop="4dp"
-    android:paddingEnd="4dp"
-    android:paddingBottom="4dp">
-
-
-    <ImageButton
-        android:id="@+id/go_to_product_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/what"
-        android:scaleX="1.2"
-        android:scaleY="1.2"
-        tools:ignore="SpeakableTextPresentCheck" />
-    <!--todo УБРАТЬ SCALE -->
-
-    <Button
-        android:id="@+id/go_to_product"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/alpha_null"
-        android:backgroundTint="@color/alpha_null"
-
-        android:gravity="fill_horizontal|fill_vertical"
-        android:paddingTop="1dp"
-        android:paddingRight="3dp"
-        android:paddingBottom="2dp"
-        android:text="@string/defaultNameProduct"
-        android:textAllCaps="false"
-        android:textColor="@color/main_text"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/priceText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="fill_horizontal|fill_vertical"
-        android:paddingStart="16dp"
-        android:paddingBottom="4dp"
-        android:text="@string/defaultPrice"
-        android:textColor="@color/main_text"
-        android:textSize="18sp" />
-
-<View
     android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:background="@color/for_icons">
+    android:layout_height="wrap_content">
 
-</View>
-</LinearLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginBottom="4dp"
+        app:cardBackgroundColor="@color/lightGray"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="0dp"
+        app:contentPadding="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1.8"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            app:cardCornerRadius="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingStart="4dp"
+                android:paddingTop="4dp"
+                android:paddingEnd="4dp"
+                android:paddingBottom="4dp">
+
+                <ImageView
+                    android:id="@+id/product_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@drawable/what"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/product_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="start|center_vertical"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="2dp"
+                    android:text="@string/defaultNameProduct"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/price_from"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="@string/price_from"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/product_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="@string/defaultPrice"
+                    android:textColor="@color/black" />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="3dp">
+
+                    <ImageButton
+                        android:id="@+id/change_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:background="@color/alpha_null"
+                        android:paddingBottom="3dp"
+                        android:src="@drawable/date_selection_button" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="2dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:layout_marginEnd="2dp"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:text="@string/changeDateButton"
+                            android:textColor="@color/white"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            app:srcCompat="@drawable/white_circle_for_buttons" />
+                    </LinearLayout>
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end">
+
+                    <ImageButton
+                        android:id="@+id/reservation"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+                        android:background="@color/alpha_null"
+                        android:src="@drawable/reservation_by_phone_button"
+                        android:text="@string/reservationButton" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="2dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center_vertical"
+                            android:layout_marginEnd="2dp"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:text="@string/reservationButton"
+                            android:textColor="@color/white"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            app:srcCompat="@drawable/white_circle_for_buttons" />
+                    </LinearLayout>
+                </FrameLayout>
+                <!--todo дописать v23 -->
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
