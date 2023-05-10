@@ -72,7 +72,6 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
-                    android:text="@string/defaultPrice"
                     android:textColor="@color/black" />
 
                 <FrameLayout

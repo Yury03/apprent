@@ -114,6 +114,7 @@ public class CategoryFragmentVM extends ViewModel {
     }
 
     public void selectDate(ProductItem productItem) {
+
         mainActivityVM.selectDate(productItem);
     }
 
