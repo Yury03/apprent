@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.apprent.R;
 import com.example.apprent.data.cart_database.entity.CartProductEntity;
+import com.example.apprent.ui.cart_page.CartFragmentVM;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,11 +27,13 @@ import java.util.Locale;
 public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHolder> {
 
     private List<CartProductEntity> cartProducts = new ArrayList<>();
+    private final CartFragmentVM cartFragmentVM;
 
 
     private Context context;
 
-    public CartListAdapter(Context context) {
+    public CartListAdapter(CartFragmentVM cartFragmentVM, Context context) {
+        this.cartFragmentVM = cartFragmentVM;
         this.context = context;
     }
 
@@ -44,7 +48,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
         return new ViewHolder(view);
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "ClickableViewAccessibility"})
     @Override
     public void onBindViewHolder(@NonNull CartListAdapter.ViewHolder holder, int position) {
         CartProductEntity currentProduct = cartProducts.get(position);
@@ -57,12 +61,12 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
         holder.productPrice.setText(String.valueOf(currentProduct.getPrice()) + " " + context.getString(R.string.currency));
         Glide.with(context)
                 .load(currentProduct.getImageUri())
-                .override(700, 700)
-                .fitCenter()
+                .override(500, 500)
+                .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
 //                .placeholder(R.drawable.skeleton)//todo присоединить либу для скелетонов
                 .into(holder.productImage);
-
+        holder.productDelete.setOnClickListener(v -> cartFragmentVM.removeFromCart(position));
     }
 
 
@@ -80,6 +84,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
         private final TextView productQuantity;
         private final ImageView productImage;
         private final TextView productPrice;
+        public final ImageButton productDelete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,10 +94,8 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
             productQuantity = itemView.findViewById(R.id.count_cart_item);
             productImage = itemView.findViewById(R.id.image_cart_item);
             productPrice = itemView.findViewById(R.id.price_cart_item);
-
+            productDelete = itemView.findViewById(R.id.delete_button);
         }
     }
-
-
 }
 

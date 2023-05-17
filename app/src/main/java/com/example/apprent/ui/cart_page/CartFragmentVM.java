@@ -8,14 +8,15 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.apprent.data.cart_database.CartDatabase;
 import com.example.apprent.data.cart_database.entity.CartProductEntity;
+import com.example.apprent.ui.main_activity.MainActivityVM;
 
 import java.util.List;
 import java.util.concurrent.Executors;
 
 public class CartFragmentVM extends ViewModel {
 
-    MutableLiveData<List<CartProductEntity>> cartProductList = new MutableLiveData<>();
-//    private CartDatabase cartDatabase;
+    private MutableLiveData<List<CartProductEntity>> cartProductList = new MutableLiveData<>();
+    private MainActivityVM mainActivityVM;
 
     public CartFragmentVM() {
 
@@ -32,7 +33,19 @@ public class CartFragmentVM extends ViewModel {
         });
     }
 
+    public void removeFromCart(int index) {
+        CartProductEntity cartProductEntity = cartProductList.getValue().get(index);
+        mainActivityVM.removeFromCart(cartProductEntity);
+        cartProductList.getValue().remove(index);
+        List<CartProductEntity> updateList = cartProductList.getValue();
+        cartProductList.postValue(updateList);
+    }
+
     public LiveData<List<CartProductEntity>> getCartProductList() {
         return cartProductList;
+    }
+
+    public void setMainActivity(MainActivityVM mainActivityVM) {
+        this.mainActivityVM = mainActivityVM;
     }
 }
