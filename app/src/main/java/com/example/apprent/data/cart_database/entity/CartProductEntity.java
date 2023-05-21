@@ -17,10 +17,7 @@ public class CartProductEntity {
     private int period;
     private int quantity;
     private String imageUri;
-
-
     private int price;
-
     public CartProductEntity(String name, Date date, int period, int quantity, String imageUri, int price) {
         this.name = name;
         this.date = date;
@@ -29,7 +26,6 @@ public class CartProductEntity {
         this.imageUri = imageUri;
         this.price = price;
     }
-
     public long getId() {
         return id;
     }
