@@ -151,6 +151,7 @@ public class MainActivityVM extends ViewModel implements Serializable {
         this.bottomNavigationView = bottomNavigationView;
     }
 
+
     public void createDatabase(Context context) {
         cartDatabase = CartDatabase.getInstance(context);
         cartDao = cartDatabase.cartDao();
