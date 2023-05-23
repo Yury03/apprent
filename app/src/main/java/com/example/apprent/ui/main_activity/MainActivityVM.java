@@ -35,7 +35,6 @@ public class MainActivityVM extends ViewModel implements Serializable {
     private final MutableLiveData<Boolean> backButtonState = new MutableLiveData<>(false);
     private NavController navController;
 
-
     private Context appContext;
     private CartDatabase cartDatabase;
     private CartDao cartDao;
@@ -134,12 +133,23 @@ public class MainActivityVM extends ViewModel implements Serializable {
         picker.show(supportFragmentManager, picker.toString());
     }
 
-    public void addToCart(CartProductEntity product, int days) {
+    public void addToCart(CartProductEntity product, int days) {//todo
         Executors.newSingleThreadExecutor().execute(() -> cartDao.insert(product));
     }
 
     public void removeFromCart(CartProductEntity cartProduct) {
         Executors.newSingleThreadExecutor().execute(() -> cartDao.delete(cartProduct));
+    }
+
+    public void changeDataCartDB(int id, CartProductEntity cartProductEntity) {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            cartDao.getById(id).setQuantity(cartProductEntity.getQuantity());
+            Log.i("DB", String.valueOf(cartProductEntity.getQuantity()));
+            cartDao.getById(id).setPeriod(cartProductEntity.getPeriod());
+            cartDao.getById(id).setDate(cartProductEntity.getDate());
+            cartDao.update(cartProductEntity);
+        });
+
     }
 
 
@@ -150,7 +160,6 @@ public class MainActivityVM extends ViewModel implements Serializable {
     public void setBottomNavigationView(BottomNavigationView bottomNavigationView) {
         this.bottomNavigationView = bottomNavigationView;
     }
-
 
     public void createDatabase(Context context) {
         cartDatabase = CartDatabase.getInstance(context);

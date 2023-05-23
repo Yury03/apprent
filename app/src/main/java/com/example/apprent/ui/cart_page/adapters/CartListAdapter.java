@@ -2,16 +2,21 @@ package com.example.apprent.ui.cart_page.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.ChangeBounds;
+import androidx.transition.Transition;
+import androidx.transition.TransitionManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -59,6 +64,8 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
         holder.productPeriod.setText(context.getString(R.string.period_cart_item) + " " + String.valueOf(currentProduct.getPeriod()));
         holder.productQuantity.setText(context.getString(R.string.count_cart_item) + " " + String.valueOf(currentProduct.getQuantity()));
         holder.productPrice.setText(String.valueOf(currentProduct.getPrice()) + " " + context.getString(R.string.currency));
+        Animation anim = AnimationUtils.loadAnimation(context, R.anim.expand_animation);
+
         Glide.with(context)
                 .load(currentProduct.getImageUri())
                 .override(500, 500)
@@ -67,12 +74,42 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
 //                .placeholder(R.drawable.skeleton)//todo присоединить либу для скелетонов
                 .into(holder.productImage);
         holder.productDelete.setOnClickListener(v -> cartFragmentVM.removeFromCart(position));
+        holder.infoButton.setOnClickListener(v -> {
+            CartProductEntity item = cartProducts.get(position);
+//            transitionItemToFragment(holder.itemView);
+            cartFragmentVM.openFullItem(item, position);
+        });
+
+
+    }
+
+    //    private void transitionItemToFragment(View itemView) {
+//        Transition transition = new ChangeBounds();
+//        transition.setDuration(500);
+//        TransitionManager.beginDelayedTransition((ViewGroup) itemView.getParent(), transition);
+//        ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
+//        layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+//        itemView.setLayoutParams(layoutParams);
+//    }
+    private void transitionItemToFragment(final View itemView) {
+        // Анимация исчезновения
+        AlphaAnimation alphaAnimation = new AlphaAnimation(1f, 0f);
+        alphaAnimation.setDuration(500);
+        itemView.setAnimation(alphaAnimation);
+        Transition transition = new ChangeBounds();
+        transition.setDuration(500);
+        TransitionManager.beginDelayedTransition((ViewGroup) itemView.getParent(), transition);
+        ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
+        layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+        itemView.setLayoutParams(layoutParams);
+        itemView.startAnimation(alphaAnimation);
+        itemView.setVisibility(View.INVISIBLE);
+
     }
 
 
     @Override
     public int getItemCount() {
-        Log.e("room", "[adapter] size: " + cartProducts.size());
         return cartProducts.size();
     }
 
@@ -84,7 +121,10 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
         private final TextView productQuantity;
         private final ImageView productImage;
         private final TextView productPrice;
+        private final ImageButton infoButton;
+        private final ImageButton phoneButton;
         public final ImageButton productDelete;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -94,6 +134,8 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
             productQuantity = itemView.findViewById(R.id.count_cart_item);
             productImage = itemView.findViewById(R.id.image_cart_item);
             productPrice = itemView.findViewById(R.id.price_cart_item);
+            infoButton = itemView.findViewById(R.id.info_button);
+            phoneButton = itemView.findViewById(R.id.phone_button);
             productDelete = itemView.findViewById(R.id.delete_button);
         }
     }

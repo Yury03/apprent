@@ -10,18 +10,14 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apprent.R;
 import com.example.apprent.data.cart_database.CartDatabase;
-import com.example.apprent.data.cart_database.entity.CartProductEntity;
 import com.example.apprent.ui.cart_page.adapters.CartListAdapter;
 import com.example.apprent.ui.main_activity.MainActivityVM;
-
-import java.util.List;
 
 public class CartFragment extends Fragment {
     private CartFragmentVM vm;
@@ -32,6 +28,21 @@ public class CartFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_cart, container, false);
         vm = new ViewModelProvider(this).get(CartFragmentVM.class);
         Bundle arguments = getArguments();
         mainActivityVM = (MainActivityVM) arguments.getSerializable("MainActivityVM");//todo
@@ -54,28 +65,6 @@ public class CartFragment extends Fragment {
                 emptyCartLayer.setVisibility(View.VISIBLE);
             }
         });
-
-
-
-    }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-//        Executors.newSingleThreadExecutor().execute(new Runnable() {
-//            @Override
-//            public void run() {
-////                List<CartProductEntity> cartProducts = cartDatabase.cartDao().getAllCartProducts();
-////                adapter.setCartProducts(cartProducts);
-//            }
-//        });
-    }
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_cart, container, false);
+        return view;
     }
 }

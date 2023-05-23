@@ -48,7 +48,11 @@
     <string name="pass1_is_not_equal_pass2">Пароли не совпадают</string>
     <string name="cart_is_empty">Корзина пуста</string>
     <string name="name_cart_item">Аренда  </string>
-    <string name="date_cart_item">Дата аренды: </string>
+    <string name="date_cart_item">Дата начала аренды: </string>
     <string name="count_cart_item">Количество: </string>
     <string name="period_cart_item">Срок аренды: </string>
+    <string name="full_cart_item_final_price">Итоговая цена: </string>
+    <string name="remove_from_cart">Удалить из корзины</string>
+    <string name="request_a_call">Заказать сейчас</string>
+    <string name="cart_item">cart_anim</string>
 </resources>

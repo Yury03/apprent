@@ -133,9 +133,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        navController.navigate(R.id.mainFragment);
-        bottomNavigationView.setSelectedItemId(R.id.home_page);
-        bottomNavigationView.performClick();
+//        navController.navigate(R.id.mainFragment);
+//        bottomNavigationView.setSelectedItemId(R.id.home_page);
+//        bottomNavigationView.performClick();
         //   todo bottomNavigationView.show???
+    }
+
+    @Override
+    protected void onDestroy() {
+        try {
+            super.onDestroy();
+        }catch(Exception e){
+            Log.e("DEBUG", "HELP!!!");
+        }
     }
 }

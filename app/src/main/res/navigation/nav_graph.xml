@@ -13,7 +13,11 @@
         android:id="@+id/cartFragment"
         android:name="com.example.apprent.ui.cart_page.CartFragment"
         android:label="fragment_cart"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_cart">
+        <action
+            android:id="@+id/action_cartFragment_to_cartListFullItem"
+            app:destination="@id/cartListFullItem" />
+    </fragment>
     <fragment
         android:id="@+id/authenticationFragment"
         android:name="com.example.apprent.ui.authentication_page.LoginFragment"
@@ -23,7 +27,7 @@
         android:id="@+id/categoryFragment"
         android:name="com.example.apprent.ui.category_page.CategoryFragment"
         android:label="fragment_category"
-        tools:layout="@layout/fragment_category" >
+        tools:layout="@layout/fragment_category">
         <action
             android:id="@+id/action_categoryFragment_to_productFragment"
             app:destination="@id/productFragment" />
@@ -32,10 +36,14 @@
         android:id="@+id/productFragment"
         android:name="com.example.apprent.ui.product_page.ProductFragment"
         android:label="ProductFragment"
-        tools:layout="@layout/fragment_product"/>
+        tools:layout="@layout/fragment_product" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.apprent.ui.profile_page.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/cartListFullItem"
+        android:name="com.example.apprent.ui.cart_page.CartListFullItem"
+        android:label="CartListFullItem" />
 </navigation>

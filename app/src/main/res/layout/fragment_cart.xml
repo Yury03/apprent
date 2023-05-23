@@ -6,18 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".ui.cart_page.CartFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/product_list_cart"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<!--    <androidx.constraintlayout.motion.widget.MotionLayout-->
+<!--        android:id="@+id/motionLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:layoutDescription="@xml/fragment_cart_scene">-->
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/product_list_cart"
+            tools:listitem="@layout/cart_list_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:transitionName="@string/cart_item"
+
+            >
+
+        </androidx.recyclerview.widget.RecyclerView>
+<!--    </androidx.constraintlayout.motion.widget.MotionLayout>-->
 
     <LinearLayout
         android:id="@+id/layer_empty_cart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
 
         <ImageView

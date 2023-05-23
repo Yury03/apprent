@@ -5,19 +5,23 @@ import androidx.room.PrimaryKey;
 import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity(tableName = "cart_products")
-public class CartProductEntity {
+public class CartProductEntity implements Serializable {
     @PrimaryKey(autoGenerate = true)
-    private long id;
+    private long id;//todo long->int
     private String name;
     @TypeConverters(DateConverter.class)
     private Date date;
+
+
     private int period;
     private int quantity;
     private String imageUri;
     private int price;
+
     public CartProductEntity(String name, Date date, int period, int quantity, String imageUri, int price) {
         this.name = name;
         this.date = date;
@@ -26,6 +30,7 @@ public class CartProductEntity {
         this.imageUri = imageUri;
         this.price = price;
     }
+
     public long getId() {
         return id;
     }
@@ -50,6 +55,13 @@ public class CartProductEntity {
         return price;
     }
 
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setPeriod(int period) {
+        this.period = period;
+    }
 
     public int getPeriod() {
         return period;
