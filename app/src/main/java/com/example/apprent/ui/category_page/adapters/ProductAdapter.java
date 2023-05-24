@@ -76,7 +76,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 })
                 .into(holder.productImage);
         holder.productName.setText((itemArrayList.get(position)).getName());
-        holder.productPrice.setText(((itemArrayList.get(position)).getMinPrice()));
+        holder.productPrice.setText(((itemArrayList.get(position)).getMinPrice() + " руб/сутки"));//todo
         holder.itemView.setOnClickListener(v -> goNext(itemArrayList.get(position)));
         holder.productReservation.setOnClickListener(v -> categoryFragmentVM.reservation());
         holder.productSelectDate.setOnClickListener(v -> categoryFragmentVM.selectDate(itemArrayList.get(position)));

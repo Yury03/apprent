@@ -15,20 +15,33 @@ public class CartProductEntity implements Serializable {
     private String name;
     @TypeConverters(DateConverter.class)
     private Date date;
-
-
     private int period;
     private int quantity;
     private String imageUri;
-    private int price;
+    private int minPrice;
 
-    public CartProductEntity(String name, Date date, int period, int quantity, String imageUri, int price) {
+    public int getFinalPrice() {
+        return finalPrice;
+    }
+
+    public void setFinalPrice(int finalPrice) {
+        this.finalPrice = finalPrice;
+    }
+
+    private int finalPrice;
+
+    public CartProductEntity(String name, Date date, int period, String imageUri, int minPrice) {
         this.name = name;
         this.date = date;
         this.period = period;
-        this.quantity = quantity;
+        this.quantity = 1;
         this.imageUri = imageUri;
-        this.price = price;
+        this.minPrice = minPrice;
+        this.finalPrice = minPrice * period;
+    }
+
+    private void update() {
+        this.finalPrice = this.period * this.quantity * this.minPrice;
     }
 
     public long getId() {
@@ -51,8 +64,8 @@ public class CartProductEntity implements Serializable {
         return date;
     }
 
-    public int getPrice() {
-        return price;
+    public int getMinPrice() {
+        return minPrice;
     }
 
     public void setDate(Date date) {
@@ -61,6 +74,7 @@ public class CartProductEntity implements Serializable {
 
     public void setPeriod(int period) {
         this.period = period;
+        update();
     }
 
     public int getPeriod() {
@@ -73,6 +87,7 @@ public class CartProductEntity implements Serializable {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+        update();
     }
 
     public String getImageUri() {

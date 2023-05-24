@@ -34,7 +34,7 @@ public class ProductItem implements Serializable {
     }
 
     public String getMinPrice() {
-        return minPrice + " руб/сутки";
+        return minPrice;
     }
 
     public String getMainImagePath() {

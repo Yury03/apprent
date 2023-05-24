@@ -1,10 +1,8 @@
 package com.example.apprent.ui.cart_page;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
-import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -22,20 +20,14 @@ public class CartFragmentVM extends ViewModel implements Serializable {
 
     private MutableLiveData<List<CartProductEntity>> cartProductList = new MutableLiveData<>();
     private MainActivityVM mainActivityVM;
-    private MotionLayout motionLayout;
 
     public CartFragmentVM() {
-
     }
 
     public void loadCartProductList(CartDatabase cartDatabase) {
-        Executors.newSingleThreadExecutor().execute(new Runnable() {
-            @Override
-            public void run() {
-                List<CartProductEntity> cartProductEntityList = cartDatabase.cartDao().getAllCartProducts();
-                cartProductList.postValue(cartProductEntityList);
-                Log.e("room", "post value");
-            }
+        Executors.newSingleThreadExecutor().execute(() -> {
+            List<CartProductEntity> cartProductEntityList = cartDatabase.cartDao().getAllCartProducts();
+            cartProductList.postValue(cartProductEntityList);
         });
     }
 
@@ -60,15 +52,19 @@ public class CartFragmentVM extends ViewModel implements Serializable {
         bundle.putSerializable("entity", item);
         bundle.putSerializable("CartFragmentVM", this);
         bundle.putInt("index", index);
+        bundle.putSerializable("MainActivityVM", mainActivityVM);
         mainActivityVM.getNavController().navigate(R.id.action_cartFragment_to_cartListFullItem, bundle);
         mainActivityVM.setTitleOfTopBar("Детали");
         mainActivityVM.getBottomNavigationView().setVisibility(View.GONE);
+        mainActivityVM.showBackButton();
     }
 
-    public void changeDataFromDB(int id, int index, CartProductEntity cartProduct) {
+    public void changeDataFromDB(int id, CartProductEntity cartProduct) {
         mainActivityVM.changeDataCartDB(id, cartProduct);
-//        mainActivityVM.addToCart(cartProduct, 10);
-
     }
 
+    public void closeDetails() {
+        mainActivityVM.getBottomNavigationView().setVisibility(View.VISIBLE);
+        mainActivityVM.hideBackButton();
+    }
 }

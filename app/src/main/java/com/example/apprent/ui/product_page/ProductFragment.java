@@ -52,7 +52,7 @@ public class ProductFragment extends Fragment {
         ImagesPagerAdapter imagesPagerAdapter = new ImagesPagerAdapter(this, imagesList);
         imagesPager.setAdapter(imagesPagerAdapter);
         vm.loadImages(imagesList);
-        price.setText(product.getMinPrice());
+        price.setText(product.getMinPrice()+" руб/сутки");
         name.setText(product.getName());
         description.setText(product.getDescription());
         mainActivityVM.getBottomNavigationView().setVisibility(BottomNavigationView.INVISIBLE);

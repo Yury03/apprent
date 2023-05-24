@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.apprent.R;
 import com.example.apprent.data.cart_database.entity.CartProductEntity;
+import com.example.apprent.ui.main_activity.MainActivityVM;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -27,8 +28,10 @@ import java.util.Date;
 public class CartListFullItem extends Fragment {
     private CartProductEntity cartProduct;
     private CartFragmentVM cartFragmentVM;
+    private MainActivityVM mainActivityVM;
     private int index;
     private View mainView;
+    private TextView finalPriceText;
 
     private class Counter {
         public static final int STATE_COUNTER = 0;
@@ -38,6 +41,7 @@ public class CartListFullItem extends Fragment {
         private final ImageButton minus;
         private final TextView num;
         private final int STATE;
+        private boolean minusButtonIsNotActive = false;
 
         @SuppressLint("DefaultLocale")
         Counter(int idPlusButton, int idMinusButton, int idNumText, int state) {
@@ -47,13 +51,17 @@ public class CartListFullItem extends Fragment {
             this.STATE = state;
             switch (STATE) {
                 case STATE_COUNTER -> {
-                    if (cartProduct.getQuantity() == 1)
+                    if (cartProduct.getQuantity() == 1) {
                         minus.setImageResource(R.drawable.button_minus_not_active);
+                        this.minusButtonIsNotActive = true;
+                    }
                     num.setText(String.valueOf(cartProduct.getQuantity()));
                 }
                 case STATE_PERIOD -> {
-                    if (cartProduct.getPeriod() == 1)
+                    if (cartProduct.getPeriod() == 1) {
                         minus.setImageResource(R.drawable.button_minus_not_active);
+                        this.minusButtonIsNotActive = true;
+                    }
                     num.setText(String.valueOf(cartProduct.getPeriod()));
                 }
                 case STATE_DATE -> {
@@ -62,6 +70,7 @@ public class CartListFullItem extends Fragment {
                     double days = (double) (difference / (24 * 60 * 60 * 1000));
                     if (days < 1) {
                         minus.setImageResource(R.drawable.button_minus_not_active);
+                        this.minusButtonIsNotActive = true;
                     }
                     @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yy");
                     String dateString = dateFormat.format(cartProduct.getDate());
@@ -71,6 +80,7 @@ public class CartListFullItem extends Fragment {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -78,13 +88,18 @@ public class CartListFullItem extends Fragment {
         if (args != null) {
             cartProduct = (CartProductEntity) args.getSerializable("entity");
             cartFragmentVM = (CartFragmentVM) args.getSerializable("CartFragmentVM");
+            mainActivityVM = (MainActivityVM) args.getSerializable("MainActivityVM");
             index = args.getInt("index", -1);
             if (cartProduct == null || cartFragmentVM == null || index == -1)
                 Log.e("MyApp", "Arg is NULL [CartFragment->CartListFullItem]");
+
         }
         this.mainView = view;
         TextView productName = view.findViewById(R.id.cart_full_item_name);
         ImageView productImage = view.findViewById(R.id.cart_full_item_product_image);
+        finalPriceText = view.findViewById(R.id.cart_full_item_final_price);
+
+        finalPriceText.setText(getContext().getString(R.string.full_cart_item_final_price) + String.valueOf(cartProduct.getFinalPrice()) + " рублей");
         productName.setText(cartProduct.getName());
         loadImage(productImage, cartProduct.getImageUri());
 
@@ -96,17 +111,20 @@ public class CartListFullItem extends Fragment {
             if (checkPlus(counter)) {
                 cartProduct.setQuantity(cartProduct.getQuantity() + 1);
                 counter.num.setText(String.valueOf(cartProduct.getQuantity()));
+                updatePrice();
             }
         });
         counter.minus.setOnClickListener(v -> {
             if (checkMinus(counter)) {
                 cartProduct.setQuantity(cartProduct.getQuantity() - 1);
                 counter.num.setText(String.valueOf(cartProduct.getQuantity()));
+                updatePrice();
             }
         });
         period.plus.setOnClickListener(v -> {
             if (checkPlus(period)) {
                 cartProduct.setPeriod(cartProduct.getPeriod() + 1);
+                updatePrice();
             }
             period.num.setText(String.valueOf(cartProduct.getPeriod()));
         });
@@ -114,10 +132,9 @@ public class CartListFullItem extends Fragment {
             if (checkMinus(period)) {
                 cartProduct.setPeriod(cartProduct.getPeriod() - 1);
                 period.num.setText(String.valueOf(cartProduct.getPeriod()));
+                updatePrice();
             }
-
         });
-
         date.plus.setOnClickListener(v -> {
             long cartDate = cartProduct.getDate().getTime();
             if (checkPlus(date)) {
@@ -127,7 +144,6 @@ public class CartListFullItem extends Fragment {
                 date.num.setText(dateString);
             }
         });
-
         date.minus.setOnClickListener(v -> {
             long cartDate = cartProduct.getDate().getTime();
             if (checkMinus(date)) {
@@ -138,29 +154,37 @@ public class CartListFullItem extends Fragment {
             }
         });
 
+        mainActivityVM.getBackButtonState().observe(getViewLifecycleOwner(), aBoolean -> {
+            if (aBoolean) {
+                mainActivityVM.setBackButtonState(false);
+                mainActivityVM.getNavController().popBackStack();
+                cartFragmentVM.closeDetails();
+            }
+        });
     }
 
-    private void updatePrice(TextView textView) {
-//        int price=
-        //todo добавить минимальную цену в entity
-//        textView.setText();
+    @SuppressLint("SetTextI18n")
+    private void updatePrice() {
+        int price = cartProduct.getFinalPrice();
+        finalPriceText.setText(getContext().getString(R.string.full_cart_item_final_price) + String.valueOf(price) + " рублей");
     }
 
 
     private boolean checkMinus(Counter counter) {
         if (counter.STATE == Counter.STATE_DATE) {
-            //todo заменить дату на 0:00 текущих  суток для сравнения integer
+            //todo-заменить-дату-на-0:00-текущих-суток-для-сравнения-integer--
+            //todo upd: а какая датаg.getTime()?
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.HOUR_OF_DAY, 0);
             calendar.set(Calendar.MINUTE, 0);
             calendar.set(Calendar.SECOND, 0);
             Date midnightDate = calendar.getTime();
-
-            Date date = new Date();
+//            Date date = new Date();
             long difference = cartProduct.getDate().getTime() - midnightDate.getTime();
             double days = (double) (difference / (24 * 60 * 60 * 1000));
             if (days <= 1) {
                 counter.minus.setImageResource(R.drawable.button_minus_not_active);//todo?
+                counter.minusButtonIsNotActive = true;
                 return false;
             }
             return true;
@@ -174,6 +198,7 @@ public class CartListFullItem extends Fragment {
                 }
                 case 2 -> {
                     counter.minus.setImageResource(R.drawable.button_minus_not_active);
+                    counter.minusButtonIsNotActive = true;
                     if (counter.STATE == Counter.STATE_PERIOD) {
                         counter.num.setText(String.valueOf(cartProduct.getPeriod()));
                     } else {
@@ -189,7 +214,10 @@ public class CartListFullItem extends Fragment {
     }
 
     private boolean checkPlus(Counter counter) {
-        //todo
+        if (counter.minusButtonIsNotActive) {
+            counter.minus.setImageResource(R.drawable.button_minus);
+            counter.minusButtonIsNotActive = false;
+        }
         return true;
     }
 
@@ -212,6 +240,12 @@ public class CartListFullItem extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        cartFragmentVM.changeDataFromDB((int) cartProduct.getId(), index, cartProduct);
+        cartFragmentVM.changeDataFromDB((int) cartProduct.getId(), cartProduct);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        cartFragmentVM.closeDetails();
     }
 }

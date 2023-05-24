@@ -59,11 +59,11 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
         CartProductEntity currentProduct = cartProducts.get(position);
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yy", Locale.getDefault());
         String dateString = formatter.format(currentProduct.getDate());
-        holder.productName.setText(context.getString(R.string.name_cart_item) + " " + currentProduct.getName());
-        holder.productDate.setText(context.getString(R.string.date_cart_item) + " " + dateString);
-        holder.productPeriod.setText(context.getString(R.string.period_cart_item) + " " + String.valueOf(currentProduct.getPeriod()));
-        holder.productQuantity.setText(context.getString(R.string.count_cart_item) + " " + String.valueOf(currentProduct.getQuantity()));
-        holder.productPrice.setText(String.valueOf(currentProduct.getPrice()) + " " + context.getString(R.string.currency));
+        holder.productName.setText(context.getString(R.string.name_cart_item) + currentProduct.getName());
+        holder.productDate.setText(context.getString(R.string.date_cart_item) + dateString);
+        holder.productPeriod.setText(context.getString(R.string.period_cart_item) + String.valueOf(currentProduct.getPeriod()));
+        holder.productQuantity.setText(context.getString(R.string.count_cart_item) + String.valueOf(currentProduct.getQuantity()));
+        holder.productPrice.setText(String.valueOf(currentProduct.getFinalPrice()) + " " + context.getString(R.string.currency));
         Animation anim = AnimationUtils.loadAnimation(context, R.anim.expand_animation);
 
         Glide.with(context)
@@ -139,5 +139,6 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
             productDelete = itemView.findViewById(R.id.delete_button);
         }
     }
+
 }
 

@@ -46,6 +46,7 @@ public class CategoryFragmentVM extends ViewModel {
         categoryListLiveData = new MutableLiveData<>();
         productListLiveData = new MutableLiveData<>();
         openProduct = new MutableLiveData<>();
+
     }
 
     public void getCategoryList(String path) {
@@ -54,6 +55,7 @@ public class CategoryFragmentVM extends ViewModel {
             categoryListLiveData.postValue(categoryItems);
         }, path);
         fragmentPath = path;
+        updateBackButton();
     }
 
     public void setAdapter(RecyclerView.Adapter adapter) {
@@ -72,6 +74,15 @@ public class CategoryFragmentVM extends ViewModel {
             productListLiveData.postValue(productItems);
         }, path);
         fragmentPath = path;
+        updateBackButton();
+    }
+
+    private void updateBackButton() {
+        if (this.fragmentPath.equals("/category")) {
+            mainActivityVM.hideBackButton();
+        } else {
+            mainActivityVM.showBackButton();
+        }
     }
 
     public LiveData<List<CategoryItem>> getCategoryItemArrayList() {
@@ -119,9 +130,6 @@ public class CategoryFragmentVM extends ViewModel {
 
     public void setMainVM(MainActivityVM mainActivityVM) {
         this.mainActivityVM = mainActivityVM;
+        updateBackButton();
     }
-
-//    public MainActivityVM getMainActivityVM() {
-//        return mainActivityVM;
-//    }
 }

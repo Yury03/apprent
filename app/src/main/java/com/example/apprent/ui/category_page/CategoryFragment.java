@@ -31,11 +31,10 @@ public class CategoryFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         arguments = getArguments();
-
     }
 
 
-    // todo реализовать полное сохранение всех данных фрагмента, сейчас сохраняется только путь? и адаптер
+    //todo реализовать полное сохранение всех данных фрагмента, сейчас сохраняется только путь? и адаптер
 
 
     @Override
@@ -47,9 +46,10 @@ public class CategoryFragment extends Fragment {
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
         mainActivityVM = (MainActivityVM) arguments.getSerializable("MainActivityVM");
-        if (mainActivityVM.getBottomNavigationView().getVisibility()==View.INVISIBLE){
+        if (mainActivityVM.getBottomNavigationView().getVisibility() == View.INVISIBLE) {
             mainActivityVM.getBottomNavigationView().setVisibility(View.VISIBLE);
         }
+
         vm.setMainVM(mainActivityVM);
         vm.getShowProgressBar().observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean) {
@@ -62,20 +62,16 @@ public class CategoryFragment extends Fragment {
         if (backStackEntry == null) {
             Log.e("MyApp", "backStack is null");
         } else {
-
             if (backStackEntry.getDestination().getId() != R.id.productFragment) {
                 vm.getCategoryList(vm.getFragmentPath());
             } else {
                 vm.setPath(arguments.getString("FullPath"));
                 vm.getProductList(vm.getFragmentPath());
             }
-//            progressBar.setVisibility(ProgressBar.GONE);
         }
         vm.getCategoryItemArrayList().observe(getViewLifecycleOwner(), categoryItemArrayList -> {
-
             CategoryAdapter adapter = new CategoryAdapter(categoryItemArrayList, getContext(), vm);
             vm.setAdapter(adapter);
-
         });
         vm.getProductItemArrayList().observe(getViewLifecycleOwner(), productItems -> {
             ProductAdapter adapter = new ProductAdapter(productItems, getContext(), vm);
@@ -97,12 +93,8 @@ public class CategoryFragment extends Fragment {
                 vm.getCategoryList(fullPath);//todo set title
             }
         });
-//        vm.getTitle().observe(getViewLifecycleOwner(), s -> mainActivityVM.setTitleOfTopBar(s));
         vm.getAdapter().observe(getViewLifecycleOwner(), adapter -> {
-
             recyclerView.setAdapter(adapter);//todo skeleton
-
-//            mainActivityVM.setTitleOfTopBar();
         });
     }
 

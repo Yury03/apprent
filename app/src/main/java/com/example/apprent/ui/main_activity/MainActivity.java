@@ -33,35 +33,37 @@ public class MainActivity extends AppCompatActivity {
         vm = new ViewModelProvider(this).get(MainActivityVM.class);
         vm.setAppContext(getApplicationContext());
         vm.setSharedPreferences(sp);
+        vm.setMaterialToolbar(topAppBar);
         bottomNavigationView.setSelectedItemId(vm.getFragmentID().getValue());//todo
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView);
         navController = navHostFragment.getNavController();//todo
         vm.setNavController(navController);
         vm.setSupportFragmentManager(getSupportFragmentManager());
         vm.setBottomNavigationView(bottomNavigationView);
-        Bundle mainViewModelbundle = new Bundle();
-        mainViewModelbundle.putSerializable("MainActivityVM", vm);
+        Bundle mainViewModelBundle = new Bundle();
+        mainViewModelBundle.putSerializable("MainActivityVM", vm);
+        navController.navigate(R.id.mainFragment, mainViewModelBundle);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Log.d("profile", item.toString());
             int id = bottomNavigationView.getSelectedItemId();
             if (item.getItemId() != id) {
                 int itemId = item.getItemId();
                 if (itemId == R.id.cart_page) {
-                    navController.navigate(R.id.cartFragment, mainViewModelbundle);
+                    navController.navigate(R.id.cartFragment, mainViewModelBundle);
                     return true;
                 } else if (itemId == R.id.home_page) {
-                    navController.navigate(R.id.mainFragment);
+                    navController.navigate(R.id.mainFragment, mainViewModelBundle);
                     return true;
                 } else if (itemId == R.id.profile_page) {
                     boolean isLogIn = sp.getBoolean(getResources().getString(R.string.saved_log_in_key), false);
                     if (isLogIn) {
-                        navController.navigate(R.id.profileFragment, mainViewModelbundle);
+                        navController.navigate(R.id.profileFragment, mainViewModelBundle);
                     } else {
-                        navController.navigate(R.id.authenticationFragment, mainViewModelbundle);
+                        navController.navigate(R.id.authenticationFragment, mainViewModelBundle);
                     }
                     return true;
                 } else if (itemId == R.id.category_page) {
-                    navController.navigate(R.id.categoryFragment, mainViewModelbundle);
+                    navController.navigate(R.id.categoryFragment, mainViewModelBundle);
                     return true;
                 } else if (itemId == R.id.search_page) {
                     Toast.makeText(getApplicationContext(), "В РАЗРАБОТКЕ", Toast.LENGTH_SHORT).show();
@@ -111,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         //                }
         //            }
         //        });
+
         topAppBar.setNavigationOnClickListener(v -> {
             vm.setBackButtonState(true);
         });

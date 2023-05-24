@@ -20,6 +20,7 @@ import com.example.apprent.data.cart_database.CartDatabase;
 import com.example.apprent.data.cart_database.dao.CartDao;
 import com.example.apprent.data.cart_database.entity.CartProductEntity;
 import com.example.apprent.domain.models.ProductItem;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
@@ -34,6 +35,12 @@ public class MainActivityVM extends ViewModel implements Serializable {
     private final MutableLiveData<Integer> fragmentID = new MutableLiveData<>(R.id.home_page);
     private final MutableLiveData<Boolean> backButtonState = new MutableLiveData<>(false);
     private NavController navController;
+
+    public void setMaterialToolbar(MaterialToolbar materialToolbar) {
+        this.materialToolbar = materialToolbar;
+    }
+
+    private MaterialToolbar materialToolbar;
 
     private Context appContext;
     private CartDatabase cartDatabase;
@@ -66,7 +73,6 @@ public class MainActivityVM extends ViewModel implements Serializable {
     public void setTitleOfTopBar(String title) {
         this.titleOfTopBar.postValue(title);
     }
-
 
     public void setBackButtonState(boolean state) {
         backButtonState.setValue(state);
@@ -123,14 +129,18 @@ public class MainActivityVM extends ViewModel implements Serializable {
             long start = selection.first;
             long end = selection.second;
             int days = (int) TimeUnit.DAYS.convert(end - start, TimeUnit.MILLISECONDS);
-            //todo
-            int price = Integer.parseInt(productItem.getMinPrice().substring(3, 6)) * days;
-            //todo
-
-            CartProductEntity cartProductEntity = new CartProductEntity(productItem.getName(), new Date(selection.first), days, 1, productItem.getMainImagePath(), price);
+            int price = priceParser(productItem.getMinPrice());
+            CartProductEntity cartProductEntity = new CartProductEntity(productItem.getName(), new Date(selection.first), days, productItem.getMainImagePath(), price);
             addToCart(cartProductEntity, days);
         });
         picker.show(supportFragmentManager, picker.toString());
+    }
+
+    private int priceParser(String minPrice) {
+        int price;
+        minPrice = minPrice.substring(3, minPrice.length());
+        price = Integer.parseInt(minPrice);
+        return price;
     }
 
     public void addToCart(CartProductEntity product, int days) {//todo
@@ -165,6 +175,15 @@ public class MainActivityVM extends ViewModel implements Serializable {
         cartDatabase = CartDatabase.getInstance(context);
         cartDao = cartDatabase.cartDao();
     }
+
+    public void showBackButton() {
+        materialToolbar.setNavigationIcon(R.drawable.back_arrow);
+    }
+
+    public void hideBackButton() {
+        materialToolbar.setNavigationIcon(null);
+    }
+
 
     public CartDatabase getCartDatabase() {
         return this.cartDatabase;
