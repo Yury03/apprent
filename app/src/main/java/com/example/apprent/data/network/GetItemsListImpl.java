@@ -26,7 +26,7 @@ public class GetItemsListImpl implements MainContract.GetItemsListData {
     private String description;//todo где объявлять
     private String minPrice;
     private Boolean hasChild;
-    private static final String TAG = "DEBUGTODAY";
+    private static final String TAG = "Debug: GetItemsListImpl";
 
     @Override
     public void getCategoryList(CategoryListCallback callback) {
@@ -130,5 +130,10 @@ public class GetItemsListImpl implements MainContract.GetItemsListData {
                 callback.onItemListLoaded(productItemList);
             });
         });
+    }
+
+    @Override
+    public void getSearchResults(ProductListCallback callback, String query, String path) {
+        getProductsList(callback, "/category/subcategory_1/subcategory_2");
     }
 }

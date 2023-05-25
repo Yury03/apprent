@@ -13,7 +13,10 @@ public interface MainContract {
 
         void getProductsList(ProductListCallback callback, String category);
 
+        void getSearchResults(ProductListCallback callback, String query, String path);
+
     }
+
 
     interface Authentication {
         void restoreAccess(AuthenticationCallback.restoreAccessCallback callback, AuraUser user);

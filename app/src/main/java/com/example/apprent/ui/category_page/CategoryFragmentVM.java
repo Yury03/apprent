@@ -18,10 +18,10 @@ public class CategoryFragmentVM extends ViewModel {
     private MainActivityVM mainActivityVM;
     private final GetCategoryList categoryUseCase;
     private final GetProductList productUseCase;
-    private MutableLiveData<ProductItem> openProduct;
+    private final MutableLiveData<ProductItem> openProduct;
     private String fragmentPath = "/category";
-    private MutableLiveData<List<CategoryItem>> categoryListLiveData;
-    private MutableLiveData<List<ProductItem>> productListLiveData;
+    private final MutableLiveData<List<CategoryItem>> categoryListLiveData;
+    private final MutableLiveData<List<ProductItem>> productListLiveData;
 
     public LiveData<Boolean> getShowProgressBar() {
         return showProgressBar;
@@ -46,15 +46,13 @@ public class CategoryFragmentVM extends ViewModel {
         categoryListLiveData = new MutableLiveData<>();
         productListLiveData = new MutableLiveData<>();
         openProduct = new MutableLiveData<>();
-
     }
 
     public void getCategoryList(String path) {
         showProgressBar.postValue(true);
-        categoryUseCase.execute(categoryItems -> {
-            categoryListLiveData.postValue(categoryItems);
-        }, path);
+        categoryUseCase.execute(categoryListLiveData::postValue, path);
         fragmentPath = path;
+        mainActivityVM.setPathForCategoryFragment(fragmentPath);
         updateBackButton();
     }
 
@@ -64,7 +62,6 @@ public class CategoryFragmentVM extends ViewModel {
     }
 
     public LiveData<RecyclerView.Adapter> getAdapter() {
-
         return this.adapter;
     }
 
@@ -74,8 +71,10 @@ public class CategoryFragmentVM extends ViewModel {
             productListLiveData.postValue(productItems);
         }, path);
         fragmentPath = path;
+        mainActivityVM.setPathForCategoryFragment(fragmentPath);
         updateBackButton();
     }
+
 
     private void updateBackButton() {
         if (this.fragmentPath.equals("/category")) {
@@ -117,6 +116,7 @@ public class CategoryFragmentVM extends ViewModel {
     }
 
     public void setPath(String fragmentPath) {
+        mainActivityVM.setPathForCategoryFragment(fragmentPath);
         this.fragmentPath = fragmentPath;
     }
 

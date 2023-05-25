@@ -26,7 +26,7 @@ public class LoginFragment extends Fragment {
     private SharedPreferences sharedPreferences;
     private LoginFragmentVM vm;
     private MainActivityVM mainActivityVM;
-    private static final String Tag = "MyApp";
+    private static final String Tag = "apprent: LoginFragment";
     private Bundle arguments;
 
 
@@ -37,6 +37,7 @@ public class LoginFragment extends Fragment {
         arguments = getArguments();
         if (arguments != null) {
             mainActivityVM = (MainActivityVM) arguments.getSerializable("MainActivityVM");
+            mainActivityVM.getBottomNavigationView().setVisibility(View.GONE);
         } else {
             Log.e(Tag, "arguments is null");
         }
@@ -57,7 +58,9 @@ public class LoginFragment extends Fragment {
                 case AuraUser.SIGN_IN:
                 case AuraUser.SIGN_UP:
                     sharedPreferences.edit().putBoolean(getResources().getString(R.string.saved_log_in_key), true).apply();
-                    mainActivityVM.getNavController().navigate(R.id.profileFragment);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("MainActivityVM", mainActivityVM);
+                    mainActivityVM.getNavController().navigate(R.id.mainFragment, bundle);
                     break;
                 case AuraUser.RESTORE_ACCESS:
                     Toast.makeText(getContext(), "Ссылка на восстановление была отправлена на почту", Toast.LENGTH_LONG).show();
@@ -74,9 +77,14 @@ public class LoginFragment extends Fragment {
         });
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_login, container, false);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mainActivityVM.getBottomNavigationView().setVisibility(View.VISIBLE);
     }
 }

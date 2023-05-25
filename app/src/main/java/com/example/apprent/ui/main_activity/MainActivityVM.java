@@ -19,7 +19,10 @@ import com.example.apprent.R;
 import com.example.apprent.data.cart_database.CartDatabase;
 import com.example.apprent.data.cart_database.dao.CartDao;
 import com.example.apprent.data.cart_database.entity.CartProductEntity;
+import com.example.apprent.data.network.GetItemsListImpl;
 import com.example.apprent.domain.models.ProductItem;
+import com.example.apprent.domain.usecase.GetSearchResults;
+import com.example.apprent.domain.usecase.ProductListCallback;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.datepicker.CalendarConstraints;
@@ -28,13 +31,30 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivityVM extends ViewModel implements Serializable {
     private final MutableLiveData<Integer> fragmentID = new MutableLiveData<>(R.id.home_page);
     private final MutableLiveData<Boolean> backButtonState = new MutableLiveData<>(false);
+
+    public LiveData<List<ProductItem>> getSearchResultsForCategoryFragment() {
+        return searchResultsForCategoryFragment;
+    }
+
+    private final MutableLiveData<List<ProductItem>> searchResultsForCategoryFragment = new MutableLiveData<>();
     private NavController navController;
+
+    public String getPathForCategoryFragment() {
+        return pathForCategoryFragment;
+    }
+
+    public void setPathForCategoryFragment(String pathForCategoryFragment) {
+        this.pathForCategoryFragment = pathForCategoryFragment;
+    }
+
+    private String pathForCategoryFragment;//todo
 
     public void setMaterialToolbar(MaterialToolbar materialToolbar) {
         this.materialToolbar = materialToolbar;
@@ -131,19 +151,19 @@ public class MainActivityVM extends ViewModel implements Serializable {
             int days = (int) TimeUnit.DAYS.convert(end - start, TimeUnit.MILLISECONDS);
             int price = priceParser(productItem.getMinPrice());
             CartProductEntity cartProductEntity = new CartProductEntity(productItem.getName(), new Date(selection.first), days, productItem.getMainImagePath(), price);
-            addToCart(cartProductEntity, days);
+            addToCart(cartProductEntity);
         });
         picker.show(supportFragmentManager, picker.toString());
     }
 
     private int priceParser(String minPrice) {
         int price;
-        minPrice = minPrice.substring(3, minPrice.length());
+        minPrice = minPrice.substring(3);
         price = Integer.parseInt(minPrice);
         return price;
     }
 
-    public void addToCart(CartProductEntity product, int days) {//todo
+    public void addToCart(CartProductEntity product) {
         Executors.newSingleThreadExecutor().execute(() -> cartDao.insert(product));
     }
 
@@ -154,7 +174,7 @@ public class MainActivityVM extends ViewModel implements Serializable {
     public void changeDataCartDB(int id, CartProductEntity cartProductEntity) {
         Executors.newSingleThreadExecutor().execute(() -> {
             cartDao.getById(id).setQuantity(cartProductEntity.getQuantity());
-            Log.i("DB", String.valueOf(cartProductEntity.getQuantity()));
+            Log.i("DB: ", String.valueOf(cartProductEntity.getQuantity()));
             cartDao.getById(id).setPeriod(cartProductEntity.getPeriod());
             cartDao.getById(id).setDate(cartProductEntity.getDate());
             cartDao.update(cartProductEntity);
@@ -187,5 +207,12 @@ public class MainActivityVM extends ViewModel implements Serializable {
 
     public CartDatabase getCartDatabase() {
         return this.cartDatabase;
+    }
+
+
+    public void search(String query) {
+        GetItemsListImpl getItemsList = new GetItemsListImpl();
+        GetSearchResults getSearchResults = new GetSearchResults(getItemsList);
+        getSearchResults.execute(searchResultsForCategoryFragment::postValue, query, this.pathForCategoryFragment);
     }
 }

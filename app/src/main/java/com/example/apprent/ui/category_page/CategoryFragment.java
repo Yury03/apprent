@@ -49,7 +49,6 @@ public class CategoryFragment extends Fragment {
         if (mainActivityVM.getBottomNavigationView().getVisibility() == View.INVISIBLE) {
             mainActivityVM.getBottomNavigationView().setVisibility(View.VISIBLE);
         }
-
         vm.setMainVM(mainActivityVM);
         vm.getShowProgressBar().observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean) {
@@ -95,6 +94,11 @@ public class CategoryFragment extends Fragment {
         });
         vm.getAdapter().observe(getViewLifecycleOwner(), adapter -> {
             recyclerView.setAdapter(adapter);//todo skeleton
+        });
+        mainActivityVM.getSearchResultsForCategoryFragment().observe(getViewLifecycleOwner(), productItems -> {
+            Log.e("OK","OK");
+            ProductAdapter adapter = new ProductAdapter(productItems, getContext(), vm);
+            vm.setAdapter(adapter);
         });
     }
 

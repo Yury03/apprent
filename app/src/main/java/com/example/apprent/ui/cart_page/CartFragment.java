@@ -46,7 +46,6 @@ public class CartFragment extends Fragment {
         vm = new ViewModelProvider(this).get(CartFragmentVM.class);
         Bundle arguments = getArguments();
         mainActivityVM = (MainActivityVM) arguments.getSerializable("MainActivityVM");//todo
-        mainActivityVM.hideBackButton();
         cartDatabase = mainActivityVM.getCartDatabase();
         RecyclerView recyclerView = view.findViewById(R.id.product_list_cart);
         LinearLayout emptyCartLayer = view.findViewById(R.id.layer_empty_cart);
