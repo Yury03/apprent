@@ -1,4 +1,4 @@
-package com.example.apprent.ui.product_page;
+package com.example.apprent.ui.common;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -16,10 +16,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.apprent.R;
 
 
-public class ProductImageFragment extends Fragment {
+public class ImageFragmentForViewPager extends Fragment {
     private String link;
 
-    public ProductImageFragment(Bundle bundle) {
+    public ImageFragmentForViewPager(Bundle bundle) {
         super();
         if (bundle != null) {
             link = bundle.getString("link");
@@ -27,8 +27,6 @@ public class ProductImageFragment extends Fragment {
             Log.e("MyApp", "ProductImageFragment: arguments is null");
         }
     }
-
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -44,12 +42,12 @@ public class ProductImageFragment extends Fragment {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
 //                .placeholder(R.drawable.skeleton)//todo присоединить либу для скелетонов
                 .into(imageView);
-    }//todo вынести во viewModel?
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_product_image, container, false);
+        return inflater.inflate(R.layout.fragment_image_for_view_pager, container, false);
     }
 }

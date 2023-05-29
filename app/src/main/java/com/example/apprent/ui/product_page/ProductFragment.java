@@ -15,7 +15,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.apprent.R;
 import com.example.apprent.domain.models.ProductItem;
 import com.example.apprent.ui.main_activity.MainActivityVM;
-import com.example.apprent.ui.product_page.adapters.ImagesPagerAdapter;
+import com.example.apprent.ui.common.adapters.ImagesPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -45,7 +45,6 @@ public class ProductFragment extends Fragment {
         TextView price = view.findViewById(R.id.product_price_fragment);
         TextView name = view.findViewById(R.id.product_name_fragment);
         TextView description = view.findViewById(R.id.product_description_fragment);
-
         product = (ProductItem) getArguments().getSerializable("openProduct"); //todo
         mainActivityVM = (MainActivityVM) getArguments().getSerializable("MainActivityVM");
         List<String> imagesList = product.getImagesPath();

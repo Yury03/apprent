@@ -20,18 +20,16 @@
 
         <ImageView
             android:id="@+id/logoInLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="255dp"
+            android:layout_height="85dp"
             android:layout_gravity="center"
-            android:layout_weight="0"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/logo" />
+            app:srcCompat="@drawable/logo2" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_buttons_authentication"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="70dp">
+            android:layout_marginTop="50dp">
 
             <com.google.android.material.tabs.TabItem
 

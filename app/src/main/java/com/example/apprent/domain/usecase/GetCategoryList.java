@@ -4,9 +4,9 @@ import com.example.apprent.domain.MainContract;
 
 public class GetCategoryList {
 
-    private final MainContract.GetItemsListData getItemsListData;
+    private final MainContract.GetListData getItemsListData;
 
-    public GetCategoryList(MainContract.GetItemsListData getItemsListData) {
+    public GetCategoryList(MainContract.GetListData getItemsListData) {
         this.getItemsListData = getItemsListData;
     }
 

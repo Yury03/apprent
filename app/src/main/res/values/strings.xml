@@ -61,4 +61,9 @@
     <string name="profile_data">Данные</string>
     <string name="profile_control">Управление</string>
     <string name="profile_booking">Бронирование</string>
+    <string name="search_hint">Наименование товара</string>
+    <string name="delivery">УДОБНАЯ И\nБЫСТРАЯ\nДОСТАВКА</string>
+    <string name="pay_info">ОПЛАТА\nНАЛИЧНЫМИ И\nПО КАРТЕ</string>
+    <string name="no_pledge">БЕЗ ЗАЛОГА.\nСОВСЕМ</string>
+    <string name="extends_set">РАСШИРЕННЫЙ\nКОМПЛЕКТ К\nОБОРУДОВАНИЮ</string>
 </resources>

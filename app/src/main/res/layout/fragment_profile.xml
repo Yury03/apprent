@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="4dp"
     tools:context=".ui.profile_page.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <com.google.android.material.tabs.TabLayout
+        android:id="@+id/profile_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -34,6 +34,7 @@
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/profile_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

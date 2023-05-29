@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.util.Pair;
 import androidx.fragment.app.FragmentManager;
@@ -35,7 +38,7 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class MainActivityVM extends ViewModel implements Serializable {
+public class MainActivityVM extends ViewModel implements Serializable, Parcelable {
     private final MutableLiveData<Integer> fragmentID = new MutableLiveData<>(R.id.home_page);
     private final MutableLiveData<Boolean> backButtonState = new MutableLiveData<>(false);
 
@@ -214,5 +217,15 @@ public class MainActivityVM extends ViewModel implements Serializable {
         GetItemsListImpl getItemsList = new GetItemsListImpl();
         GetSearchResults getSearchResults = new GetSearchResults(getItemsList);
         getSearchResults.execute(searchResultsForCategoryFragment::postValue, query, this.pathForCategoryFragment);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(pathForCategoryFragment);
     }
 }

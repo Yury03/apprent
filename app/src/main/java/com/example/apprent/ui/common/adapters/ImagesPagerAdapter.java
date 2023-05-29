@@ -1,12 +1,13 @@
-package com.example.apprent.ui.product_page.adapters;
+package com.example.apprent.ui.common.adapters;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.apprent.ui.product_page.ProductImageFragment;
+import com.example.apprent.ui.common.ImageFragmentForViewPager;
 
 import java.util.List;
 
@@ -24,7 +25,8 @@ public class ImagesPagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         Bundle bundle = new Bundle();
         bundle.putString("link", imagesList.get(position));
-        return new ProductImageFragment(bundle);
+
+        return new ImageFragmentForViewPager(bundle);
     }
 
     @Override

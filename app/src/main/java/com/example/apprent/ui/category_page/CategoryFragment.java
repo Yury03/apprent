@@ -96,7 +96,7 @@ public class CategoryFragment extends Fragment {
             recyclerView.setAdapter(adapter);//todo skeleton
         });
         mainActivityVM.getSearchResultsForCategoryFragment().observe(getViewLifecycleOwner(), productItems -> {
-            Log.e("OK","OK");
+            Log.e("OkK","OkK");
             ProductAdapter adapter = new ProductAdapter(productItems, getContext(), vm);
             vm.setAdapter(adapter);
         });

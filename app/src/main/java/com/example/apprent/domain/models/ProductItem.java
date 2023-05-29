@@ -1,5 +1,7 @@
 package com.example.apprent.domain.models;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.List;
 

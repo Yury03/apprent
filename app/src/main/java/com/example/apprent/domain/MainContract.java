@@ -3,10 +3,11 @@ package com.example.apprent.domain;
 import com.example.apprent.domain.models.AuraUser;
 import com.example.apprent.domain.usecase.AuthenticationCallback;
 import com.example.apprent.domain.usecase.CategoryListCallback;
+import com.example.apprent.domain.usecase.LinksCallback;
 import com.example.apprent.domain.usecase.ProductListCallback;
 
 public interface MainContract {
-    interface GetItemsListData {
+    interface GetListData {
         void getCategoryList(CategoryListCallback callback);
 
         void getCategoryList(CategoryListCallback callback, String subCategory);
@@ -15,7 +16,9 @@ public interface MainContract {
 
         void getSearchResults(ProductListCallback callback, String query, String path);
 
+        void getBannerImages(LinksCallback linksCallback);
     }
+
 
 
     interface Authentication {

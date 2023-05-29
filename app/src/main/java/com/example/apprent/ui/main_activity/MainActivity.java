@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavBackStackEntry;
 import androidx.navigation.NavController;
@@ -29,38 +31,30 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        MenuItem searchItem = menu.findItem(R.id.action_search);
-//        SearchView searchView = (SearchView) searchItem.getActionView();
-//        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-//        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
-        // Associate searchable configuration with the SearchView
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {//todo https://developer.android.com/develop/ui/views/search/training/setup
             @Override
             public boolean onQueryTextSubmit(String query) {
-
-                // Выполняется при отправке запроса поиска (например, при нажатии кнопки "Поиск" на клавиатуре)
                 vm.search(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                // Выполняется при каждом изменении текста в поле поиска
-                // Вызывайте здесь методы для фильтрации данных на основе newText
-                Log.d(TAG, newText);
-
                 return true;
             }
 
         });
-
+        searchView.setOnQueryTextFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                EditText searchEditText = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+                searchEditText.setHintTextColor(ContextCompat.getColor(getApplicationContext(), R.color.lightGray));
+            }
+        });
         return true;
     }
 
@@ -81,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         vm.setNavController(navController);
         vm.setSupportFragmentManager(getSupportFragmentManager());
         vm.setBottomNavigationView(bottomNavigationView);
+
         Bundle mainViewModelBundle = new Bundle();
         mainViewModelBundle.putSerializable("MainActivityVM", vm);
         boolean isLogIn = sp.getBoolean(getResources().getString(R.string.saved_log_in_key), false);
@@ -106,17 +101,14 @@ public class MainActivity extends AppCompatActivity {
                 } else if (itemId == R.id.category_page) {
                     navController.navigate(R.id.categoryFragment, mainViewModelBundle);
                     return true;
-//                } else if (itemId == R.id.search_page) {
-//                    Toast.makeText(getApplicationContext(), "В РАЗРАБОТКЕ", Toast.LENGTH_SHORT).show();
-//                    return false;
                 }
             }
             return false;
         });
         navController.addOnDestinationChangedListener((navController, navDestination, bundle) -> {
-            topAppBar.getMenu().findItem(R.id.action_search).setVisible(false);
             Log.i(TAG, "nav controller listener!");
             if (navDestination.getId() == R.id.categoryFragment) {
+                setSupportActionBar(topAppBar);
                 topAppBar.getMenu().findItem(R.id.action_search).setVisible(true);
                 NavBackStackEntry backStackEntry = navController.getPreviousBackStackEntry();
                 if (backStackEntry != null) {
@@ -124,21 +116,25 @@ public class MainActivity extends AppCompatActivity {
                         vm.setTitleOfTopBar(getResources().getString(R.string.category_fragment_name));
                     }
                 }
-            } else if (navDestination.getId() == R.id.cartFragment) {
-                vm.hideBackButton();
-                vm.setTitleOfTopBar(getResources().getString(R.string.cart_fragment_name));
-            } else if (navDestination.getId() == R.id.authenticationFragment) {
-                vm.hideBackButton();
-                vm.setTitleOfTopBar(getResources().getString(R.string.authentication_fragment_name));
-            } else if (navDestination.getId() == R.id.mainFragment) {
-                vm.hideBackButton();
-                vm.setTitleOfTopBar(getResources().getString(R.string.home_fragment_name));
-            } else if (navDestination.getId() == R.id.productFragment) {
-                vm.showBackButton();
-                vm.setTitleOfTopBar(getResources().getString(R.string.product_fragment_name));
-            } else if (navDestination.getId() == R.id.profileFragment) {
-                vm.hideBackButton();
-                vm.setTitleOfTopBar(getResources().getString(R.string.profile_fragment_name));
+            } else {
+                topAppBar.getMenu().findItem(R.id.action_search).setVisible(false);
+                topAppBar.getMenu().findItem(R.id.action_search).collapseActionView();
+                if (navDestination.getId() == R.id.cartFragment) {
+                    vm.hideBackButton();
+                    vm.setTitleOfTopBar(getResources().getString(R.string.cart_fragment_name));
+                } else if (navDestination.getId() == R.id.authenticationFragment) {
+                    vm.hideBackButton();
+                    vm.setTitleOfTopBar(getResources().getString(R.string.authentication_fragment_name));
+                } else if (navDestination.getId() == R.id.mainFragment) {
+                    vm.hideBackButton();
+                    vm.setTitleOfTopBar(getResources().getString(R.string.home_fragment_name));
+                } else if (navDestination.getId() == R.id.productFragment) {
+                    vm.showBackButton();
+                    vm.setTitleOfTopBar(getResources().getString(R.string.product_fragment_name));
+                } else if (navDestination.getId() == R.id.profileFragment) {
+                    vm.hideBackButton();
+                    vm.setTitleOfTopBar(getResources().getString(R.string.profile_fragment_name));
+                }
             }
         });
         vm.getTitleOfTopBar().observe(this, s -> topAppBar.setTitle(s));
@@ -168,14 +164,5 @@ public class MainActivity extends AppCompatActivity {
 //        bottomNavigationView.setSelectedItemId(R.id.home_page);
 //        bottomNavigationView.performClick();
         //   todo bottomNavigationView.show???
-    }
-
-    @Override
-    protected void onDestroy() {
-        try {
-            super.onDestroy();
-        } catch (Exception e) {
-            Log.e("DEBUG", "HELP!!!");
-        }
     }
 }

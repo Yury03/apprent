@@ -9,9 +9,13 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.apprent.R;
 import com.example.apprent.ui.main_activity.MainActivityVM;
+import com.example.apprent.ui.profile_page.adapters.ProfilePagerAdapter;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 
 public class ProfileFragment extends Fragment {
@@ -26,6 +30,15 @@ public class ProfileFragment extends Fragment {
 //            mainActivityVM.getNavController().navigate(R.id.authenticationFragment, getArguments());
 //            mainActivityVM.getSharedPreferences().edit().putBoolean(getResources().getString(R.string.saved_log_in_key), false).apply();
 //        });
+        TabLayout tabLayout = view.findViewById(R.id.profile_tab_layout);
+        ViewPager2 viewPager2 = view.findViewById(R.id.profile_view_pager);
+        ProfilePagerAdapter profilePagerAdapter = new ProfilePagerAdapter(this);
+        viewPager2.setAdapter(profilePagerAdapter);
+        new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
+            if (position == 0) {
+                tab.setText("Аккаунт");
+            }
+        }).attach();
     }
 
     @Override

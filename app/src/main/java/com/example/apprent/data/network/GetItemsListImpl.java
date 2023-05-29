@@ -1,5 +1,6 @@
 package com.example.apprent.data.network;
 
+import android.net.Uri;
 import android.util.ArrayMap;
 import android.util.Log;
 
@@ -7,11 +8,14 @@ import com.example.apprent.domain.MainContract;
 import com.example.apprent.domain.models.CategoryItem;
 import com.example.apprent.domain.models.ProductItem;
 import com.example.apprent.domain.usecase.CategoryListCallback;
+import com.example.apprent.domain.usecase.LinksCallback;
 import com.example.apprent.domain.usecase.ProductListCallback;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -19,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class GetItemsListImpl implements MainContract.GetItemsListData {
+public class GetItemsListImpl implements MainContract.GetListData {
     private String pathStringForStorage = "";
     private final String pathStringForDB = "/aura";
     private String name;
@@ -71,10 +75,14 @@ public class GetItemsListImpl implements MainContract.GetItemsListData {
 
     @Override
     public void getProductsList(ProductListCallback callback, String category) {
+        Log.w(TAG, pathStringForDB);
+        Log.w(TAG, pathStringForStorage);
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference().child(pathStringForStorage + category);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference databaseRef = database.getReference(pathStringForDB);
+
+        Log.i(TAG, pathStringForDB);
         storageRef.listAll().addOnSuccessListener(listResult -> {
             List<Task<ProductItem>> tasks = new ArrayList<>();
             Map<String, List<String>> directoryMap = new ArrayMap<>();
@@ -115,7 +123,7 @@ public class GetItemsListImpl implements MainContract.GetItemsListData {
                         productImage.getDownloadUrl().addOnSuccessListener(uri -> currentImagesPath.add(uri.toString()));//todo выше есть проверка
                     }
                 });
-            }//TODO что тут с потоками?
+            }
             Tasks.whenAllSuccess(tasks).addOnSuccessListener(results -> {
                 List<ProductItem> productItemList = new ArrayList<>();
                 for (Object obj : results) {
@@ -127,6 +135,7 @@ public class GetItemsListImpl implements MainContract.GetItemsListData {
                         productItemList.add((ProductItem) obj);
                     }
                 }
+                Log.w(TAG, productItemList.get(0).getName());
                 callback.onItemListLoaded(productItemList);
             });
         });
@@ -136,4 +145,24 @@ public class GetItemsListImpl implements MainContract.GetItemsListData {
     public void getSearchResults(ProductListCallback callback, String query, String path) {
         getProductsList(callback, "/category/subcategory_1/subcategory_2");
     }
+
+    @Override
+    public void getBannerImages(LinksCallback linksCallback) {
+        List<String> linksList = new ArrayList<>();
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference("/banners");
+        storageRef.listAll().addOnSuccessListener(listResult -> {
+//            for (StorageReference file : listResult.getItems()) {
+//                if (file.getName().endsWith(".png") || file.getName().endsWith(".jpeg") || file.getName().endsWith(".jpg")) {
+//                    file.getDownloadUrl().addOnSuccessListener(uri -> linksList.add(uri.toString()));
+//                } else {
+//                    Log.e(TAG, file.getPath());
+//                }
+//
+//            }
+
+            linksCallback.onLinksLoaded(linksList);
+        });
+    }
+
 }

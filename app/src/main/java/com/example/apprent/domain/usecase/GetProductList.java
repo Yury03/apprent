@@ -3,9 +3,9 @@ package com.example.apprent.domain.usecase;
 import com.example.apprent.domain.MainContract;
 
 public class GetProductList {
-    private final MainContract.GetItemsListData getItemsListData;
+    private final MainContract.GetListData getItemsListData;
 
-    public GetProductList(MainContract.GetItemsListData getItemsListData) {
+    public GetProductList(MainContract.GetListData getItemsListData) {
         this.getItemsListData = getItemsListData;
     }
 
