@@ -5,5 +5,11 @@
         <item name="colorButtonNormal">#0BC965</item>
         <item name="colorControlHighlight">#0BC965</item>
     </style>
+    <style name="RoundedDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@drawable/dialog_rounded_background</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
 
 </resources>

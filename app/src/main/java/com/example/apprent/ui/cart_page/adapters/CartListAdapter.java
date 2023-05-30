@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.ChangeBounds;
 import androidx.transition.Transition;
@@ -22,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.apprent.R;
 import com.example.apprent.data.cart_database.entity.CartProductEntity;
+import com.example.apprent.ui.call_dialog.CallDialogFragment;
 import com.example.apprent.ui.cart_page.CartFragmentVM;
 
 import java.text.SimpleDateFormat;
@@ -33,13 +36,15 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
 
     private List<CartProductEntity> cartProducts = new ArrayList<>();
     private final CartFragmentVM cartFragmentVM;
+    private final FragmentManager fragmentManager;
 
 
     private Context context;
 
-    public CartListAdapter(CartFragmentVM cartFragmentVM, Context context) {
+    public CartListAdapter(CartFragmentVM cartFragmentVM, Context context, FragmentManager fragmentManager) {
         this.cartFragmentVM = cartFragmentVM;
         this.context = context;
+        this.fragmentManager = fragmentManager;
     }
 
     public void setCartProducts(List<CartProductEntity> cartProducts) {
@@ -79,7 +84,15 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
 //            transitionItemToFragment(holder.itemView);
             cartFragmentVM.openFullItem(item, position);
         });
+        holder.phoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CallDialogFragment dialogFragment = new CallDialogFragment();
+                dialogFragment.show(fragmentManager, "dialog");
 
+
+            }
+        });
 
     }
 

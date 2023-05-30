@@ -1,6 +1,5 @@
 package com.example.apprent.data.network;
 
-import android.net.Uri;
 import android.util.ArrayMap;
 import android.util.Log;
 
@@ -10,12 +9,10 @@ import com.example.apprent.domain.models.ProductItem;
 import com.example.apprent.domain.usecase.CategoryListCallback;
 import com.example.apprent.domain.usecase.LinksCallback;
 import com.example.apprent.domain.usecase.ProductListCallback;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -148,21 +145,34 @@ public class GetItemsListImpl implements MainContract.GetListData {
 
     @Override
     public void getBannerImages(LinksCallback linksCallback) {
-        List<String> linksList = new ArrayList<>();
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference("/banners");
-        storageRef.listAll().addOnSuccessListener(listResult -> {
-//            for (StorageReference file : listResult.getItems()) {
-//                if (file.getName().endsWith(".png") || file.getName().endsWith(".jpeg") || file.getName().endsWith(".jpg")) {
-//                    file.getDownloadUrl().addOnSuccessListener(uri -> linksList.add(uri.toString()));
-//                } else {
-//                    Log.e(TAG, file.getPath());
-//                }
-//
-//            }
-
-            linksCallback.onLinksLoaded(linksList);
-        });
+        List<String> linksList = new ArrayList<>();
+        StorageReference storageRef = storage.getReference().child("/banners");
+        storageRef.listAll()
+                .onSuccessTask(listResult -> {
+                    List<StorageReference> items = listResult.getItems();
+                    List<Task<String>> downloadUrlTasks = new ArrayList<>();
+                    for (StorageReference item : items) {
+                        Log.e(TAG, item.getName());
+                        Task<String> downloadUrlTask = item.getDownloadUrl()
+                                .onSuccessTask(uri -> {
+                                    String imageUrl = uri.toString();
+                                    linksList.add(imageUrl);
+                                    return Tasks.forResult(imageUrl);
+                                })
+                                .addOnFailureListener(exception -> {
+                                    Log.e(TAG, exception.toString());
+                                });
+                        downloadUrlTasks.add(downloadUrlTask);
+                    }
+                    return Tasks.whenAll(downloadUrlTasks)
+                            .continueWith(task -> linksList);
+                })
+                .addOnSuccessListener(linksCallback::onLinksLoaded)
+                .addOnFailureListener(exception -> {
+                    Log.e(TAG, exception.toString());
+                });
     }
+
 
 }

@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,10 +52,11 @@ public class CartFragment extends Fragment {
         LinearLayout emptyCartLayer = view.findViewById(R.id.layer_empty_cart);
         vm.loadCartProductList(cartDatabase);
         vm.setMainActivity(mainActivityVM);
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         vm.getCartProductList().observe(getViewLifecycleOwner(), cartProductEntities -> {
             if (cartProductEntities.size() > 0) {
                 emptyCartLayer.setVisibility(View.GONE);
-                CartListAdapter adapter = new CartListAdapter(vm, getContext());
+                CartListAdapter adapter = new CartListAdapter(vm, getContext(),fragmentManager);
                 adapter.setCartProducts(cartProductEntities);
                 recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
                 recyclerView.setAdapter(adapter);

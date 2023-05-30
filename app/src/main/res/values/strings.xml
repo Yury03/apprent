@@ -7,7 +7,7 @@
     <string name="new_user">Новый пользователь?</string>
     <string name="sign_in">Авторизация</string>
     <string name="sign_up">Регистрация</string>
-    <string name="privacy_policy">Подтверждая регистрацию, Вы даете свое согласие на обработку персональных данных и соглашаетесь с <a href="https://msk.aura-rent.ru/privacy-policy/">политикой конфиденциальности</a>.</string>
+    <string name="privacy_policy_signup">Подтверждая регистрацию, Вы даете свое согласие на обработку персональных данных и соглашаетесь с <a href="https://msk.aura-rent.ru/privacy-policy/">политикой конфиденциальности</a>.</string>
     <string name="remember_me_checkbox">Запомнить меня</string>
     <string name="default_nick"><b>?</b></string>
     <string name="cart">Корзина</string>
@@ -54,7 +54,8 @@
     <string name="period_cart_item">Срок аренды:&#160;</string>
     <string name="full_cart_item_final_price">Итоговая цена:&#160;</string>
     <string name="remove_from_cart">Удалить из корзины</string>
-    <string name="request_a_call">Заказать сейчас</string>
+    <string name="request_now">Заказать сейчас</string>
+    <string name="request_a_call">Заказать звонок</string>
     <string name="cart_item">cart_anim</string>
     <string name="authentication_fragment_name" />
     <string name="profile_account">Аккаунт</string>
@@ -66,4 +67,9 @@
     <string name="pay_info">ОПЛАТА\nНАЛИЧНЫМИ И\nПО КАРТЕ</string>
     <string name="no_pledge">БЕЗ ЗАЛОГА.\nСОВСЕМ</string>
     <string name="extends_set">РАСШИРЕННЫЙ\nКОМПЛЕКТ К\nОБОРУДОВАНИЮ</string>
+    <string name="request_a_call2">Оставьте заявку и мы свяжемся с Вами\nв ближайшее время</string>
+    <string name="request_a_call_your_name">Введите имя</string>
+    <string name="request_a_call_your_phone">Введите телефон</string>
+    <string name="privacy_policy">Оставляя заявку, я даю свое согласие на обработку персональных данных и соглашаюсь с условиями и <a href="https://msk.aura-rent.ru/privacy-policy/">политикой конфиденциальности</a>.</string>
+
 </resources>
