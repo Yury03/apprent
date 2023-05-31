@@ -44,10 +44,10 @@
         android:inputType="textEmailAddress" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/logout_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#C3C3C3"
+        android:backgroundTint="#DDDDDD"
         android:text="Выйти из профиля"
         android:textColor="@color/red"
         android:textStyle="bold" />

@@ -1,5 +1,6 @@
 package com.example.apprent.ui.category_page;
 
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -120,8 +121,8 @@ public class CategoryFragmentVM extends ViewModel {
         this.fragmentPath = fragmentPath;
     }
 
-    public void reservation() {
-        mainActivityVM.reservation();
+    public void reservation(FragmentManager fragmentManager) {
+        mainActivityVM.reservation(fragmentManager);
     }
 
     public void selectDate(ProductItem productItem) {

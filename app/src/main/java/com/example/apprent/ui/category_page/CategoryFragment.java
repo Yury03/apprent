@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavBackStackEntry;
 import androidx.recyclerview.widget.RecyclerView;
@@ -73,7 +74,7 @@ public class CategoryFragment extends Fragment {
             vm.setAdapter(adapter);
         });
         vm.getProductItemArrayList().observe(getViewLifecycleOwner(), productItems -> {
-            ProductAdapter adapter = new ProductAdapter(productItems, getContext(), vm);
+            ProductAdapter adapter = new ProductAdapter(productItems, getContext(), vm, getChildFragmentManager());
             vm.setAdapter(adapter);
         });
         vm.getOpenProduct().observe(getViewLifecycleOwner(), productItem -> {
@@ -85,6 +86,7 @@ public class CategoryFragment extends Fragment {
         });
         mainActivityVM.getBackButtonState().observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean) {
+//                mainActivityVM.setTitleOfTopBar("");
                 mainActivityVM.setBackButtonState(false);
                 String fullPath = vm.getFragmentPath();
                 Log.e("MyApp", fullPath);
@@ -97,9 +99,10 @@ public class CategoryFragment extends Fragment {
         });
         mainActivityVM.getSearchResultsForCategoryFragment().observe(getViewLifecycleOwner(), productItems -> {
             Log.e("OkK","OkK");
-            ProductAdapter adapter = new ProductAdapter(productItems, getContext(), vm);
+            ProductAdapter adapter = new ProductAdapter(productItems, getContext(), vm, getChildFragmentManager());
             vm.setAdapter(adapter);
         });
+        vm.getTitle().observe(getViewLifecycleOwner(), s -> mainActivityVM.setTitleOfTopBar(s));
     }
 
     @Override

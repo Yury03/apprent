@@ -14,6 +14,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.apprent.R;
 import com.example.apprent.domain.models.ProductItem;
+import com.example.apprent.ui.call_dialog.CallDialogFragment;
 import com.example.apprent.ui.main_activity.MainActivityVM;
 import com.example.apprent.ui.common.adapters.ImagesPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -66,7 +67,8 @@ public class ProductFragment extends Fragment {
         });
         calendar.setOnClickListener(v -> mainActivityVM.selectDate(product));
         reservation.setOnClickListener(v -> {
-
+            CallDialogFragment dialogFragment = new CallDialogFragment();
+            dialogFragment.show(getChildFragmentManager(), "dialog");
         });
     }
 

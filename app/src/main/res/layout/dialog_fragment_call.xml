@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     app:cardBackgroundColor="#EAEAEA"
@@ -32,15 +33,16 @@
                 android:textStyle="bold" />
 
             <ImageButton
+                android:id="@+id/fragment_call_close"
                 android:background="@color/alpha_null"
                 android:foregroundGravity="right"
-                android:id="@+id/imageButton2"
-                android:layout_gravity="right|end"
+
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:minHeight="48dp"
                 android:minWidth="48dp"
-                app:srcCompat="@drawable/close" />
+                app:srcCompat="@drawable/close"
+                tools:ignore="ContentDescription" />
         </LinearLayout>
 
         <TextView

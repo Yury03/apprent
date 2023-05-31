@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -34,12 +35,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     private final List<ProductItem> itemArrayList;
     private final Context context;
     private final CategoryFragmentVM categoryFragmentVM;
+    private final FragmentManager fragmentManager;
 
-    public ProductAdapter(List<ProductItem> itemArrayList, Context context, CategoryFragmentVM categoryFragmentVM) {
+    public ProductAdapter(List<ProductItem> itemArrayList, Context context, CategoryFragmentVM categoryFragmentVM, FragmentManager fragmentManager) {
         this.itemArrayList = itemArrayList;
         this.context = context;
         this.categoryFragmentVM = categoryFragmentVM;
-
+        this.fragmentManager = fragmentManager;
     }
 
     private void goNext(ProductItem productItem) {
@@ -78,7 +80,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.productName.setText((itemArrayList.get(position)).getName());
         holder.productPrice.setText(((itemArrayList.get(position)).getMinPrice() + " руб/сутки"));//todo
         holder.itemView.setOnClickListener(v -> goNext(itemArrayList.get(position)));
-        holder.productReservation.setOnClickListener(v -> categoryFragmentVM.reservation());
+        holder.productReservation.setOnClickListener(v -> categoryFragmentVM.reservation(fragmentManager));
         holder.productSelectDate.setOnClickListener(v -> categoryFragmentVM.selectDate(itemArrayList.get(position)));
     }
 

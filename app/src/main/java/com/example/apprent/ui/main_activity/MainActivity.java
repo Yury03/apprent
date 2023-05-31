@@ -105,16 +105,17 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
+        setSupportActionBar(topAppBar);
         navController.addOnDestinationChangedListener((navController, navDestination, bundle) -> {
             Log.i(TAG, "nav controller listener!");
             if (navDestination.getId() == R.id.categoryFragment) {
-                setSupportActionBar(topAppBar);
                 topAppBar.getMenu().findItem(R.id.action_search).setVisible(true);
                 NavBackStackEntry backStackEntry = navController.getPreviousBackStackEntry();
                 if (backStackEntry != null) {
                     if (backStackEntry.getDestination().getId() != R.id.productFragment) {
                         vm.setTitleOfTopBar(getResources().getString(R.string.category_fragment_name));
                     }
+
                 }
             } else {
                 topAppBar.getMenu().findItem(R.id.action_search).setVisible(false);

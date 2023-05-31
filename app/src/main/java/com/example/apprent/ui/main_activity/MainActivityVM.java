@@ -26,6 +26,7 @@ import com.example.apprent.data.network.GetItemsListImpl;
 import com.example.apprent.domain.models.ProductItem;
 import com.example.apprent.domain.usecase.GetSearchResults;
 import com.example.apprent.domain.usecase.ProductListCallback;
+import com.example.apprent.ui.call_dialog.CallDialogFragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.datepicker.CalendarConstraints;
@@ -133,8 +134,9 @@ public class MainActivityVM extends ViewModel implements Serializable, Parcelabl
         this.appContext = appContext;
     }
 
-    public void reservation() {
-        //todo
+    public void reservation(FragmentManager fragmentManager) {
+        CallDialogFragment dialogFragment = new CallDialogFragment();
+        dialogFragment.show(fragmentManager, "dialog");
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
