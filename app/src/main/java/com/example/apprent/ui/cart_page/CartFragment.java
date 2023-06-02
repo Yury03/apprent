@@ -1,16 +1,15 @@
 package com.example.apprent.ui.cart_page;
 
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
@@ -22,9 +21,6 @@ import com.example.apprent.data.cart_database.CartDatabase;
 import com.example.apprent.ui.cart_page.adapters.CartListAdapter;
 import com.example.apprent.ui.main_activity.MainActivity;
 import com.example.apprent.ui.main_activity.MainActivityVM;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class CartFragment extends Fragment {
     private CartFragmentVM vm;
@@ -35,12 +31,17 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
+        int marginBottom = 50;
+        if (getArguments() != null) {
+            marginBottom = getArguments().getInt("marginBottom");
+        }
         vm = new ViewModelProvider(this).get(CartFragmentVM.class);
         mainActivityVM = ((MainActivity) getActivity()).getVM();//todo   | ? |
         cartDatabase = mainActivityVM.getCartDatabase();
         RecyclerView recyclerView = view.findViewById(R.id.product_list_cart);
         LinearLayout emptyCartLayer = view.findViewById(R.id.layer_empty_cart);
         LinearLayout orderingLayer = view.findViewById(R.id.ordering_layer);
+        ((FrameLayout.LayoutParams) view.getLayoutParams()).setMargins(0, 0, 0, marginBottom);
         ImageButton orderingButton = view.findViewById(R.id.go_to_ordering);
         TextView finalPrice = view.findViewById(R.id.final_price_ordering);
         vm.loadCartProductList(cartDatabase);

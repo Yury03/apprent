@@ -4,11 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.os.Build;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.util.Pair;
 import androidx.fragment.app.FragmentManager;
@@ -25,7 +22,6 @@ import com.example.apprent.data.cart_database.entity.CartProductEntity;
 import com.example.apprent.data.network.GetItemsListImpl;
 import com.example.apprent.domain.models.ProductItem;
 import com.example.apprent.domain.usecase.GetSearchResults;
-import com.example.apprent.domain.usecase.ProductListCallback;
 import com.example.apprent.ui.call_dialog.CallDialogFragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -33,7 +29,6 @@ import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -143,7 +138,7 @@ public class MainActivityVM extends ViewModel {
     public void selectDate(ProductItem productItem) {
         MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
         builder.setTheme(com.google.android.material.R.style.ThemeOverlay_MaterialComponents_MaterialCalendar);
-        builder.setTitleText("Выберите диапазон дат");
+        builder.setTitleText("Выберите диапазон дат");//todo
         CalendarConstraints.Builder calendarConstraintsBuilder = new CalendarConstraints.Builder();
         calendarConstraintsBuilder.setValidator(DateValidatorPointForward.now());
         calendarConstraintsBuilder.setEnd(System.currentTimeMillis() + 1000L * 60L * 60L * 24L * 365L * 10L);//todo?
