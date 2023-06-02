@@ -5,13 +5,13 @@
     android:viewportHeight="40">
     <group>
         <path
-            android:strokeColor="@color/for_icons"
+            android:strokeColor="@color/for_icons_top_appbar"
             android:strokeWidth="2"
             android:strokeLineCap="round"
             android:strokeLineJoin="round"
             android:pathData="M27 20H13"/>
         <path
-            android:strokeColor="@color/for_icons"
+            android:strokeColor="@color/for_icons_top_appbar"
             android:strokeWidth="2"
             android:strokeLineCap="round"
             android:strokeLineJoin="round"

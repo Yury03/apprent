@@ -10,7 +10,6 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavBackStackEntry;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +18,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.example.apprent.R;
 import com.example.apprent.ui.category_page.adapters.CategoryAdapter;
 import com.example.apprent.ui.category_page.adapters.ProductAdapter;
+import com.example.apprent.ui.main_activity.MainActivity;
 import com.example.apprent.ui.main_activity.MainActivityVM;
 
 public class CategoryFragment extends Fragment {
@@ -31,7 +31,6 @@ public class CategoryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        arguments = getArguments();
     }
 
 
@@ -46,10 +45,8 @@ public class CategoryFragment extends Fragment {
         recyclerView = view.findViewById(R.id.productList);//todo где выполнять поиск по id
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
-        mainActivityVM = (MainActivityVM) arguments.getSerializable("MainActivityVM");
-        if (mainActivityVM.getBottomNavigationView().getVisibility() == View.INVISIBLE) {
-            mainActivityVM.getBottomNavigationView().setVisibility(View.VISIBLE);
-        }
+        mainActivityVM = ((MainActivity) getActivity()).getVM();//todo   | ? |
+        arguments = getArguments();
         vm.setMainVM(mainActivityVM);
         vm.getShowProgressBar().observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean) {
@@ -65,6 +62,7 @@ public class CategoryFragment extends Fragment {
             if (backStackEntry.getDestination().getId() != R.id.productFragment) {
                 vm.getCategoryList(vm.getFragmentPath());
             } else {
+                mainActivityVM.getBottomNavigationView().setVisibility(View.VISIBLE);
                 vm.setPath(arguments.getString("FullPath"));
                 vm.getProductList(vm.getFragmentPath());
             }
@@ -80,7 +78,6 @@ public class CategoryFragment extends Fragment {
         vm.getOpenProduct().observe(getViewLifecycleOwner(), productItem -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable("openProduct", productItem);
-            bundle.putSerializable("MainActivityVM", mainActivityVM);
             bundle.putString("FullPath", vm.getFragmentPath());
             mainActivityVM.getNavController().navigate(R.id.productFragment, bundle);
         });
@@ -98,7 +95,7 @@ public class CategoryFragment extends Fragment {
             recyclerView.setAdapter(adapter);//todo skeleton
         });
         mainActivityVM.getSearchResultsForCategoryFragment().observe(getViewLifecycleOwner(), productItems -> {
-            Log.e("OkK","OkK");
+            Log.e("OkK", "OkK");
             ProductAdapter adapter = new ProductAdapter(productItems, getContext(), vm, getChildFragmentManager());
             vm.setAdapter(adapter);
         });

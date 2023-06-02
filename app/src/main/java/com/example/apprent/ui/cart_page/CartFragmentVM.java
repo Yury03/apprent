@@ -21,13 +21,27 @@ public class CartFragmentVM extends ViewModel implements Serializable {
     private MutableLiveData<List<CartProductEntity>> cartProductList = new MutableLiveData<>();
     private MainActivityVM mainActivityVM;
 
+    public LiveData<String> getFinalPrice() {
+        return finalPrice;
+    }
+
+
+    private MutableLiveData<String> finalPrice = new MutableLiveData<>();
+
     public CartFragmentVM() {
     }
 
     public void loadCartProductList(CartDatabase cartDatabase) {
         Executors.newSingleThreadExecutor().execute(() -> {
             List<CartProductEntity> cartProductEntityList = cartDatabase.cartDao().getAllCartProducts();
+            double price = 0;
+            for (CartProductEntity product :
+                    cartProductEntityList) {
+                price += product.getFinalPrice();
+            }
+            finalPrice.postValue(String.valueOf(price));
             cartProductList.postValue(cartProductEntityList);
+
         });
     }
 
@@ -52,7 +66,6 @@ public class CartFragmentVM extends ViewModel implements Serializable {
         bundle.putSerializable("entity", item);
         bundle.putSerializable("CartFragmentVM", this);
         bundle.putInt("index", index);
-        bundle.putSerializable("MainActivityVM", mainActivityVM);
         mainActivityVM.getNavController().navigate(R.id.action_cartFragment_to_cartListFullItem, bundle);
         mainActivityVM.setTitleOfTopBar("Детали");
         mainActivityVM.getBottomNavigationView().setVisibility(View.GONE);

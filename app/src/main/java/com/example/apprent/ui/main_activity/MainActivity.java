@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavBackStackEntry;
@@ -18,7 +20,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.apprent.R;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,7 +31,9 @@ public class MainActivity extends AppCompatActivity {
     private final String TAG = "Debug: MainActivity";
     private NavController navController;
     private BottomNavigationView bottomNavigationView;
+    private SharedPreferences sp;
     private MaterialToolbar topAppBar;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -55,17 +61,24 @@ public class MainActivity extends AppCompatActivity {
                 searchEditText.setHintTextColor(ContextCompat.getColor(getApplicationContext(), R.color.lightGray));
             }
         });
+        searchView.setVisibility(View.INVISIBLE);
         return true;
+    }
+
+    public MainActivityVM getVM() {
+        if (this.vm == null) vm = new ViewModelProvider(this).get(MainActivityVM.class);
+        return this.vm;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SharedPreferences sp = getSharedPreferences(MainActivityVM.APP_PREFERENCES, Context.MODE_PRIVATE);
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
         topAppBar = findViewById(R.id.topAppBar);
-        vm = new ViewModelProvider(this).get(MainActivityVM.class);
+        sp = getSharedPreferences(MainActivityVM.APP_PREFERENCES, Context.MODE_PRIVATE);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        setSupportActionBar(topAppBar);
+        vm = this.getVM();
         vm.setAppContext(getApplicationContext());
         vm.setSharedPreferences(sp);
         vm.setMaterialToolbar(topAppBar);
@@ -75,49 +88,43 @@ public class MainActivity extends AppCompatActivity {
         vm.setNavController(navController);
         vm.setSupportFragmentManager(getSupportFragmentManager());
         vm.setBottomNavigationView(bottomNavigationView);
-
-        Bundle mainViewModelBundle = new Bundle();
-        mainViewModelBundle.putSerializable("MainActivityVM", vm);
-        boolean isLogIn = sp.getBoolean(getResources().getString(R.string.saved_log_in_key), false);
-        if (isLogIn) {
-            navController.navigate(R.id.mainFragment, mainViewModelBundle);
-        } else {
-            navController.navigate(R.id.authenticationFragment, mainViewModelBundle);
-        }
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Log.d("profile", item.toString());
             int id = bottomNavigationView.getSelectedItemId();
             if (item.getItemId() != id) {
                 int itemId = item.getItemId();
                 if (itemId == R.id.cart_page) {
-                    navController.navigate(R.id.cartFragment, mainViewModelBundle);
+                    navController.navigate(R.id.cartFragment);
                     return true;
                 } else if (itemId == R.id.home_page) {
-                    navController.navigate(R.id.mainFragment, mainViewModelBundle);
+                    navController.navigate(R.id.mainFragment);
                     return true;
                 } else if (itemId == R.id.profile_page) {
-                    navController.navigate(R.id.profileFragment, mainViewModelBundle);
+                    navController.navigate(R.id.profileFragment);
                     return true;
                 } else if (itemId == R.id.category_page) {
-                    navController.navigate(R.id.categoryFragment, mainViewModelBundle);
+                    navController.navigate(R.id.categoryFragment);
                     return true;
                 }
             }
             return false;
         });
-        setSupportActionBar(topAppBar);
+
         navController.addOnDestinationChangedListener((navController, navDestination, bundle) -> {
             Log.i(TAG, "nav controller listener!");
+            HideBottomViewOnScrollBehavior hideBottomViewOnScrollBehavior = new HideBottomViewOnScrollBehavior();
+            CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) bottomNavigationView.getLayoutParams();
             if (navDestination.getId() == R.id.categoryFragment) {
+                layoutParams.setBehavior(hideBottomViewOnScrollBehavior);
                 topAppBar.getMenu().findItem(R.id.action_search).setVisible(true);
                 NavBackStackEntry backStackEntry = navController.getPreviousBackStackEntry();
                 if (backStackEntry != null) {
                     if (backStackEntry.getDestination().getId() != R.id.productFragment) {
                         vm.setTitleOfTopBar(getResources().getString(R.string.category_fragment_name));
                     }
-
                 }
             } else {
+                layoutParams.setBehavior(new AppBarLayout.ScrollingViewBehavior());
                 topAppBar.getMenu().findItem(R.id.action_search).setVisible(false);
                 topAppBar.getMenu().findItem(R.id.action_search).collapseActionView();
                 if (navDestination.getId() == R.id.cartFragment) {
@@ -142,6 +149,14 @@ public class MainActivity extends AppCompatActivity {
         topAppBar.setNavigationOnClickListener(v -> {
             vm.setBackButtonState(true);
         });
+        //todo -----------------------------------------------------
+        boolean isLogIn = sp.getBoolean(getResources().getString(R.string.saved_log_in_key), false);
+        if (!isLogIn) {
+            navController.navigate(R.id.authenticationFragment);
+        } else {
+            topAppBar.getMenu().findItem(R.id.action_search).setVisible(false);
+        }
+        //todo -----------------------------------------------------
     }
 
     @Override
@@ -156,6 +171,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         vm.createDatabase(getApplicationContext());
+    }
+
+    public MaterialToolbar getTopAppBar() {
+        return topAppBar;
     }
 
     @Override

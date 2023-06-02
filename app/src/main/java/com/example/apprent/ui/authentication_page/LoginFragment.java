@@ -2,7 +2,6 @@ package com.example.apprent.ui.authentication_page;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.apprent.R;
 import com.example.apprent.domain.models.AuraUser;
 import com.example.apprent.ui.authentication_page.adapters.LoginPagerAdapter;
+import com.example.apprent.ui.main_activity.MainActivity;
 import com.example.apprent.ui.main_activity.MainActivityVM;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -27,20 +27,14 @@ public class LoginFragment extends Fragment {
     private LoginFragmentVM vm;
     private MainActivityVM mainActivityVM;
     private static final String Tag = "apprent: LoginFragment";
-    private Bundle arguments;
 
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         vm = new ViewModelProvider(this).get(LoginFragmentVM.class);
-        arguments = getArguments();
-        if (arguments != null) {
-            mainActivityVM = (MainActivityVM) arguments.getSerializable("MainActivityVM");
-            mainActivityVM.getBottomNavigationView().setVisibility(View.GONE);
-        } else {
-            Log.e(Tag, "arguments is null");
-        }
+        mainActivityVM = ((MainActivity) getActivity()).getVM();//todo   | ? |
+        mainActivityVM.getBottomNavigationView().setVisibility(View.INVISIBLE);
         sharedPreferences = mainActivityVM.getSharedPreferences();
         TabLayout tabLayout = view.findViewById(R.id.tab_buttons_authentication);
         ViewPager2 loginPager = view.findViewById(R.id.view_pager);
@@ -58,9 +52,8 @@ public class LoginFragment extends Fragment {
                 case AuraUser.SIGN_IN:
                 case AuraUser.SIGN_UP:
                     sharedPreferences.edit().putBoolean(getResources().getString(R.string.saved_log_in_key), true).apply();
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("MainActivityVM", mainActivityVM);
-                    mainActivityVM.getNavController().navigate(R.id.mainFragment, bundle);
+                    mainActivityVM.getNavController().navigate(R.id.mainFragment);
+                    mainActivityVM.getBottomNavigationView().setSelectedItemId(R.id.home_page);
                     break;
                 case AuraUser.RESTORE_ACCESS:
                     Toast.makeText(getContext(), "Ссылка на восстановление была отправлена на почту", Toast.LENGTH_LONG).show();

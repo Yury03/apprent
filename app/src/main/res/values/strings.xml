@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">apprent</string>
+    <string name="app_name">Rent</string>
     <string name="enter_email">E-mail</string>
     <string name="enter_password">Пароль</string>
     <string name="repeat_password">Повторите пароль</string>
@@ -43,7 +43,7 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome!"</string>
     <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="invalid_password">Пароль должен быть больше 5 символов</string>
     <string name="login_failed">"Login failed"</string>
     <string name="invalid_email">Ошибка при вводе почты</string>
     <string name="pass1_is_not_equal_pass2">Пароли не совпадают</string>
@@ -71,5 +71,6 @@
     <string name="request_a_call_your_name">Введите имя</string>
     <string name="request_a_call_your_phone">Введите телефон</string>
     <string name="privacy_policy">Оставляя заявку, я даю свое согласие на обработку персональных данных и соглашаюсь с условиями и <a href="https://msk.aura-rent.ru/privacy-policy/">политикой конфиденциальности</a>.</string>
-
+    <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="hide_bottom_view_on_scroll_behavior" translatable="false">com.google.android.material.behavior.HideBottomViewOnScrollBehavior</string>
 </resources>

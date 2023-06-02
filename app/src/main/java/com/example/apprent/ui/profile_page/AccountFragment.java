@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.apprent.R;
+import com.example.apprent.ui.main_activity.MainActivity;
 import com.example.apprent.ui.main_activity.MainActivityVM;
 import com.example.apprent.ui.profile_page.adapters.ProfilePagerAdapter;
 import com.google.android.material.tabs.TabLayout;
@@ -26,8 +27,8 @@ public class AccountFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Button logoutButton = view.findViewById(R.id.logout_button);
         logoutButton.setOnClickListener(v -> {
-            MainActivityVM mainActivityVM = (MainActivityVM) getArguments().getSerializable("MainActivityVM");
-            mainActivityVM.getNavController().navigate(R.id.authenticationFragment, getArguments());
+            MainActivityVM mainActivityVM = ((MainActivity) getActivity()).getVM();//todo   | ? |
+            mainActivityVM.getNavController().navigate(R.id.authenticationFragment);
             mainActivityVM.getSharedPreferences().edit().putBoolean(getResources().getString(R.string.saved_log_in_key), false).apply();
         });
     }

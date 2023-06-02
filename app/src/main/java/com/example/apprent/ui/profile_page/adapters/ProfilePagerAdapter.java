@@ -9,11 +9,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.example.apprent.ui.profile_page.AccountFragment;
 
 public class ProfilePagerAdapter extends FragmentStateAdapter {
-    private final Bundle bundle;
 
-    public ProfilePagerAdapter(@NonNull Fragment fragment, Bundle bundle) {
+    public ProfilePagerAdapter(@NonNull Fragment fragment) {
         super(fragment);
-        this.bundle = bundle;
     }
 
     @NonNull
@@ -21,7 +19,7 @@ public class ProfilePagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         Fragment result;
         result = new AccountFragment();
-        if (position == 0) result.setArguments(bundle);
+
         return result;
     }
 

@@ -39,7 +39,7 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class MainActivityVM extends ViewModel implements Serializable, Parcelable {
+public class MainActivityVM extends ViewModel {
     private final MutableLiveData<Integer> fragmentID = new MutableLiveData<>(R.id.home_page);
     private final MutableLiveData<Boolean> backButtonState = new MutableLiveData<>(false);
 
@@ -221,13 +221,4 @@ public class MainActivityVM extends ViewModel implements Serializable, Parcelabl
         getSearchResults.execute(searchResultsForCategoryFragment::postValue, query, this.pathForCategoryFragment);
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeString(pathForCategoryFragment);
-    }
 }

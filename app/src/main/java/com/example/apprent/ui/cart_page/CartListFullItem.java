@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.apprent.R;
 import com.example.apprent.data.cart_database.entity.CartProductEntity;
+import com.example.apprent.ui.main_activity.MainActivity;
 import com.example.apprent.ui.main_activity.MainActivityVM;
 
 import java.text.SimpleDateFormat;
@@ -88,12 +89,12 @@ public class CartListFullItem extends Fragment {
         if (args != null) {
             cartProduct = (CartProductEntity) args.getSerializable("entity");
             cartFragmentVM = (CartFragmentVM) args.getSerializable("CartFragmentVM");
-            mainActivityVM = (MainActivityVM) args.getSerializable("MainActivityVM");
             index = args.getInt("index", -1);
             if (cartProduct == null || cartFragmentVM == null || index == -1)
                 Log.e("MyApp", "Arg is NULL [CartFragment->CartListFullItem]");
 
         }
+        mainActivityVM = ((MainActivity) getActivity()).getVM();
         this.mainView = view;
         TextView productName = view.findViewById(R.id.cart_full_item_name);
         ImageView productImage = view.findViewById(R.id.cart_full_item_product_image);

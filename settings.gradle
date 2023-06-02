@@ -13,5 +13,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "apprent"
+rootProject.name = "Rent"
 include ':app'

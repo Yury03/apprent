@@ -15,8 +15,9 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.apprent.R;
 import com.example.apprent.domain.models.ProductItem;
 import com.example.apprent.ui.call_dialog.CallDialogFragment;
-import com.example.apprent.ui.main_activity.MainActivityVM;
 import com.example.apprent.ui.common.adapters.ImagesPagerAdapter;
+import com.example.apprent.ui.main_activity.MainActivity;
+import com.example.apprent.ui.main_activity.MainActivityVM;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -47,12 +48,12 @@ public class ProductFragment extends Fragment {
         TextView name = view.findViewById(R.id.product_name_fragment);
         TextView description = view.findViewById(R.id.product_description_fragment);
         product = (ProductItem) getArguments().getSerializable("openProduct"); //todo
-        mainActivityVM = (MainActivityVM) getArguments().getSerializable("MainActivityVM");
+        mainActivityVM = ((MainActivity) getActivity()).getVM();
         List<String> imagesList = product.getImagesPath();
         ImagesPagerAdapter imagesPagerAdapter = new ImagesPagerAdapter(this, imagesList);
         imagesPager.setAdapter(imagesPagerAdapter);
         vm.loadImages(imagesList);
-        price.setText(product.getMinPrice()+" руб/сутки");
+        price.setText(product.getMinPrice() + " руб/сутки");
         name.setText(product.getName());
         description.setText(product.getDescription());
         mainActivityVM.getBottomNavigationView().setVisibility(BottomNavigationView.INVISIBLE);
@@ -60,7 +61,6 @@ public class ProductFragment extends Fragment {
             if (aBoolean) {
                 mainActivityVM.setBackButtonState(false);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("MainActivityVM", getArguments().getSerializable("MainActivityVM"));
                 bundle.putString("FullPath", getArguments().getString("FullPath"));
                 mainActivityVM.getNavController().navigate(R.id.categoryFragment, bundle);
             }

@@ -22,10 +22,9 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Bundle args = getArguments();
         TabLayout tabLayout = view.findViewById(R.id.profile_tab_layout);
         ViewPager2 viewPager2 = view.findViewById(R.id.profile_view_pager);
-        ProfilePagerAdapter profilePagerAdapter = new ProfilePagerAdapter(this, args);
+        ProfilePagerAdapter profilePagerAdapter = new ProfilePagerAdapter(this);
         viewPager2.setAdapter(profilePagerAdapter);
         new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
             if (position == 0) {
