@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.ordering.ShippingFragment">
+    <!--todo проверить весь файл-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:boxBackgroundColor="@color/alpha_null"
+            app:boxStrokeColor="@color/main">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/user_name_ordering"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/name" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:boxBackgroundColor="@color/alpha_null"
+            app:boxStrokeColor="@color/main">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/user_second_name_ordering"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/second_name" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxBackgroundColor="@color/alpha_null"
+        app:boxStrokeColor="@color/main">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/delivery_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/default_delivery_address" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:boxBackgroundColor="@color/alpha_null"
+            app:boxStrokeColor="@color/main">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/user_phone_ordering"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/second_name" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+</LinearLayout>

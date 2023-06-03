@@ -1,27 +1,39 @@
 package com.example.apprent.domain.models;
 
 public class AuraUser {
-    public static final int SIGN_IN_ERROR = -1;
-    public static final int SIGN_IN = 1;
-    public static final int SIGN_UP_ERROR = -2;
-    public static final int SIGN_UP = 2;
-    public static final int RESTORE_ACCESS_ERROR = -3;
-    public static final int RESTORE_ACCESS = 3;
+
+    public enum State {
+        INIT(0),
+        SIGN_IN(1),
+        SIGN_IN_ERROR(-1),
+        SIGN_UP(2),
+        SIGN_UP_ERROR(-2),
+        RESTORE_ACCESS(3),
+        RESTORE_ACCESS_ERROR(-3),
+        ;
+
+        public final int stateId;
+
+        State(int stateId) {
+            this.stateId = stateId;
+        }
+    }
+
     private final String login;//email or phone number
     private final String password;
 
-    private int state = 0;
+    private State state = State.INIT;
 
     public AuraUser(String login, String password) {
         this.login = login;
         this.password = password;
     }
 
-    public int getState() {
+    public State getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(State state) {
         this.state = state;
     }
 

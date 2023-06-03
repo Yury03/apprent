@@ -37,7 +37,7 @@ public class ImageFragmentForViewPager extends Fragment {
     public void setImage(ImageView imageView) {
         Glide.with(getContext())
                 .load(link)
-                .override(700, 700)
+//                .override(700, 700)
                 .fitCenter()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
 //                .placeholder(R.drawable.skeleton)//todo присоединить либу для скелетонов

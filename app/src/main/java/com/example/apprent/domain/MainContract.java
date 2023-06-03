@@ -24,9 +24,9 @@ public interface MainContract {
     interface Authentication {
         void restoreAccess(AuthenticationCallback.restoreAccessCallback callback, AuraUser user);
 
-        void signIn(AuthenticationCallback.signInCallback callback, AuraUser user);
+        void signIn(AuthenticationCallback.signInCallback callback, String login, String password);
 
-        void signUp(AuthenticationCallback.signUpCallback callback, AuraUser user);
+        void signUp(AuthenticationCallback.signUpCallback callback, String login, String password);
 
     }
 }

@@ -5,15 +5,15 @@ import com.example.apprent.domain.models.AuraUser;
 
 public interface AuthenticationCallback {
     interface signInCallback {
-        void isAuthorized(AuraUser user);
+        void isAuthorized(AuraUser.State state);
 
-        void isNotAuthorized(Exception e);
+        void isNotAuthorized(Exception e, AuraUser.State state);
     }
 
     interface signUpCallback {
-        void accountIsCreated(AuraUser user);
+        void accountIsCreated(AuraUser.State state);
 
-        void accountIsNotCreated(Exception e);
+        void accountIsNotCreated(Exception e, AuraUser.State state);
     }
 
     interface restoreAccessCallback {

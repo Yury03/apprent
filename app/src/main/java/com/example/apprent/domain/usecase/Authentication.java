@@ -13,11 +13,11 @@ public class Authentication {
     }
 
     public void signIn(AuthenticationCallback.signInCallback callback, AuraUser user) {
-        authenticationRepository.signIn(callback, user);
+        authenticationRepository.signIn(callback, user.getLogin(), user.getPassword());
     }
 
     public void signUp(AuthenticationCallback.signUpCallback callback, AuraUser user) {
-        authenticationRepository.signUp(callback, user);
+        authenticationRepository.signUp(callback, user.getLogin(), user.getPassword());
     }
 
     public void restoreAccess(AuthenticationCallback.restoreAccessCallback callback, AuraUser user) {

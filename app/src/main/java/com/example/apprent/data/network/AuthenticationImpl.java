@@ -32,51 +32,43 @@ public class AuthenticationImpl implements MainContract.Authentication {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Log.d(TAG, "Email sent.");
-                        user.setState(AuraUser.RESTORE_ACCESS);
+                        user.setState(AuraUser.State.RESTORE_ACCESS);
                         callback.letterWasSent(user);
                     } else {
-                        user.setState(AuraUser.RESTORE_ACCESS_ERROR);
+                        user.setState(AuraUser.State.RESTORE_ACCESS_ERROR);
                         callback.letterWasNotSent(task.getException());
                     }
                 });
     }
 
     @Override
-    public void signIn(AuthenticationCallback.signInCallback callback, AuraUser auraUser) {
-        String email = auraUser.getLogin();
-        String password = auraUser.getPassword();
-        firebaseAuth.signInWithEmailAndPassword(email, password)
+    public void signIn(AuthenticationCallback.signInCallback callback, String login, String password) {
+        firebaseAuth.signInWithEmailAndPassword(login, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                         if (firebaseUser != null) {
                             @SuppressLint("RestrictedApi") User user = new User(firebaseUser.getUid());//todo
                         }
-                        auraUser.setState(AuraUser.SIGN_IN);
                         //todo user->auraUser
-                        callback.isAuthorized(auraUser);
+                        callback.isAuthorized(AuraUser.State.SIGN_IN);
                     } else {
-                        auraUser.setState(AuraUser.SIGN_IN_ERROR);
-                        callback.isNotAuthorized(task.getException());
+                        callback.isNotAuthorized(task.getException(), AuraUser.State.SIGN_IN_ERROR);
                     }
                 });
     }
 
 
     @Override
-    public void signUp(AuthenticationCallback.signUpCallback callback, AuraUser auraUser) {
-        String email = auraUser.getLogin();
-        String password = auraUser.getPassword();
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
+    public void signUp(AuthenticationCallback.signUpCallback callback, String login, String password) {
+        firebaseAuth.createUserWithEmailAndPassword(login, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Log.d(TAG, "createUserWithEmail:success");
-                        auraUser.setState(AuraUser.SIGN_UP);
-                        callback.accountIsCreated(auraUser);
+                        callback.accountIsCreated(AuraUser.State.SIGN_UP);
                     } else {
-                        auraUser.setState(AuraUser.SIGN_UP_ERROR);
                         Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                        callback.accountIsNotCreated(task.getException());
+                        callback.accountIsNotCreated(task.getException(), AuraUser.State.SIGN_UP_ERROR);
                     }
                 });
     }

@@ -6,12 +6,12 @@
     app:startDestination="@id/mainFragment">
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.apprent.ui.main_page.MainFragment"
+        android:name="com.example.apprent.ui.home.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.example.apprent.ui.cart_page.CartFragment"
+        android:name="com.example.apprent.ui.cart.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart">
         <action
@@ -20,12 +20,12 @@
     </fragment>
     <fragment
         android:id="@+id/authenticationFragment"
-        android:name="com.example.apprent.ui.authentication_page.LoginFragment"
+        android:name="com.example.apprent.ui.authentication.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.example.apprent.ui.category_page.CategoryFragment"
+        android:name="com.example.apprent.ui.catalog.CategoryFragment"
         android:label="fragment_category"
         tools:layout="@layout/fragment_category">
         <action
@@ -34,16 +34,16 @@
     </fragment>
     <fragment
         android:id="@+id/productFragment"
-        android:name="com.example.apprent.ui.product_page.ProductFragment"
+        android:name="com.example.apprent.ui.product.ProductFragment"
         android:label="ProductFragment"
         tools:layout="@layout/fragment_product" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.apprent.ui.profile_page.ProfileFragment"
+        android:name="com.example.apprent.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/cartListFullItem"
-        android:name="com.example.apprent.ui.cart_page.CartListFullItem"
+        android:name="com.example.apprent.ui.cart.CartListFullItem"
         android:label="CartListFullItem" />
 </navigation>

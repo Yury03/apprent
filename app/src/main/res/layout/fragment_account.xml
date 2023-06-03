@@ -9,7 +9,7 @@
     android:padding="4dp"
     android:paddingStart="6dp"
     android:paddingEnd="6dp"
-    tools:context=".ui.profile_page.AccountFragment">
+    tools:context=".ui.profile.AccountFragment">
 
     <TextView
         android:id="@+id/textView2"

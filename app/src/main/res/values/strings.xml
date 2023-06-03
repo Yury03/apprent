@@ -73,4 +73,7 @@
     <string name="privacy_policy">Оставляя заявку, я даю свое согласие на обработку персональных данных и соглашаюсь с условиями и <a href="https://msk.aura-rent.ru/privacy-policy/">политикой конфиденциальности</a>.</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
     <string name="hide_bottom_view_on_scroll_behavior" translatable="false">com.google.android.material.behavior.HideBottomViewOnScrollBehavior</string>
+    <string name="name">Имя</string>
+    <string name="second_name">Фамилия</string>
+    <string name="default_delivery_address">Адрес</string>
 </resources>

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.category_page.CategoryFragment">
+    tools:context=".ui.catalog.CategoryFragment">
     <!--todo почистить код в этом файле-->
 
     <ProgressBar

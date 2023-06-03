@@ -3,14 +3,18 @@ package com.example.apprent.data.network;
 import android.util.ArrayMap;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.example.apprent.domain.MainContract;
 import com.example.apprent.domain.models.CategoryItem;
 import com.example.apprent.domain.models.ProductItem;
 import com.example.apprent.domain.usecase.CategoryListCallback;
 import com.example.apprent.domain.usecase.LinksCallback;
 import com.example.apprent.domain.usecase.ProductListCallback;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -21,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 public class GetItemsListImpl implements MainContract.GetListData {
-    private String pathStringForStorage = "";
+    private String PATH_STRING_FOR_STORAGE = "";
     private final String pathStringForDB = "/aura";
     private String name;
     private String description;//todo где объявлять
@@ -32,50 +36,61 @@ public class GetItemsListImpl implements MainContract.GetListData {
     @Override
     public void getCategoryList(CategoryListCallback callback) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference().child(pathStringForStorage);
-        pathStringForStorage = "";//todo
+        StorageReference storageRef = storage.getReference().child(PATH_STRING_FOR_STORAGE);
+        PATH_STRING_FOR_STORAGE = "";//todo
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference databaseRef = database.getReference(pathStringForDB);
         storageRef.listAll().addOnSuccessListener(listResult -> {
             List<Task<CategoryItem>> tasks = new ArrayList<>();
             for (StorageReference file : listResult.getItems()) {
-                if (file.getName().endsWith(".png") || file.getName().endsWith(".jpeg") || file.getName().endsWith(".jpg")) {
+                String fileName = file.getName();
+                if (fileName.endsWith(".png") || fileName.endsWith(".jpeg") || fileName.endsWith(".jpg")) {
                     tasks.add(file.getDownloadUrl().continueWithTask(task -> {
                         String imageUrl = String.valueOf(task.getResult());
                         String temp = file.getPath().substring(0, file.getPath().lastIndexOf('.'));
-                        return databaseRef.child(temp).get().addOnSuccessListener(dataSnapshot -> {
+                        OnSuccessListener<DataSnapshot> dataSnapshotOnSuccessListener = dataSnapshot -> {
                             name = dataSnapshot.child("name").getValue(String.class);
                             hasChild = dataSnapshot.child("hasChild").getValue(Boolean.class);
-                        }).continueWith(task1 -> new CategoryItem(imageUrl, name, temp.substring(temp.lastIndexOf('/')), hasChild)).addOnFailureListener(e -> {
+                        };
+                        return databaseRef.child(temp).get().addOnSuccessListener(dataSnapshotOnSuccessListener).continueWith(task1 -> new CategoryItem(imageUrl, name, temp.substring(temp.lastIndexOf('/')), hasChild)).addOnFailureListener(e -> {
                         });
                     }));
                 } else {
                     Log.e(TAG, file.getPath());
                 }
             }
-            Tasks.whenAllSuccess(tasks).addOnSuccessListener(results -> {
-                List<CategoryItem> categoryItemList = new ArrayList<>();
-                for (Object obj : results) {
+            getListTask(callback, tasks);
+        });
+    }
+
+    @NonNull
+    private static Task<List<Object>> getListTask(CategoryListCallback callback, List<Task<CategoryItem>> tasks) {
+        return Tasks.whenAllSuccess(tasks).addOnSuccessListener(results -> {
+            List<CategoryItem> categoryItemList = new ArrayList<>();
+            for (Object obj : results) {
+                if (obj instanceof CategoryItem) {
                     categoryItemList.add((CategoryItem) obj);
+                } else {
+                    throw new IllegalStateException("Описание ошибки про херовый каст");
                 }
-                callback.onItemListLoaded(categoryItemList);
-            });
+            }
+            callback.onItemListLoaded(categoryItemList);
         });
     }
 
     @Override
     public void getCategoryList(CategoryListCallback callback, String subCategory) {
-        pathStringForStorage += subCategory;
-        Log.d(TAG, subCategory + "  " + pathStringForStorage);
+        PATH_STRING_FOR_STORAGE += subCategory;
+        Log.d(TAG, subCategory + "  " + PATH_STRING_FOR_STORAGE);
         this.getCategoryList(callback);
     }
 
     @Override
     public void getProductsList(ProductListCallback callback, String category) {
         Log.w(TAG, pathStringForDB);
-        Log.w(TAG, pathStringForStorage);
+        Log.w(TAG, PATH_STRING_FOR_STORAGE);
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference().child(pathStringForStorage + category);
+        StorageReference storageRef = storage.getReference().child(PATH_STRING_FOR_STORAGE + category);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference databaseRef = database.getReference(pathStringForDB);
 
