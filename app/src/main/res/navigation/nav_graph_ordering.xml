@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_ordering"
+    app:startDestination="@id/shippingFragment">
+
+    <fragment
+        android:id="@+id/shippingFragment"
+        android:name="com.example.apprent.ui.ordering.ShippingFragment"
+        android:label="fragment_shipping"
+        tools:layout="@layout/fragment_shipping" >
+        <action
+            android:id="@+id/action_shippingFragment_to_payFragment"
+            app:destination="@id/payFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/payFragment"
+        android:name="com.example.apprent.ui.ordering.PayFragment"
+        android:label="fragment_pay"
+        tools:layout="@layout/fragment_pay" >
+        <action
+            android:id="@+id/action_payFragment_to_reviewOrderFragment"
+            app:destination="@id/reviewOrderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reviewOrderFragment"
+        android:name="com.example.apprent.ui.ordering.ReviewOrderFragment"
+        android:label="fragment_review_order"
+        tools:layout="@layout/fragment_review_order" />
+</navigation>

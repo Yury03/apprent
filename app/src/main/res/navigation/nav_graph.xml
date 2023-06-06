@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_cartFragment_to_cartListFullItem"
             app:destination="@id/cartListFullItem" />
+        <action
+            android:id="@+id/action_cartFragment_to_orderingFragment"
+            app:destination="@id/orderingFragment" />
     </fragment>
     <fragment
         android:id="@+id/authenticationFragment"
@@ -46,4 +49,9 @@
         android:id="@+id/cartListFullItem"
         android:name="com.example.apprent.ui.cart.CartListFullItem"
         android:label="CartListFullItem" />
+    <fragment
+        android:id="@+id/orderingFragment"
+        android:name="com.example.apprent.ui.ordering.OrderingFragment"
+        android:label="fragment_ordering"
+        tools:layout="@layout/fragment_ordering" />
 </navigation>

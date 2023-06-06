@@ -1,18 +1,12 @@
 package com.example.apprent.data.network;
 
-import android.annotation.SuppressLint;
 import android.util.Log;
-
-import androidx.annotation.NonNull;
 
 import com.example.apprent.domain.MainContract;
 import com.example.apprent.domain.models.AuraUser;
 import com.example.apprent.domain.usecase.AuthenticationCallback;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.auth.User;
 
 public class AuthenticationImpl implements MainContract.Authentication {
 
@@ -47,11 +41,10 @@ public class AuthenticationImpl implements MainContract.Authentication {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                        if (firebaseUser != null) {
-                            @SuppressLint("RestrictedApi") User user = new User(firebaseUser.getUid());//todo
+                        if (firebaseUser.getUid().equals("OHZ6UODMfFbp9Vd42ETGC8ZbwYw1")) {
+                            callback.isAuthorized(AuraUser.State.ADMIN_SIGN_IN);
                         }
-                        //todo user->auraUser
-                        callback.isAuthorized(AuraUser.State.SIGN_IN);
+                        callback.isAuthorized(AuraUser.State.USER_SIGN_IN);
                     } else {
                         callback.isNotAuthorized(task.getException(), AuraUser.State.SIGN_IN_ERROR);
                     }

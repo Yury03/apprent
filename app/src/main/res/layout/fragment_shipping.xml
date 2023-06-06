@@ -15,7 +15,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="4"
+            android:layout_margin="5dp"
             app:boxBackgroundColor="@color/alpha_null"
             app:boxStrokeColor="@color/main">
 
@@ -23,14 +24,15 @@
                 android:id="@+id/user_name_ordering"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+
                 android:hint="@string/name" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="7"
+            android:layout_margin="5dp"
             app:boxBackgroundColor="@color/alpha_null"
             app:boxStrokeColor="@color/main">
 
@@ -46,6 +48,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         app:boxBackgroundColor="@color/alpha_null"
         app:boxStrokeColor="@color/main">
 
@@ -53,6 +56,7 @@
             android:id="@+id/delivery_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:hint="@string/default_delivery_address" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -65,6 +69,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_margin="5dp"
             app:boxBackgroundColor="@color/alpha_null"
             app:boxStrokeColor="@color/main">
 
@@ -72,8 +77,55 @@
                 android:id="@+id/user_phone_ordering"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/second_name" />
+                android:hint="@string/phone_input"
+                android:phoneNumber="true" />
         </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5dp"
+        android:text="Самовывоз по адресу Ленинский проспек, дом 112" />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/delivery_price"
+            android:layout_marginVertical="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Аренда:"
+            android:textColor="@color/main_text"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/rent_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="3dp"
+            android:text="Доставка:"
+            android:textColor="@color/main_text"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/final_price_shipping_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="3dp"
+            android:text="Итого:"
+            android:textColor="@color/main_text"
+            android:textSize="24sp" />
     </LinearLayout>
 
 </LinearLayout>

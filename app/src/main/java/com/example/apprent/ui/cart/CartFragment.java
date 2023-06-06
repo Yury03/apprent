@@ -1,6 +1,7 @@
 package com.example.apprent.ui.cart;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,25 +19,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apprent.R;
 import com.example.apprent.data.cart_database.CartDatabase;
+import com.example.apprent.data.cart_database.entity.CartProductEntity;
 import com.example.apprent.ui.cart.adapters.CartListAdapter;
 import com.example.apprent.ui.main_activity.MainActivity;
 import com.example.apprent.ui.main_activity.MainActivityVM;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CartFragment extends Fragment {
     private CartFragmentVM vm;
     private MainActivityVM mainActivityVM;
     private CartDatabase cartDatabase;
+    private List<CartProductEntity> cartProductEntityList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
-        int marginBottom = 50;
-        if (getArguments() != null) {
-            marginBottom = getArguments().getInt("marginBottom");
-        }
         vm = new ViewModelProvider(this).get(CartFragmentVM.class);
         mainActivityVM = ((MainActivity) getActivity()).getVM();//todo   | ? |
+        int marginBottom = mainActivityVM.getBottomNavigationView().getHeight();
         cartDatabase = mainActivityVM.getCartDatabase();
         RecyclerView recyclerView = view.findViewById(R.id.product_list_cart);
         LinearLayout emptyCartLayer = view.findViewById(R.id.layer_empty_cart);
@@ -47,14 +50,12 @@ public class CartFragment extends Fragment {
         vm.loadCartProductList(cartDatabase);
         vm.setMainActivity(mainActivityVM);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        orderingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("CartProductsList", (ArrayList<? extends Parcelable>) cartProductEntityList);
+        orderingButton.setOnClickListener(v -> mainActivityVM.getNavController().navigate(R.id.orderingFragment));
         vm.getCartProductList().observe(getViewLifecycleOwner(), cartProductEntities -> {
+            Log.e("CartFragment", cartProductEntities.toString());
+            cartProductEntityList = cartProductEntities;
             if (cartProductEntities.size() > 0) {
                 emptyCartLayer.setVisibility(View.GONE);
                 CartListAdapter adapter = new CartListAdapter(vm, getContext(), fragmentManager);
@@ -68,11 +69,8 @@ public class CartFragment extends Fragment {
                 recyclerView.setVisibility(View.GONE);
                 orderingLayer.setVisibility(View.GONE);
                 emptyCartLayer.setVisibility(View.VISIBLE);
-
             }
         });
-
-
         return view;
     }
 

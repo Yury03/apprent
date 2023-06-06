@@ -87,7 +87,7 @@ public class CartListFullItem extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Bundle args = getArguments();
         if (args != null) {
-            cartProduct = (CartProductEntity) args.getSerializable("entity");
+            cartProduct = args.getParcelable("entity");
             cartFragmentVM = (CartFragmentVM) args.getSerializable("CartFragmentVM");
             index = args.getInt("index", -1);
             if (cartProduct == null || cartFragmentVM == null || index == -1)
@@ -180,7 +180,6 @@ public class CartListFullItem extends Fragment {
             calendar.set(Calendar.MINUTE, 0);
             calendar.set(Calendar.SECOND, 0);
             Date midnightDate = calendar.getTime();
-//            Date date = new Date();
             long difference = cartProduct.getDate().getTime() - midnightDate.getTime();
             double days = (double) (difference / (24 * 60 * 60 * 1000));
             if (days <= 1) {

@@ -36,8 +36,6 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
     private List<CartProductEntity> cartProducts = new ArrayList<>();
     private final CartFragmentVM cartFragmentVM;
     private final FragmentManager fragmentManager;
-
-
     private Context context;
 
     public CartListAdapter(CartFragmentVM cartFragmentVM, Context context, FragmentManager fragmentManager) {

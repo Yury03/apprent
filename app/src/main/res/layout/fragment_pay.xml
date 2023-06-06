@@ -1,14 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginHorizontal="5dp"
+    android:orientation="vertical"
     tools:context=".ui.ordering.PayFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Введите реквизиты карты"
+        android:textColor="@color/main_text"
+        android:textSize="25sp" />
 
-</FrameLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:boxBackgroundColor="@color/alpha_null"
+        app:boxStrokeColor="@color/main">
+
+        <EditText
+            android:id="@+id/card_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:autofillHints="creditCardNumber"
+            android:hint="0000 0000 0000 0000" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            app:boxBackgroundColor="@color/alpha_null"
+            app:boxStrokeColor="@color/main">
+
+            <EditText
+                android:id="@+id/card_date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:autofillHints="creditCardNumber"
+                android:hint="ММ/ГГ" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_weight="2"
+            app:boxBackgroundColor="@color/alpha_null"
+            app:boxStrokeColor="@color/main">
+
+            <EditText
+                android:id="@+id/card_cvv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:autofillHints="creditCardNumber"
+                android:hint="000" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:boxBackgroundColor="@color/alpha_null"
+            app:boxStrokeColor="@color/main">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/promo_code"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:hint="@string/promo_code" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+
+            android:backgroundTint="@color/white"
+            android:text="Применить" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/final_price_pay_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="К оплате:"
+        android:textColor="@color/main_text"
+        android:textSize="22sp" />
+
+</LinearLayout>

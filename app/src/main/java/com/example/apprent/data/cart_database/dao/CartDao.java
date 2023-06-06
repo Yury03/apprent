@@ -26,4 +26,12 @@ public interface CartDao {
 
     @Query("SELECT * FROM cart_products WHERE id = :id")
     CartProductEntity getById(int id);
+
+    @Query("SELECT * FROM cart_products WHERE state = :state")
+
+    List<CartProductEntity> getProductsWithState(int state);
+//
+//    @Query("SELECT * FROM cart_products WHERE state.stateId = CartProductEntity.State.CART")
+//
+//            List<CartProductEntity>getOrderProducts();
 }

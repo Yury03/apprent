@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,7 +15,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/imageView7"
+            android:id="@+id/top_image_ordering_fragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -30,20 +31,20 @@
                 android:id="@+id/textView9"
                 style="@style/OrderingText"
                 android:gravity="center"
-                android:text="Получение"
+                android:text="@string/shipping"
                 android:textColor="@color/main_text" />
 
             <TextView
                 android:id="@+id/textView14"
                 style="@style/OrderingText"
                 android:gravity="center"
-                android:text="Оплата" />
+                android:text="@string/pay" />
 
             <TextView
                 android:id="@+id/textView15"
                 style="@style/OrderingText"
                 android:gravity="center"
-                android:text="Просмотр" />
+                android:text="@string/review" />
         </LinearLayout>
 
         <LinearLayout
@@ -55,33 +56,38 @@
             <TextView
                 android:id="@+id/textView16"
                 style="@style/OrderingText"
-                android:text="Адрес\nполучения"
+                android:text="@string/shipping_description"
                 android:textColor="@color/lightGray" />
 
             <TextView
                 android:id="@+id/textView17"
                 style="@style/OrderingText"
-                android:text="Способ\nоплаты"
+                android:text="@string/pay_description"
                 android:textColor="@color/lightGray" />
 
             <TextView
                 android:id="@+id/textView18"
                 style="@style/OrderingText"
-                android:text="Проверьте\nданные"
+                android:text="@string/review_description"
                 android:textColor="@color/lightGray" />
         </LinearLayout>
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmentContainerView2"
-            android:name="com.example.apprent.ui.ordering.ShippingFragment"
+            android:id="@+id/ordering_fragment_container"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            android:layout_weight="1"
+            app:navGraph="@navigation/nav_graph_ordering"/>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/continue_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Продолжить"
-            android:textColor="@color/white"/>
+            android:text="@string/continue_button"
+            android:layout_marginBottom="30dp"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </FrameLayout>

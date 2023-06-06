@@ -14,7 +14,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.apprent.R;
-import com.example.apprent.domain.models.AuraUser;
 import com.example.apprent.ui.authentication.adapters.LoginPagerAdapter;
 import com.example.apprent.ui.main_activity.MainActivity;
 import com.example.apprent.ui.main_activity.MainActivityVM;
@@ -49,7 +48,7 @@ public class LoginFragment extends Fragment {
         }).attach();
         vm.getUserLiveData().observe(getViewLifecycleOwner(), state -> {
             switch (state) {
-                case SIGN_IN, SIGN_UP -> {
+                case USER_SIGN_IN, SIGN_UP -> {
                     sharedPreferences.edit().putBoolean(getResources().getString(R.string.saved_log_in_key), true).apply();
 //                    mainActivityVM.authCompleted();
                     mainActivityVM.getNavController().navigate(R.id.mainFragment);

@@ -1,27 +1,82 @@
 package com.example.apprent.ui.ordering;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.apprent.R;
+import com.example.apprent.ui.main_activity.MainActivity;
+import com.example.apprent.ui.main_activity.MainActivityVM;
 
 
 public class OrderingFragment extends Fragment {
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    private NavController navController;
+    private NavHostFragment navHostFragment;
+    private OrderingFragmentViewModel orderingFragmentViewModel;
 
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        MainActivityVM mainActivityVM = ((MainActivity) getActivity()).getVM();
+        mainActivityVM.getBottomNavigationView().setVisibility(View.GONE);
+        mainActivityVM.setTitleOfTopBar(getString(R.string.title_top_bar_ordering));
+        mainActivityVM.showBackButton();
+        orderingFragmentViewModel = new ViewModelProvider(this).get(OrderingFragmentViewModel.class);
+        Button continueButton = view.findViewById(R.id.continue_button);
+        ImageView imageView = view.findViewById(R.id.top_image_ordering_fragment);
+        navHostFragment = (NavHostFragment) getChildFragmentManager().findFragmentById(R.id.ordering_fragment_container);
+        navController = navHostFragment.getNavController();
+        mainActivityVM.getBackButtonState().observe(getViewLifecycleOwner(), aBoolean -> {
+            if (aBoolean) {
+                mainActivityVM.setBackButtonState(false);
+                int id = navController.getCurrentDestination().getId();
+                if (id == R.id.shippingFragment) {
+                    mainActivityVM.getNavController().navigate(R.id.cartFragment);
+                    mainActivityVM.getBottomNavigationView().setVisibility(View.VISIBLE);
+                } else if (id == R.id.payFragment) {
+                    navController.popBackStack();
+                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.ordering_step_1));
+                } else if (id == R.id.reviewOrderFragment) {
+                    navController.popBackStack();
+                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.ordering_step_2));
+                }
+            }
+        });
+        continueButton.setOnClickListener(v -> {
+            int id = navController.getCurrentDestination().getId();
+            if (id == R.id.shippingFragment) {
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ordering_step_2));
+                navController.navigate(R.id.action_shippingFragment_to_payFragment);
+            } else if (id == R.id.payFragment) {
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ordering_step_3));
+                continueButton.setText(R.string.pay_button);
+                navController.navigate(R.id.action_payFragment_to_reviewOrderFragment);
+            } else if (id == R.id.reviewOrderFragment) {
+                Toast.makeText(getContext(), getString(R.string.thanks_for_your_order), Toast.LENGTH_LONG).show();
+                mainActivityVM.getNavController().navigate(R.id.mainFragment);
+                mainActivityVM.getBottomNavigationView().setVisibility(View.VISIBLE);
+                mainActivityVM.sendOrderRequest();
+            }
+        });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_ordering, container, false);
 
-        return inflater.inflate(R.layout.fragment_ordering, container, false);
+        return view;
     }
 }

@@ -55,6 +55,7 @@ public class MainActivityVM extends ViewModel {
 
     private String pathForCategoryFragment;//todo
 
+
     public void setMaterialToolbar(MaterialToolbar materialToolbar) {
         this.materialToolbar = materialToolbar;
     }
@@ -214,6 +215,18 @@ public class MainActivityVM extends ViewModel {
         GetItemsListImpl getItemsList = new GetItemsListImpl();
         GetSearchResults getSearchResults = new GetSearchResults(getItemsList);
         getSearchResults.execute(searchResultsForCategoryFragment::postValue, query, this.pathForCategoryFragment);
+    }
+
+    public void sendOrderRequest() {
+        Executors.newSingleThreadExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                for (CartProductEntity entity :
+                        cartDao.getProductsWithState(CartProductEntity.State.IS_PAID.stateId)) {
+                    entity.setState(CartProductEntity.State.IS_PAID);
+                }
+            }
+        });
     }
 
 }

@@ -1,15 +1,17 @@
 package com.example.apprent.data.cart_database.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
-import java.io.Serializable;
 import java.util.Date;
 
 @Entity(tableName = "cart_products")
-public class CartProductEntity implements Serializable {
+public class CartProductEntity implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     private long id;//todo long->int
     private String name;
@@ -17,18 +19,72 @@ public class CartProductEntity implements Serializable {
     private Date date;
     private int period;
     private int quantity;
-    private String imageUri;
-    private int minPrice;
-
-    public int getFinalPrice() {
-        return finalPrice;
-    }
-
-    public void setFinalPrice(int finalPrice) {
-        this.finalPrice = finalPrice;
-    }
+    @TypeConverters(StateConverter.class)
+    private State state;
+    private final String imageUri;
+    private final int minPrice;
 
     private int finalPrice;
+
+    public enum State {
+        CART(1),
+        IS_PAID(2),
+        ERROR(-1),
+        ;
+
+        public final int stateId;
+
+        State(int stateId) {
+            this.stateId = stateId;
+        }
+    }
+
+    protected CartProductEntity(Parcel in) {
+        id = in.readLong();
+        name = in.readString();
+        period = in.readInt();
+        quantity = in.readInt();
+        imageUri = in.readString();
+        minPrice = in.readInt();
+        finalPrice = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(name);
+        dest.writeInt(period);
+        dest.writeInt(quantity);
+        dest.writeString(imageUri);
+        dest.writeInt(minPrice);
+        dest.writeInt(finalPrice);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<CartProductEntity> CREATOR = new Creator<>() {
+        @Override
+        public CartProductEntity createFromParcel(Parcel in) {
+            return new CartProductEntity(in);
+        }
+
+        @Override
+        public CartProductEntity[] newArray(int size) {
+            return new CartProductEntity[size];
+        }
+    };
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
 
     public CartProductEntity(String name, Date date, int period, String imageUri, int minPrice) {
         this.name = name;
@@ -38,6 +94,7 @@ public class CartProductEntity implements Serializable {
         this.imageUri = imageUri;
         this.minPrice = minPrice;
         this.finalPrice = minPrice * period;
+        this.state = State.CART;
     }
 
     private void update() {
@@ -46,6 +103,14 @@ public class CartProductEntity implements Serializable {
 
     public long getId() {
         return id;
+    }
+
+    public int getFinalPrice() {
+        return finalPrice;
+    }
+
+    public void setFinalPrice(int finalPrice) {
+        this.finalPrice = finalPrice;
     }
 
     public void setId(long id) {
@@ -103,6 +168,25 @@ public class CartProductEntity implements Serializable {
         @TypeConverter
         public static Long dateToTimestamp(Date date) {
             return date == null ? null : date.getTime();
+        }
+    }
+
+    public static class StateConverter {
+        @TypeConverter
+        public static CartProductEntity.State fromTimestamp(int value) {
+            switch (value) {
+                case 1:
+                    return State.CART;
+                case 2:
+                    return State.IS_PAID;
+                default:
+                    return State.ERROR;
+            }
+        }
+
+        @TypeConverter
+        public static int stateToTimestamp(State state) {
+            return state.stateId;
         }
     }
 }

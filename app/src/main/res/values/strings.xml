@@ -76,4 +76,16 @@
     <string name="name">Имя</string>
     <string name="second_name">Фамилия</string>
     <string name="default_delivery_address">Адрес</string>
+    <string name="shipping">Получение</string>
+    <string name="pay">Оплата</string>
+    <string name="review">Просмотр</string>
+    <string name="shipping_description">Адрес\nполучения</string>
+    <string name="pay_description">Способ\nоплаты</string>
+    <string name="review_description">Проверьте\nданные</string>
+    <string name="continue_button">Продолжить</string>
+    <string name="phone_input">Номер телефона</string>
+    <string name="promo_code">Введите промокод</string>
+    <string name="pay_button">Оплатить</string>
+    <string name="title_top_bar_ordering">Оформление заказа</string>
+    <string name="thanks_for_your_order">Спасибо за ваш заказ!</string>
 </resources>

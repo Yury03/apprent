@@ -1,14 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginHorizontal="5dp"
+    android:orientation="vertical"
     tools:context=".ui.ordering.ReviewOrderFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/name_hint_review_order"
+            style="@style/reviewOrderTextHint"
+            android:text="Имя" />
+
+        <TextView
+            android:id="@+id/name_review_order"
+            style="@style/reviewOrderText."
+            android:text="Иван" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/second_name_hint_review_order"
+            style="@style/reviewOrderTextHint"
+            android:text="Фамилия" />
+
+        <TextView
+            android:id="@+id/second_name_review_order"
+            style="@style/reviewOrderText."
+            android:text="Иванов" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/delivery_address_hint_review_order"
+            style="@style/reviewOrderTextHint"
+
+            android:text="Адрес" />
+
+        <TextView
+            android:id="@+id/delivery_address_review_order"
+            style="@style/reviewOrderText."
+            android:text="@string/default_delivery_address" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/phone_hint_review_order"
+            style="@style/reviewOrderTextHint"
+            android:text="Номер телефона" />
+
+        <TextView
+            android:id="@+id/phone_review_order"
+            style="@style/reviewOrderText."
+            android:text="89048636573" />
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:boxBackgroundMode="filled">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/order_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:hint="Комментарий к заказу" />
+    </com.google.android.material.textfield.TextInputLayout>
+</LinearLayout>

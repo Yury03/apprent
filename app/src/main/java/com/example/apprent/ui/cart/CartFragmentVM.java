@@ -13,12 +13,12 @@ import com.example.apprent.data.cart_database.entity.CartProductEntity;
 import com.example.apprent.ui.main_activity.MainActivityVM;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.concurrent.Executors;
 
 public class CartFragmentVM extends ViewModel implements Serializable {
 
-    private MutableLiveData<List<CartProductEntity>> cartProductList = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<CartProductEntity>> cartProductList = new MutableLiveData<ArrayList<CartProductEntity>>();
     private MainActivityVM mainActivityVM;
 
     public LiveData<String> getFinalPrice() {
@@ -26,14 +26,12 @@ public class CartFragmentVM extends ViewModel implements Serializable {
     }
 
 
-    private MutableLiveData<String> finalPrice = new MutableLiveData<>();
+    private final MutableLiveData<String> finalPrice = new MutableLiveData<>();
 
-    public CartFragmentVM() {
-    }
 
     public void loadCartProductList(CartDatabase cartDatabase) {
         Executors.newSingleThreadExecutor().execute(() -> {
-            List<CartProductEntity> cartProductEntityList = cartDatabase.cartDao().getAllCartProducts();
+            ArrayList<CartProductEntity> cartProductEntityList = (ArrayList<CartProductEntity>) cartDatabase.cartDao().getProductsWithState(CartProductEntity.State.CART.stateId);
             double price = 0;
             for (CartProductEntity product :
                     cartProductEntityList) {
@@ -49,11 +47,11 @@ public class CartFragmentVM extends ViewModel implements Serializable {
         CartProductEntity cartProductEntity = cartProductList.getValue().get(index);
         mainActivityVM.removeFromCart(cartProductEntity);
         cartProductList.getValue().remove(index);
-        List<CartProductEntity> updateList = cartProductList.getValue();
+        ArrayList<CartProductEntity> updateList = cartProductList.getValue();
         cartProductList.postValue(updateList);
     }
 
-    public LiveData<List<CartProductEntity>> getCartProductList() {
+    public LiveData<ArrayList<CartProductEntity>> getCartProductList() {
         return cartProductList;
     }
 
@@ -63,7 +61,7 @@ public class CartFragmentVM extends ViewModel implements Serializable {
 
     public void openFullItem(CartProductEntity item, int index) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("entity", item);
+        bundle.putParcelable("entity", item);
         bundle.putSerializable("CartFragmentVM", this);
         bundle.putInt("index", index);
         mainActivityVM.getNavController().navigate(R.id.action_cartFragment_to_cartListFullItem, bundle);

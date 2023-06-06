@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         topAppBar = findViewById(R.id.topAppBar);
         sp = getSharedPreferences(MainActivityVM.APP_PREFERENCES, Context.MODE_PRIVATE);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-
         setSupportActionBar(topAppBar);
         vm = this.getVM();
         vm.setAppContext(getApplicationContext());
@@ -95,10 +94,7 @@ public class MainActivity extends AppCompatActivity {
             if (item.getItemId() != id) {
                 int itemId = item.getItemId();
                 if (itemId == R.id.cart_page) {
-                    int marginBottom = bottomNavigationView.getHeight();
-                    Bundle bundleForCartFragment = new Bundle();
-                    bundleForCartFragment.putInt("marginBottom", marginBottom);
-                    navController.navigate(R.id.cartFragment, bundleForCartFragment);
+                    navController.navigate(R.id.cartFragment);
                     return true;
                 } else if (itemId == R.id.home_page) {
                     navController.navigate(R.id.mainFragment);
