@@ -11,6 +11,7 @@ public class AuraUser {
         RESTORE_ACCESS(3),
         RESTORE_ACCESS_ERROR(-3),
         ADMIN_SIGN_IN(4),
+        USER_NOT_SIGN_IN(5),
         ;
 
         public final int stateId;

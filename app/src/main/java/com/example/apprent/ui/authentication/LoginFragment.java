@@ -49,7 +49,7 @@ public class LoginFragment extends Fragment {
         vm.getUserLiveData().observe(getViewLifecycleOwner(), state -> {
             switch (state) {
                 case USER_SIGN_IN, SIGN_UP -> {
-                    sharedPreferences.edit().putBoolean(getResources().getString(R.string.saved_log_in_key), true).apply();
+                    sharedPreferences.edit().putInt(getResources().getString(R.string.saved_log_in_key), state.stateId).apply();
 //                    mainActivityVM.authCompleted();
                     mainActivityVM.getNavController().navigate(R.id.mainFragment);
                     mainActivityVM.getBottomNavigationView().setSelectedItemId(R.id.home_page);
@@ -60,7 +60,9 @@ public class LoginFragment extends Fragment {
                         Toast.makeText(getContext(), "Неправильная почта или пароль", Toast.LENGTH_LONG).show();
                 case SIGN_UP_ERROR ->
                         Toast.makeText(getContext(), "Пользователь с такой почтой уже зарегестрирован", Toast.LENGTH_LONG).show();
+                case ADMIN_SIGN_IN -> {
 
+                }
                 case RESTORE_ACCESS_ERROR, INIT -> {
                     // ignore
                 }

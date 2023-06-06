@@ -1,5 +1,7 @@
 package com.example.apprent.ui.main_activity;
 
+import static com.example.apprent.domain.models.AuraUser.State.USER_NOT_SIGN_IN;
+
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -109,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
-
         navController.addOnDestinationChangedListener((navController, navDestination, bundle) -> {
             Log.i(TAG, "nav controller listener!");
             HideBottomViewOnScrollBehavior hideBottomViewOnScrollBehavior = new HideBottomViewOnScrollBehavior();
@@ -150,12 +151,21 @@ public class MainActivity extends AppCompatActivity {
             vm.setBackButtonState(true);
         });
         //todo -----------------------------------------------------
-        boolean isLogIn = sp.getBoolean(getResources().getString(R.string.saved_log_in_key), false);
-        if (!isLogIn) {
-            navController.navigate(R.id.authenticationFragment);
-        } else {
-            topAppBar.getMenu().findItem(R.id.action_search).setVisible(false);
+        int isLogIn = sp.getInt(getResources().getString(R.string.saved_log_in_key), USER_NOT_SIGN_IN.stateId);
+
+        switch (isLogIn) {
+            case 1 -> {//USER_SIGN_IN
+                navController.navigate(R.id.home_page);
+            }
+            case 4 -> {//ADMIN_SIGN_IN
+
+            }
+            case 5 -> { //USER_NOT_SIGN_IN
+                navController.navigate(R.id.authenticationFragment);
+            }
+            default -> throw new IllegalStateException("Unexpected value: " + isLogIn);
         }
+        topAppBar.getMenu().findItem(R.id.action_search).setVisible(false);
         //todo -----------------------------------------------------
     }
 
