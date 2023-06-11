@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.example.apprent.domain.MainContract;
 import com.example.apprent.domain.models.AuraUser;
-import com.example.apprent.domain.usecase.AuthenticationCallback;
+import com.example.apprent.domain.usecase.authentication.AuthenticationCallback;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -17,7 +17,6 @@ public class AuthenticationImpl implements MainContract.Authentication {
         this.firebaseAuth = firebaseAuth;
 
     }
-
 
     @Override
     public void restoreAccess(AuthenticationCallback.restoreAccessCallback callback, AuraUser user) {
@@ -41,16 +40,17 @@ public class AuthenticationImpl implements MainContract.Authentication {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                        Log.e(TAG, firebaseUser.getUid());
                         if (firebaseUser.getUid().equals("OHZ6UODMfFbp9Vd42ETGC8ZbwYw1")) {
                             callback.isAuthorized(AuraUser.State.ADMIN_SIGN_IN);
+                        } else {
+                            callback.isAuthorized(AuraUser.State.USER_SIGN_IN);
                         }
-                        callback.isAuthorized(AuraUser.State.USER_SIGN_IN);
                     } else {
                         callback.isNotAuthorized(task.getException(), AuraUser.State.SIGN_IN_ERROR);
                     }
                 });
     }
-
 
     @Override
     public void signUp(AuthenticationCallback.signUpCallback callback, String login, String password) {

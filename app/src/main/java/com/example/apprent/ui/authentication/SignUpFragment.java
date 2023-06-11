@@ -13,7 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.apprent.R;
-import com.example.apprent.domain.models.AuraUser;
 
 public class SignUpFragment extends Fragment {
 

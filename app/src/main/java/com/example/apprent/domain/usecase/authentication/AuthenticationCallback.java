@@ -1,4 +1,4 @@
-package com.example.apprent.domain.usecase;
+package com.example.apprent.domain.usecase.authentication;
 
 
 import com.example.apprent.domain.models.AuraUser;

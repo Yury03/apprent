@@ -1,10 +1,12 @@
 package com.example.apprent.domain;
 
 import com.example.apprent.domain.models.AuraUser;
-import com.example.apprent.domain.usecase.AuthenticationCallback;
-import com.example.apprent.domain.usecase.CategoryListCallback;
-import com.example.apprent.domain.usecase.LinksCallback;
-import com.example.apprent.domain.usecase.ProductListCallback;
+import com.example.apprent.domain.usecase.authentication.AuthenticationCallback;
+import com.example.apprent.domain.usecase.get_category.CategoryListCallback;
+import com.example.apprent.domain.usecase.orders.get.GetOrdersCallback;
+import com.example.apprent.domain.usecase.get_links.LinksCallback;
+import com.example.apprent.domain.usecase.get_products.ProductListCallback;
+import com.example.apprent.domain.usecase.orders.send.SendOrdersCallback;
 
 public interface MainContract {
     interface GetListData {
@@ -20,7 +22,6 @@ public interface MainContract {
     }
 
 
-
     interface Authentication {
         void restoreAccess(AuthenticationCallback.restoreAccessCallback callback, AuraUser user);
 
@@ -28,5 +29,13 @@ public interface MainContract {
 
         void signUp(AuthenticationCallback.signUpCallback callback, String login, String password);
 
+    }
+
+    interface GetOrders {
+        void getOrders(GetOrdersCallback callback);
+    }
+
+    interface SendOrders {
+        void sendOrders(SendOrdersCallback callback);
     }
 }

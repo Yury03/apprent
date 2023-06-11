@@ -18,10 +18,10 @@ import androidx.navigation.NavDestination;
 import com.example.apprent.R;
 import com.example.apprent.data.cart_database.CartDatabase;
 import com.example.apprent.data.cart_database.dao.CartDao;
-import com.example.apprent.data.cart_database.entity.CartProductEntity;
+import com.example.apprent.data.cart_database.entity.CartEntity;
 import com.example.apprent.data.network.GetItemsListImpl;
 import com.example.apprent.domain.models.ProductItem;
-import com.example.apprent.domain.usecase.GetSearchResults;
+import com.example.apprent.domain.usecase.search.GetSearchResults;
 import com.example.apprent.ui.call_dialog.CallDialogFragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -151,8 +151,9 @@ public class MainActivityVM extends ViewModel {
             long end = selection.second;
             int days = (int) TimeUnit.DAYS.convert(end - start, TimeUnit.MILLISECONDS);
             int price = priceParser(productItem.getMinPrice());
-            CartProductEntity cartProductEntity = new CartProductEntity(productItem.getName(), new Date(selection.first), days, productItem.getMainImagePath(), price);
-            addToCart(cartProductEntity);
+            CartEntity cartEntity = new CartEntity(productItem.getName(),
+                    new Date(selection.first), days, productItem.getMainImagePath(), price, productItem.getFullPath());
+            addToCart(cartEntity);
         });
         picker.show(supportFragmentManager, picker.toString());
     }
@@ -164,21 +165,20 @@ public class MainActivityVM extends ViewModel {
         return price;
     }
 
-    public void addToCart(CartProductEntity product) {
+    public void addToCart(CartEntity product) {
         Executors.newSingleThreadExecutor().execute(() -> cartDao.insert(product));
     }
 
-    public void removeFromCart(CartProductEntity cartProduct) {
+    public void removeFromCart(CartEntity cartProduct) {
         Executors.newSingleThreadExecutor().execute(() -> cartDao.delete(cartProduct));
     }
 
-    public void changeDataCartDB(int id, CartProductEntity cartProductEntity) {
+    public void changeDataCartDB(int id, CartEntity cartEntity) {
         Executors.newSingleThreadExecutor().execute(() -> {
-            cartDao.getById(id).setQuantity(cartProductEntity.getQuantity());
-            Log.i("DB: ", String.valueOf(cartProductEntity.getQuantity()));
-            cartDao.getById(id).setPeriod(cartProductEntity.getPeriod());
-            cartDao.getById(id).setDate(cartProductEntity.getDate());
-            cartDao.update(cartProductEntity);
+            cartDao.getById(id).setQuantity(cartEntity.getQuantity());
+            cartDao.getById(id).setPeriod(cartEntity.getPeriod());
+            cartDao.getById(id).setDate(cartEntity.getDate());
+            cartDao.update(cartEntity);
         });
 
     }
@@ -221,9 +221,9 @@ public class MainActivityVM extends ViewModel {
         Executors.newSingleThreadExecutor().execute(new Runnable() {
             @Override
             public void run() {
-                for (CartProductEntity entity :
-                        cartDao.getProductsWithState(CartProductEntity.State.IS_PAID.stateId)) {
-                    entity.setState(CartProductEntity.State.IS_PAID);
+                for (CartEntity entity :
+                        cartDao.getProductsWithState(CartEntity.State.IS_PAID.stateId)) {
+                    entity.setState(CartEntity.State.IS_PAID);
                 }
             }
         });

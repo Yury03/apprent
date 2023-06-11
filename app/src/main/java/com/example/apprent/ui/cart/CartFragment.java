@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apprent.R;
 import com.example.apprent.data.cart_database.CartDatabase;
-import com.example.apprent.data.cart_database.entity.CartProductEntity;
+import com.example.apprent.data.cart_database.entity.CartEntity;
 import com.example.apprent.ui.cart.adapters.CartListAdapter;
 import com.example.apprent.ui.main_activity.MainActivity;
 import com.example.apprent.ui.main_activity.MainActivityVM;
@@ -31,7 +31,7 @@ public class CartFragment extends Fragment {
     private CartFragmentVM vm;
     private MainActivityVM mainActivityVM;
     private CartDatabase cartDatabase;
-    private List<CartProductEntity> cartProductEntityList;
+    private List<CartEntity> cartEntityList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,11 +51,11 @@ public class CartFragment extends Fragment {
         vm.setMainActivity(mainActivityVM);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("CartProductsList", (ArrayList<? extends Parcelable>) cartProductEntityList);
+        bundle.putParcelableArrayList("CartProductsList", (ArrayList<? extends Parcelable>) cartEntityList);
         orderingButton.setOnClickListener(v -> mainActivityVM.getNavController().navigate(R.id.orderingFragment));
         vm.getCartProductList().observe(getViewLifecycleOwner(), cartProductEntities -> {
             Log.e("CartFragment", cartProductEntities.toString());
-            cartProductEntityList = cartProductEntities;
+            cartEntityList = cartProductEntities;
             if (cartProductEntities.size() > 0) {
                 emptyCartLayer.setVisibility(View.GONE);
                 CartListAdapter adapter = new CartListAdapter(vm, getContext(), fragmentManager);

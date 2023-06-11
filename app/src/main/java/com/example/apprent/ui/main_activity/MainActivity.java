@@ -143,6 +143,10 @@ public class MainActivity extends AppCompatActivity {
                 } else if (navDestination.getId() == R.id.profileFragment) {
                     vm.hideBackButton();
                     vm.setTitleOfTopBar(getResources().getString(R.string.profile_fragment_name));
+                }else if(navDestination.getId() == R.id.adminFragment){
+                    vm.hideBackButton();
+                    vm.getBottomNavigationView().setVisibility(View.GONE);
+                    topAppBar.setTitle("Администратор 2");
                 }
             }
         });
@@ -150,15 +154,15 @@ public class MainActivity extends AppCompatActivity {
         topAppBar.setNavigationOnClickListener(v -> {
             vm.setBackButtonState(true);
         });
+        vm.createDatabase(getApplicationContext());
         //todo -----------------------------------------------------
         int isLogIn = sp.getInt(getResources().getString(R.string.saved_log_in_key), USER_NOT_SIGN_IN.stateId);
-
         switch (isLogIn) {
             case 1 -> {//USER_SIGN_IN
-                navController.navigate(R.id.home_page);
+//                navController.navigate(R.id.home_page);
             }
             case 4 -> {//ADMIN_SIGN_IN
-
+                navController.navigate(R.id.adminFragment);
             }
             case 5 -> { //USER_NOT_SIGN_IN
                 navController.navigate(R.id.authenticationFragment);
@@ -177,11 +181,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        vm.createDatabase(getApplicationContext());
-    }
+
 
     public MaterialToolbar getTopAppBar() {
         return topAppBar;

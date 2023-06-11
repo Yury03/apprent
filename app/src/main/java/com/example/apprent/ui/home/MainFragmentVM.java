@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.apprent.data.network.GetItemsListImpl;
-import com.example.apprent.domain.usecase.GetListLinks;
+import com.example.apprent.domain.usecase.get_links.GetListLinks;
 
 import java.util.List;
 

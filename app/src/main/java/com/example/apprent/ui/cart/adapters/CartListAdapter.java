@@ -22,7 +22,7 @@ import androidx.transition.TransitionManager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.apprent.R;
-import com.example.apprent.data.cart_database.entity.CartProductEntity;
+import com.example.apprent.data.cart_database.entity.CartEntity;
 import com.example.apprent.ui.call_dialog.CallDialogFragment;
 import com.example.apprent.ui.cart.CartFragmentVM;
 
@@ -33,7 +33,7 @@ import java.util.Locale;
 
 public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHolder> {
 
-    private List<CartProductEntity> cartProducts = new ArrayList<>();
+    private List<CartEntity> cartProducts = new ArrayList<>();
     private final CartFragmentVM cartFragmentVM;
     private final FragmentManager fragmentManager;
     private Context context;
@@ -44,7 +44,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
         this.fragmentManager = fragmentManager;
     }
 
-    public void setCartProducts(List<CartProductEntity> cartProducts) {
+    public void setCartProducts(List<CartEntity> cartProducts) {
         this.cartProducts = cartProducts;
     }
 
@@ -58,7 +58,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
     @SuppressLint({"SetTextI18n", "ClickableViewAccessibility"})
     @Override
     public void onBindViewHolder(@NonNull CartListAdapter.ViewHolder holder, int position) {
-        CartProductEntity currentProduct = cartProducts.get(position);
+        CartEntity currentProduct = cartProducts.get(position);
         SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yy", Locale.getDefault());
         String dateString = formatter.format(currentProduct.getDate());
         holder.productName.setText(context.getString(R.string.name_cart_item) + currentProduct.getName());
@@ -77,7 +77,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
                 .into(holder.productImage);
         holder.productDelete.setOnClickListener(v -> cartFragmentVM.removeFromCart(position));
         holder.infoButton.setOnClickListener(v -> {
-            CartProductEntity item = cartProducts.get(position);
+            CartEntity item = cartProducts.get(position);
 //            transitionItemToFragment(holder.itemView);
             cartFragmentVM.openFullItem(item, position);
         });

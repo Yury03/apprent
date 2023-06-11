@@ -7,9 +7,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.apprent.data.cart_database.dao.CartDao;
-import com.example.apprent.data.cart_database.entity.CartProductEntity;
+import com.example.apprent.data.cart_database.entity.CartEntity;
 
-@Database(entities = {CartProductEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {CartEntity.class}, version = 1, exportSchema = false)
 public abstract class CartDatabase extends RoomDatabase {
     private static volatile CartDatabase instance;
 

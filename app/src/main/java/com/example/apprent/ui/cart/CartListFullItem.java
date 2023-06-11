@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.apprent.R;
-import com.example.apprent.data.cart_database.entity.CartProductEntity;
+import com.example.apprent.data.cart_database.entity.CartEntity;
 import com.example.apprent.ui.main_activity.MainActivity;
 import com.example.apprent.ui.main_activity.MainActivityVM;
 
@@ -27,7 +27,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class CartListFullItem extends Fragment {
-    private CartProductEntity cartProduct;
+    private CartEntity cartProduct;
     private CartFragmentVM cartFragmentVM;
     private MainActivityVM mainActivityVM;
     private int index;

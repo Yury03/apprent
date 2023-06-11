@@ -1,4 +1,4 @@
-package com.example.apprent.domain.usecase;
+package com.example.apprent.domain.usecase.get_links;
 
 import java.util.List;
 

@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.apprent.data.network.AuthenticationImpl;
 import com.example.apprent.domain.MainContract;
 import com.example.apprent.domain.models.AuraUser;
-import com.example.apprent.domain.usecase.AuthenticationCallback;
+import com.example.apprent.domain.usecase.authentication.AuthenticationCallback;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.Serializable;
@@ -55,7 +55,6 @@ public class LoginFragmentVM extends ViewModel implements Serializable {
             public void accountIsCreated(AuraUser.State state) {
                 Log.i("Login", "signUp: OK(LoginFragmentVM)");
                 userLiveData.postValue(state);
-
             }
 
             @Override

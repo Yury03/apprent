@@ -61,7 +61,9 @@ public class LoginFragment extends Fragment {
                 case SIGN_UP_ERROR ->
                         Toast.makeText(getContext(), "Пользователь с такой почтой уже зарегестрирован", Toast.LENGTH_LONG).show();
                 case ADMIN_SIGN_IN -> {
-
+                    mainActivityVM.getNavController().navigate(R.id.adminFragment);
+                    mainActivityVM.getBottomNavigationView().setVisibility(View.INVISIBLE);
+                    sharedPreferences.edit().putInt(getResources().getString(R.string.saved_log_in_key), state.stateId).apply();
                 }
                 case RESTORE_ACCESS_ERROR, INIT -> {
                     // ignore

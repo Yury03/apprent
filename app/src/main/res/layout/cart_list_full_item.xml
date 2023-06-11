@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.cart.CartFragment"
+    android:layout_margin="7dp"
     android:transitionGroup="true"
-    android:transitionName="@string/cart_item">
+    android:transitionName="@string/cart_item"
+    tools:context=".ui.cart.CartFragment">
 
 
     <LinearLayout

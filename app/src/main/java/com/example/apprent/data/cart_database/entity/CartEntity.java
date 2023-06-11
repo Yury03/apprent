@@ -11,10 +11,16 @@ import androidx.room.TypeConverters;
 import java.util.Date;
 
 @Entity(tableName = "cart_products")
-public class CartProductEntity implements Parcelable {
+public class CartEntity implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     private long id;//todo long->int
     private String name;
+
+    public String getFullPath() {
+        return fullPath;
+    }
+
+    private final String fullPath;
     @TypeConverters(DateConverter.class)
     private Date date;
     private int period;
@@ -39,7 +45,7 @@ public class CartProductEntity implements Parcelable {
         }
     }
 
-    protected CartProductEntity(Parcel in) {
+    protected CartEntity(Parcel in) {
         id = in.readLong();
         name = in.readString();
         period = in.readInt();
@@ -47,6 +53,7 @@ public class CartProductEntity implements Parcelable {
         imageUri = in.readString();
         minPrice = in.readInt();
         finalPrice = in.readInt();
+        fullPath = in.readString();
     }
 
     @Override
@@ -58,6 +65,7 @@ public class CartProductEntity implements Parcelable {
         dest.writeString(imageUri);
         dest.writeInt(minPrice);
         dest.writeInt(finalPrice);
+        dest.writeString(fullPath);
     }
 
     @Override
@@ -65,15 +73,15 @@ public class CartProductEntity implements Parcelable {
         return 0;
     }
 
-    public static final Creator<CartProductEntity> CREATOR = new Creator<>() {
+    public static final Creator<CartEntity> CREATOR = new Creator<>() {
         @Override
-        public CartProductEntity createFromParcel(Parcel in) {
-            return new CartProductEntity(in);
+        public CartEntity createFromParcel(Parcel in) {
+            return new CartEntity(in);
         }
 
         @Override
-        public CartProductEntity[] newArray(int size) {
-            return new CartProductEntity[size];
+        public CartEntity[] newArray(int size) {
+            return new CartEntity[size];
         }
     };
 
@@ -86,7 +94,7 @@ public class CartProductEntity implements Parcelable {
     }
 
 
-    public CartProductEntity(String name, Date date, int period, String imageUri, int minPrice) {
+    public CartEntity(String name, Date date, int period, String imageUri, int minPrice, String fullPath) {
         this.name = name;
         this.date = date;
         this.period = period;
@@ -95,6 +103,7 @@ public class CartProductEntity implements Parcelable {
         this.minPrice = minPrice;
         this.finalPrice = minPrice * period;
         this.state = State.CART;
+        this.fullPath = fullPath;
     }
 
     private void update() {
@@ -173,7 +182,7 @@ public class CartProductEntity implements Parcelable {
 
     public static class StateConverter {
         @TypeConverter
-        public static CartProductEntity.State fromTimestamp(int value) {
+        public static CartEntity.State fromTimestamp(int value) {
             switch (value) {
                 case 1:
                     return State.CART;

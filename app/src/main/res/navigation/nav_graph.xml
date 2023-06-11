@@ -54,4 +54,9 @@
         android:name="com.example.apprent.ui.ordering.OrderingFragment"
         android:label="fragment_ordering"
         tools:layout="@layout/fragment_ordering" />
+    <fragment
+        android:id="@+id/adminFragment"
+        android:name="com.example.apprent.ui.admin.AdminFragment"
+        android:label="fragment_admin"
+        tools:layout="@layout/fragment_admin" />
 </navigation>

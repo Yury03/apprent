@@ -6,30 +6,30 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.apprent.data.cart_database.entity.CartProductEntity;
+import com.example.apprent.data.cart_database.entity.CartEntity;
 
 import java.util.List;
 
 @Dao
 public interface CartDao {
     @Insert
-    void insert(CartProductEntity cartProduct);
+    void insert(CartEntity cartProduct);
 
     @Update
-    void update(CartProductEntity cartProduct);
+    void update(CartEntity cartProduct);
 
     @Delete
-    void delete(CartProductEntity cartProduct);
+    void delete(CartEntity cartProduct);
 
-    @Query("SELECT * FROM cart_products")
-    List<CartProductEntity> getAllCartProducts();
+    @Query("SELECT * FROM CartEntity")
+    List<CartEntity> getAllCartProducts();
 
-    @Query("SELECT * FROM cart_products WHERE id = :id")
-    CartProductEntity getById(int id);
+    @Query("SELECT * FROM CartEntity WHERE id = :id")
+    CartEntity getById(int id);
 
-    @Query("SELECT * FROM cart_products WHERE state = :state")
+    @Query("SELECT * FROM CartEntity WHERE state = :state")
 
-    List<CartProductEntity> getProductsWithState(int state);
+    List<CartEntity> getProductsWithState(int state);
 //
 //    @Query("SELECT * FROM cart_products WHERE state.stateId = CartProductEntity.State.CART")
 //

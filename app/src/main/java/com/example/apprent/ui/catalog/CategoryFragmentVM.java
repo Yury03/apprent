@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.apprent.data.network.GetItemsListImpl;
 import com.example.apprent.domain.models.CategoryItem;
 import com.example.apprent.domain.models.ProductItem;
-import com.example.apprent.domain.usecase.GetCategoryList;
-import com.example.apprent.domain.usecase.GetProductList;
+import com.example.apprent.domain.usecase.get_category.GetCategoryList;
+import com.example.apprent.domain.usecase.get_products.GetProductList;
 import com.example.apprent.ui.main_activity.MainActivityVM;
 
 import java.util.List;
