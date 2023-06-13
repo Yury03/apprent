@@ -1,6 +1,7 @@
 package com.example.apprent.domain.usecase.orders.get;
 
 import com.example.apprent.domain.MainContract;
+import com.example.apprent.domain.models.Order;
 
 public class GetOrdersAdmin {
     private final MainContract.GetOrders getOrders;
@@ -9,7 +10,7 @@ public class GetOrdersAdmin {
         this.getOrders = getOrders;
     }
 
-    public void execute(GetOrdersCallback callback) {
-        getOrders.getOrders(callback);
+    public void execute(GetOrdersCallback callback, String group) {
+        getOrders.getOrders(callback, group);
     }
 }

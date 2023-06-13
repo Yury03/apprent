@@ -23,12 +23,12 @@ public class CartEntityMapper {
     }
 
     public static CartEntity cartEntityJSONToCartEntity(CartEntityJSON cartEntityJSON) {
-        return new CartEntity(cartEntityJSON.getProduct_name(),
-                getDateFromString(cartEntityJSON.getStart_date()),//todo nullable!!!
-                cartEntityJSON.getPeriod(),
-                cartEntityJSON.getProduct_image_uri(),
-                cartEntityJSON.getMin_price(),
-                getFullPath(cartEntityJSON.getProduct_id())
+        return new CartEntity(cartEntityJSON.product_name,
+                getDateFromString(cartEntityJSON.start_date),//todo nullable!!!
+                cartEntityJSON.period,
+                cartEntityJSON.product_image_uri,
+                cartEntityJSON.min_price,
+                getFullPath(cartEntityJSON.product_id)
         );
     }
 

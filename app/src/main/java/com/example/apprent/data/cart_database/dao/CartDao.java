@@ -21,13 +21,13 @@ public interface CartDao {
     @Delete
     void delete(CartEntity cartProduct);
 
-    @Query("SELECT * FROM CartEntity")
+    @Query("SELECT * FROM cart_products")
     List<CartEntity> getAllCartProducts();
 
-    @Query("SELECT * FROM CartEntity WHERE id = :id")
+    @Query("SELECT * FROM cart_products WHERE id = :id")
     CartEntity getById(int id);
 
-    @Query("SELECT * FROM CartEntity WHERE state = :state")
+    @Query("SELECT * FROM cart_products WHERE state = :state")
 
     List<CartEntity> getProductsWithState(int state);
 //

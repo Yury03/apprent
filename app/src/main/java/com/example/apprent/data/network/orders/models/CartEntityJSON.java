@@ -1,18 +1,18 @@
 package com.example.apprent.data.network.orders.models;
 
-public class CartEntityJSON {//todo record?
-    private final int product_id;
-    private final String product_name;
+public class CartEntityJSON {
+    public int product_id;
+    public String product_name;
 
 
-    private final String product_image_uri;
-    private final String finalPrice;
-    private final int period;
-    private final int quantity;
-    private final String start_date;
+    public String product_image_uri;
+    public String finalPrice;
+    public int period;
+    public int quantity;
+    public String start_date;
 
 
-    private final int min_price;
+    public int min_price;
 
     public CartEntityJSON(int product_id,
                           String product_name,
@@ -32,37 +32,6 @@ public class CartEntityJSON {//todo record?
         this.min_price = min_price;
     }
 
-    public int getProduct_id() {
-        return product_id;
+    public CartEntityJSON() {
     }
-
-    public String getProduct_name() {
-        return product_name;
-    }
-
-
-    public String getProduct_image_uri() {
-        return product_image_uri;
-    }
-
-    public String getFinalPrice() {
-        return finalPrice;
-    }
-
-    public int getPeriod() {
-        return period;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public String getStart_date() {
-        return start_date;
-    }
-
-    public int getMin_price() {
-        return min_price;
-    }
-
 }

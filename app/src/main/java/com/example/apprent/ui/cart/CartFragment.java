@@ -6,10 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -20,6 +22,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.apprent.R;
 import com.example.apprent.data.cart_database.CartDatabase;
 import com.example.apprent.data.cart_database.entity.CartEntity;
+import com.example.apprent.data.network.orders.SendOrdersImpl;
+import com.example.apprent.domain.models.Order;
+import com.example.apprent.domain.usecase.orders.send.SendOrders;
+import com.example.apprent.domain.usecase.orders.send.SendOrdersCallback;
 import com.example.apprent.ui.cart.adapters.CartListAdapter;
 import com.example.apprent.ui.main_activity.MainActivity;
 import com.example.apprent.ui.main_activity.MainActivityVM;
@@ -71,6 +77,26 @@ public class CartFragment extends Fragment {
                 emptyCartLayer.setVisibility(View.VISIBLE);
             }
         });
+
+
+        Button testButton = view.findViewById(R.id.test_button);
+
+        testButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Order order = new Order(1224, true, false, cartEntityList, "89048666474", Order.State.EXPECTED, "uid");
+                SendOrdersImpl sendOrders = new SendOrdersImpl();
+                SendOrders sendOrdersUseCase = new SendOrders(sendOrders);
+                sendOrdersUseCase.execute(new SendOrdersCallback() {
+                    @Override
+                    public void returnState(int isError) {
+                        Toast.makeText(getContext(), "Order is send", Toast.LENGTH_LONG).show();
+                    }
+                }, order);
+            }
+        });
+
+
         return view;
     }
 

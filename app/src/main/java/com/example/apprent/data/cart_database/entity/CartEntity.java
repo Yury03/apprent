@@ -102,7 +102,6 @@ public class CartEntity implements Parcelable {
         this.imageUri = imageUri;
         this.minPrice = minPrice;
         this.finalPrice = minPrice * period;
-        this.state = State.CART;
         this.fullPath = fullPath;
     }
 

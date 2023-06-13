@@ -153,6 +153,7 @@ public class MainActivityVM extends ViewModel {
             int price = priceParser(productItem.getMinPrice());
             CartEntity cartEntity = new CartEntity(productItem.getName(),
                     new Date(selection.first), days, productItem.getMainImagePath(), price, productItem.getFullPath());
+            cartEntity.setState(CartEntity.State.CART);
             addToCart(cartEntity);
         });
         picker.show(supportFragmentManager, picker.toString());
