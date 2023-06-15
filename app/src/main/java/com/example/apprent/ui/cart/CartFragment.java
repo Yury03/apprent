@@ -1,5 +1,6 @@
 package com.example.apprent.ui.cart;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -36,9 +37,9 @@ import java.util.List;
 public class CartFragment extends Fragment {
     private CartFragmentVM vm;
     private MainActivityVM mainActivityVM;
-    private CartDatabase cartDatabase;
     private List<CartEntity> cartEntityList;
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class CartFragment extends Fragment {
         vm = new ViewModelProvider(this).get(CartFragmentVM.class);
         mainActivityVM = ((MainActivity) getActivity()).getVM();//todo   | ? |
         int marginBottom = mainActivityVM.getBottomNavigationView().getHeight();
-        cartDatabase = mainActivityVM.getCartDatabase();
+        CartDatabase cartDatabase = mainActivityVM.getCartDatabase();
         RecyclerView recyclerView = view.findViewById(R.id.product_list_cart);
         LinearLayout emptyCartLayer = view.findViewById(R.id.layer_empty_cart);
         LinearLayout orderingLayer = view.findViewById(R.id.ordering_layer);
@@ -56,9 +57,12 @@ public class CartFragment extends Fragment {
         vm.loadCartProductList(cartDatabase);
         vm.setMainActivity(mainActivityVM);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("CartProductsList", (ArrayList<? extends Parcelable>) cartEntityList);
-        orderingButton.setOnClickListener(v -> mainActivityVM.getNavController().navigate(R.id.orderingFragment));
+
+        orderingButton.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList("CartProductsList", (ArrayList<? extends Parcelable>) cartEntityList);
+            mainActivityVM.getNavController().navigate(R.id.orderingFragment, bundle);
+        });
         vm.getCartProductList().observe(getViewLifecycleOwner(), cartProductEntities -> {
             Log.e("CartFragment", cartProductEntities.toString());
             cartEntityList = cartProductEntities;
@@ -81,22 +85,14 @@ public class CartFragment extends Fragment {
 
         Button testButton = view.findViewById(R.id.test_button);
 
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Order order = new Order(1224, true, false, cartEntityList, "89048666474", Order.State.EXPECTED, "uid");
-                SendOrdersImpl sendOrders = new SendOrdersImpl();
-                SendOrders sendOrdersUseCase = new SendOrders(sendOrders);
-                sendOrdersUseCase.execute(new SendOrdersCallback() {
-                    @Override
-                    public void returnState(int isError) {
-                        Toast.makeText(getContext(), "Order is send", Toast.LENGTH_LONG).show();
-                    }
-                }, order);
-            }
-        });
-
-
+//        testButton.setOnClickListener(v -> {
+//            Order order = new Order(1224, true, false, cartEntityList,
+//                    "89048666474", Order.State.EXPECTED, "uid");
+//            SendOrdersImpl sendOrders = new SendOrdersImpl(getContext());
+//            SendOrders sendOrdersUseCase = new SendOrders(sendOrders);
+//            sendOrdersUseCase.execute(isError -> Toast.makeText(getContext(), "Order is send",
+//                    Toast.LENGTH_LONG).show(), order);
+//        });
         return view;
     }
 

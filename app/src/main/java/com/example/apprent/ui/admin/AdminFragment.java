@@ -13,12 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apprent.R;
 import com.example.apprent.data.network.orders.GetOrdersImpl;
-import com.example.apprent.domain.models.Order;
 import com.example.apprent.domain.usecase.orders.get.GetOrdersAdmin;
-import com.example.apprent.domain.usecase.orders.get.GetOrdersCallback;
 import com.example.apprent.ui.admin.adapters.OrdersListAdapter;
-
-import java.util.List;
 
 
 public class AdminFragment extends Fragment {
@@ -27,18 +23,15 @@ public class AdminFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        GetOrdersImpl getOrders = new GetOrdersImpl();
+        GetOrdersImpl getOrders = new GetOrdersImpl(getContext());
         GetOrdersAdmin getOrdersAdmin = new GetOrdersAdmin(getOrders);
-        ordersList = view.findViewById(R.id.orders_list);
-        getOrdersAdmin.execute(new GetOrdersCallback() {
-            @Override
-            public void onOrdersLoaded(List<Order> orders) {
-                OrdersListAdapter adapter = new OrdersListAdapter(orders, getContext());
-                ordersList.setAdapter(adapter);
-            }
+        ordersList = view.findViewById(R.id.admin_orders);
+        getOrdersAdmin.execute(orders -> {
+            OrdersListAdapter adapter = new OrdersListAdapter(orders, getContext());
+            ordersList.setAdapter(adapter);
         }, "expected");
+//        ordersList.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, true));//todo getContext()?
         ordersList.setLayoutManager(new LinearLayoutManager(requireContext()));
-
     }
 
     @Override

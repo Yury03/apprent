@@ -11,7 +11,7 @@
     <string name="remember_me_checkbox">Запомнить меня</string>
     <string name="default_nick"><b>?</b></string>
     <string name="cart">Корзина</string>
-    <string name="currency"> руб</string>
+    <string name="currency">&#160;руб</string>
     <string name="defaultNameProduct">Nikon EOD. Digital Camera For Good Guys</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -95,4 +95,28 @@
     <string name="order_item_rent_start">Начало аренды:&#160;</string>
     <string name="order_item_number_products">Количество товаров:&#160;</string>
     <string name="order_item_is_not_paid">Оплата при получении</string>
+    <string name="pickup_address">Самовывоз по адресу</string>
+    <string name="rental_price">Аренда:&#160;</string>
+    <string name="delivery_price">Доставка:&#160;</string>
+    <string name="final_price_shipping_fragment">Итого:&#160;</string>
+    <string name="first_name_review">Имя</string>
+    <string name="second_name_review">Фамилия</string>
+    <string name="user_address_review">Адрес</string>
+    <string name="phone_number_review">Номер телефона</string>
+    <string name="comment_hint">Комментарий к заказу</string>
+    <string name="enter_card_details">Введите реквизиты карты</string>
+    <string name="default_card_number">0000 0000 0000 0000</string>
+    <string name="MM_YY_card_details_hint">ММ/ГГ</string>
+    <string name="cvv_cvc_card_details_hint">000</string>
+    <string name="apply">Применить</string>
+    <string name="payment_upon_receipt">Оплата при получении</string>
+    <string name="final_price_fragment_pay">К оплате:&#160;</string>
+    <string name="name_error">Ошибка при вводе имени</string>
+    <string name="second_name_error">Ошибка при вводе фамилии</string>
+    <string name="address_error">Введите полный адрес</string>
+    <string name="phone_error">Введите телефон (только цифры)</string>
+    <string name="pickup_string">Самовывоз</string>
+    <string name="order_send_error">Произошла ошибка при отправке заказа!</string>
+    <string name="order_is_send">Ваш заказ отправлен!</string>
+
 </resources>

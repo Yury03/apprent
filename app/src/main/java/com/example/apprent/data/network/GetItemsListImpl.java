@@ -93,7 +93,6 @@ public class GetItemsListImpl implements MainContract.GetListData {
         StorageReference storageRef = storage.getReference().child(PATH_STRING_FOR_STORAGE + category);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference databaseRef = database.getReference(pathStringForDB);
-
         Log.i(TAG, pathStringForDB);
         storageRef.listAll().addOnSuccessListener(listResult -> {
             List<Task<ProductItem>> tasks = new ArrayList<>();
@@ -110,13 +109,15 @@ public class GetItemsListImpl implements MainContract.GetListData {
                 }
                 tasks.add(productItemsImages.getDownloadUrl().continueWithTask(task -> {
                     String imageUrl = String.valueOf(task.getResult());
-                    String itemPath = productItemsImages.getPath().substring(0, productItemsImages.getPath().lastIndexOf('.'));
+                    String itemPath = productItemsImages.getPath()
+                            .substring(0, productItemsImages.getPath().lastIndexOf('.'));
                     return databaseRef.child(itemPath).get().addOnSuccessListener(dataSnapshot -> {
-                        name = dataSnapshot.child("name").getValue(String.class);
-                        description = dataSnapshot.child("description").getValue(String.class);
-                        minPrice = dataSnapshot.child("minPrice").getValue(String.class);
-                    }).continueWith(task1 -> new ProductItem(imageUrl, name, description, minPrice, itemPath)).addOnFailureListener(e -> {
-                    });
+                                name = dataSnapshot.child("name").getValue(String.class);
+                                description = dataSnapshot.child("description").getValue(String.class);
+                                minPrice = dataSnapshot.child("minPrice").getValue(String.class);
+                            }).continueWith(task1 -> new ProductItem(imageUrl, name, description, minPrice, itemPath))
+                            .addOnFailureListener(e -> {
+                            });
                 }));
             }
             for (StorageReference productItemsFolders : listResult.getPrefixes()) {
@@ -132,7 +133,8 @@ public class GetItemsListImpl implements MainContract.GetListData {
                 productItemsFolders.listAll().addOnSuccessListener(listResult1 -> {
                     List<String> currentImagesPath = directoryMap.get(itemName);
                     for (StorageReference productImage : listResult1.getItems()) {
-                        productImage.getDownloadUrl().addOnSuccessListener(uri -> currentImagesPath.add(uri.toString()));//todo выше есть проверка
+                        productImage.getDownloadUrl().addOnSuccessListener(uri -> currentImagesPath
+                                .add(uri.toString()));//todo выше есть проверка
                     }
                 });
             }
@@ -141,7 +143,8 @@ public class GetItemsListImpl implements MainContract.GetListData {
                 for (Object obj : results) {
                     if (obj != null) {
                         Log.e(TAG, "key is " + ((ProductItem) obj).getFullPath());
-                        String key = ((ProductItem) obj).getFullPath().substring(((ProductItem) obj).getFullPath().lastIndexOf('/') + 1);
+                        String key = ((ProductItem) obj).getFullPath()
+                                .substring(((ProductItem) obj).getFullPath().lastIndexOf('/') + 1);
                         Log.e(TAG, "key is " + key);
                         ((ProductItem) obj).setImagesPath(directoryMap.get(key));
                         productItemList.add((ProductItem) obj);
@@ -188,6 +191,4 @@ public class GetItemsListImpl implements MainContract.GetListData {
                     Log.e(TAG, exception.toString());
                 });
     }
-
-
 }

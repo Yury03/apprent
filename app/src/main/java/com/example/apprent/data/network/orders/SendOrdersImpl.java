@@ -1,6 +1,10 @@
 package com.example.apprent.data.network.orders;
 
+
+import static com.example.apprent.data.network.AuthenticationImpl.AUTH_PREFERENCES;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.example.apprent.data.CartEntityMapper;
 import com.example.apprent.data.OrderMapper;
@@ -17,32 +21,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SendOrdersImpl implements MainContract.SendOrders {
-    private final Context context;
+
+    private final SharedPreferences sharedPreferences;
 
     public SendOrdersImpl(Context context) {
-        this.context = context;
+        this.sharedPreferences = context.getSharedPreferences(AUTH_PREFERENCES, Context.MODE_PRIVATE);
     }
 
     public void sendOrders(SendOrdersCallback callback, Order order, String uid) {
+        if (uid.equals("errorUID")) {
+            callback.returnState(Order.SendOrderError.UID_ERROR);
+            return;
+        }
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         String path = "/tests/" + order.getState().toString().toLowerCase();
-        DatabaseReference databaseReferenceForOrders = database.getReference(path).child(uid);
+        DatabaseReference databaseReferenceForOrders = database.getReference(path).child(uid).push();
         List<CartEntityJSON> cartEntityJSONList = new ArrayList<>();
         for (CartEntity cartEntity : order.getProductList()) {
             cartEntityJSONList.add(CartEntityMapper.cartEntityToCartEntityJSON(cartEntity));
         }
         OrderJSON orderJSON = OrderMapper.getOrderJSONFromOrder(order, cartEntityJSONList);
         databaseReferenceForOrders.setValue(orderJSON).addOnSuccessListener(unused -> {
-            callback.returnState(0);//todo добавить enum Error
+            callback.returnState(Order.SendOrderError.ORDER_IS_SEND);
         }).addOnFailureListener(e -> {
-            callback.returnState(1);//todo добавить enum Error
+            callback.returnState(Order.SendOrderError.FIREBASE_ERROR);
         });
 
     }
 
     @Override
     public void sendOrders(SendOrdersCallback callback, Order order) {
-        //todo получаем uid пользователя в data слое
-        sendOrders(callback, order, "uid001");
+        sendOrders(callback, order, sharedPreferences.getString("UID", "errorUID"));
     }
 }

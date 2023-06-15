@@ -1,5 +1,6 @@
 package com.example.apprent.ui.ordering;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,28 +17,36 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.apprent.R;
+import com.example.apprent.data.cart_database.entity.CartEntity;
 import com.example.apprent.ui.main_activity.MainActivity;
 import com.example.apprent.ui.main_activity.MainActivityVM;
+
+import java.util.List;
 
 
 public class OrderingFragment extends Fragment {
     private NavController navController;
-    private NavHostFragment navHostFragment;
-    private OrderingFragmentViewModel orderingFragmentViewModel;
+    private OrderingViewModel vm;
 
-
+    @SuppressLint("UseCompatLoadingForDrawables")//TODO()
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        vm = new ViewModelProvider(this).get(OrderingViewModel.class);
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            vm.setProductList(arguments.getParcelableArrayList("CartProductsList"));
+        }
         MainActivityVM mainActivityVM = ((MainActivity) getActivity()).getVM();
         mainActivityVM.getBottomNavigationView().setVisibility(View.GONE);
         mainActivityVM.setTitleOfTopBar(getString(R.string.title_top_bar_ordering));
         mainActivityVM.showBackButton();
-        orderingFragmentViewModel = new ViewModelProvider(this).get(OrderingFragmentViewModel.class);
         Button continueButton = view.findViewById(R.id.continue_button);
         ImageView imageView = view.findViewById(R.id.top_image_ordering_fragment);
-        navHostFragment = (NavHostFragment) getChildFragmentManager().findFragmentById(R.id.ordering_fragment_container);
+        NavHostFragment navHostFragment = (NavHostFragment) getChildFragmentManager()
+                .findFragmentById(R.id.ordering_fragment_container);
         navController = navHostFragment.getNavController();
+        mainActivityVM.setOrderingViewModel(vm);
         mainActivityVM.getBackButtonState().observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean) {
                 mainActivityVM.setBackButtonState(false);
@@ -54,29 +63,43 @@ public class OrderingFragment extends Fragment {
                 }
             }
         });
+
+
+
+        /** посылается сигнал в дочерние фрагменты при нажатии на кнопку продолжить
+         *  дочерние фрагменты собирают информацию конечную и, если она валидна, отправляют false
+         *  в состояние кнопки продолжить и только в том случае происходит навигация */
         continueButton.setOnClickListener(v -> {
-            int id = navController.getCurrentDestination().getId();
-            if (id == R.id.shippingFragment) {
-                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ordering_step_2));
-                navController.navigate(R.id.action_shippingFragment_to_payFragment);
-            } else if (id == R.id.payFragment) {
-                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ordering_step_3));
-                continueButton.setText(R.string.pay_button);
-                navController.navigate(R.id.action_payFragment_to_reviewOrderFragment);
-            } else if (id == R.id.reviewOrderFragment) {
-                Toast.makeText(getContext(), getString(R.string.thanks_for_your_order), Toast.LENGTH_LONG).show();
-                mainActivityVM.getNavController().navigate(R.id.mainFragment);
-                mainActivityVM.getBottomNavigationView().setVisibility(View.VISIBLE);
-                mainActivityVM.sendOrderRequest();
+            vm.setButtonContinueState(true);
+        });
+        vm.getButtonContinueState().observe(getViewLifecycleOwner(), aBoolean -> {
+            if (!aBoolean) {
+                int id = navController.getCurrentDestination().getId();
+                if (id == R.id.shippingFragment) {
+                    imageView.setImageDrawable(getResources()
+                            .getDrawable(R.drawable.ordering_step_2));
+                    navController.navigate(R.id.action_shippingFragment_to_payFragment);
+                } else if (id == R.id.payFragment) {
+                    imageView.setImageDrawable(getResources()
+                            .getDrawable(R.drawable.ordering_step_3));
+                    continueButton.setText(R.string.pay_button);
+                    navController.navigate(R.id.action_payFragment_to_reviewOrderFragment);
+                } else if (id == R.id.reviewOrderFragment) {
+                    Toast.makeText(getContext(), getString(R.string.thanks_for_your_order),
+                            Toast.LENGTH_LONG).show();
+                    mainActivityVM.getNavController().navigate(R.id.mainFragment);
+                    mainActivityVM.getBottomNavigationView().setVisibility(View.VISIBLE);
+                    mainActivityVM.sendOrderRequest();
+                }
             }
         });
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ordering, container, false);
-
         return view;
     }
 }

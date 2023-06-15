@@ -1,6 +1,9 @@
 package com.example.apprent.data.network.orders;
 
-import android.util.Log;
+import static com.example.apprent.data.network.AuthenticationImpl.AUTH_PREFERENCES;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 
@@ -23,27 +26,31 @@ import java.util.List;
 
 public class GetOrdersImpl implements MainContract.GetOrders {
 
-//    private final String PATH_FOR_ORDERS = "/aura/orders/";
-    private final String PATH_FOR_ORDERS= "/tests/";
+    //    private final String PATH_FOR_ORDERS = "/aura/orders/";
+    private final String PATH_FOR_ORDERS = "/tests/";// /tests/current/uid1
+    private final SharedPreferences sharedPreferences;
+    private final FirebaseDatabase database;
 
-    private final String PATH_FOR_CART = "/aura/cart";
+    public GetOrdersImpl(Context context) {
+        this.database = FirebaseDatabase.getInstance();
+        this.sharedPreferences = context
+                .getSharedPreferences(AUTH_PREFERENCES, Context.MODE_PRIVATE);
+    }
 
     @Override
-    public void getOrders(GetOrdersCallback callback, String group) {
+    public void getOrdersForAdmin(GetOrdersCallback callback, String group) {
         String pathOrders = PATH_FOR_ORDERS + group;
-        List<Order> orderList = new ArrayList<>();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
         DatabaseReference databaseReferenceForOrders = database.getReference(pathOrders);
         databaseReferenceForOrders.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot orderSnapshot : snapshot.getChildren()) {//todo оптимизация
-                    OrderJSON orderJSON = orderSnapshot.getValue(OrderJSON.class);
-                    List<CartEntity> cartEntityList = new ArrayList<>();
-                    for (CartEntityJSON cartEntityJSON : orderJSON.product_list) {
-                        cartEntityList.add(CartEntityMapper.cartEntityJSONToCartEntity(cartEntityJSON));
+                List<Order> orderList = new ArrayList<>();
+                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                    String uid = childSnapshot.getKey();
+                    for (DataSnapshot orderSnapshot : childSnapshot.getChildren()) {
+                        orderList.add(readOrder(orderSnapshot, group, uid));
                     }
-                    orderList.add(OrderMapper.getOrderFromOrderJSON(orderJSON, cartEntityList, group, orderSnapshot.getKey()));
                 }
                 callback.onOrdersLoaded(orderList);
             }
@@ -55,5 +62,41 @@ public class GetOrdersImpl implements MainContract.GetOrders {
         });
     }
 
+
+    public void getOrdersForUser(GetOrdersCallback callback, String group, String uid) {
+        String path = PATH_FOR_ORDERS + group + "/" + uid;
+
+        DatabaseReference databaseReferenceForOrders = database.getReference(path);
+        databaseReferenceForOrders.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Order> orderList = new ArrayList<>();
+                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+                    orderList.add(readOrder(childSnapshot, group, uid));
+                }
+                callback.onOrdersLoaded(orderList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void getOrdersForUser(GetOrdersCallback callback, String group) {
+        getOrdersForUser(callback, group,
+                sharedPreferences.getString("UID", "errorUID"));
+    }
+
+    private Order readOrder(DataSnapshot childSnapshot, String group, String uid) {
+        OrderJSON orderJSON = childSnapshot.getValue(OrderJSON.class);
+        List<CartEntity> cartEntityList = new ArrayList<>();
+        for (CartEntityJSON cartEntityJSON : orderJSON.product_list) {
+            cartEntityList.add(CartEntityMapper.cartEntityJSONToCartEntity(cartEntityJSON));
+        }
+        return OrderMapper.getOrderFromOrderJSON(orderJSON, cartEntityList, group, uid);
+    }
 
 }

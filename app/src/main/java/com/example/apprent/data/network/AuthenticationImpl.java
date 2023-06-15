@@ -1,5 +1,7 @@
 package com.example.apprent.data.network;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.apprent.domain.MainContract;
@@ -12,10 +14,12 @@ public class AuthenticationImpl implements MainContract.Authentication {
 
     private final FirebaseAuth firebaseAuth;
     private final String TAG = "Login";
+    public final static String AUTH_PREFERENCES = "AuthSettings";
+    private final SharedPreferences sharedPreferences;
 
-    public AuthenticationImpl(FirebaseAuth firebaseAuth) {
-        this.firebaseAuth = firebaseAuth;
-
+    public AuthenticationImpl(Context context) {
+        this.firebaseAuth = FirebaseAuth.getInstance();
+        sharedPreferences = context.getSharedPreferences(AUTH_PREFERENCES, Context.MODE_PRIVATE);
     }
 
     @Override
@@ -41,6 +45,7 @@ public class AuthenticationImpl implements MainContract.Authentication {
                     if (task.isSuccessful()) {
                         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                         Log.e(TAG, firebaseUser.getUid());
+                        saveUID(firebaseAuth.getCurrentUser().getUid());
                         if (firebaseUser.getUid().equals("OHZ6UODMfFbp9Vd42ETGC8ZbwYw1")) {
                             callback.isAuthorized(AuraUser.State.ADMIN_SIGN_IN);
                         } else {
@@ -58,11 +63,16 @@ public class AuthenticationImpl implements MainContract.Authentication {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Log.d(TAG, "createUserWithEmail:success");
+                        saveUID(firebaseAuth.getCurrentUser().getUid());
                         callback.accountIsCreated(AuraUser.State.SIGN_UP);
                     } else {
                         Log.w(TAG, "createUserWithEmail:failure", task.getException());
                         callback.accountIsNotCreated(task.getException(), AuraUser.State.SIGN_UP_ERROR);
                     }
                 });
+    }
+
+    private void saveUID(String uid) {
+        sharedPreferences.edit().putString("UID", uid).apply();
     }
 }

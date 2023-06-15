@@ -23,6 +23,7 @@ import com.example.apprent.data.network.GetItemsListImpl;
 import com.example.apprent.domain.models.ProductItem;
 import com.example.apprent.domain.usecase.search.GetSearchResults;
 import com.example.apprent.ui.call_dialog.CallDialogFragment;
+import com.example.apprent.ui.ordering.OrderingViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.datepicker.CalendarConstraints;
@@ -37,6 +38,12 @@ import java.util.concurrent.TimeUnit;
 public class MainActivityVM extends ViewModel {
     private final MutableLiveData<Integer> fragmentID = new MutableLiveData<>(R.id.home_page);
     private final MutableLiveData<Boolean> backButtonState = new MutableLiveData<>(false);
+
+    public OrderingViewModel getOrderingViewModel() {
+        return orderingViewModel;
+    }
+
+    private OrderingViewModel orderingViewModel;
 
     public LiveData<List<ProductItem>> getSearchResultsForCategoryFragment() {
         return searchResultsForCategoryFragment;
@@ -60,13 +67,13 @@ public class MainActivityVM extends ViewModel {
         this.materialToolbar = materialToolbar;
     }
 
-    private MaterialToolbar materialToolbar;
+    private MaterialToolbar materialToolbar;//TODO()
 
-    private Context appContext;
+    private Context appContext;//TODO()
     private CartDatabase cartDatabase;
     private CartDao cartDao;
 
-    private BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView;//TODO()
     public static final String APP_PREFERENCES = "MainSettings";
     private SharedPreferences sharedPreferences;
     private final MutableLiveData<String> titleOfTopBar = new MutableLiveData<>();
@@ -219,15 +226,15 @@ public class MainActivityVM extends ViewModel {
     }
 
     public void sendOrderRequest() {
-        Executors.newSingleThreadExecutor().execute(new Runnable() {
-            @Override
-            public void run() {
-                for (CartEntity entity :
-                        cartDao.getProductsWithState(CartEntity.State.IS_PAID.stateId)) {
-                    entity.setState(CartEntity.State.IS_PAID);
-                }
+        Executors.newSingleThreadExecutor().execute(() -> {
+            for (CartEntity entity :
+                    cartDao.getProductsWithState(CartEntity.State.IS_PAID.stateId)) {
+                entity.setState(CartEntity.State.IS_PAID);
             }
         });
     }
 
+    public void setOrderingViewModel(OrderingViewModel viewModel) {
+        this.orderingViewModel = viewModel;
+    }
 }

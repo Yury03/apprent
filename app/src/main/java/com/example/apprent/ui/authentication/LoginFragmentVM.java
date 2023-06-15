@@ -1,5 +1,6 @@
 package com.example.apprent.ui.authentication;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -17,20 +18,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LoginFragmentVM extends ViewModel implements Serializable {
-    MainContract.Authentication authentication;
+    private MainContract.Authentication authentication;
 
     public LiveData<AuraUser.State> getUserLiveData() {
         return userLiveData;
     }
 
-    MutableLiveData<AuraUser.State> userLiveData = new MutableLiveData<>();
+    private final MutableLiveData<AuraUser.State> userLiveData = new MutableLiveData<>();
 
-
-    public LoginFragmentVM() {
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        authentication = new AuthenticationImpl(mAuth);
+    public void initAuthentication(Context context) {
+        authentication = new AuthenticationImpl(context);
     }
-
 
     public void signIn(String login, String password) {
         authentication.signIn(new AuthenticationCallback.signInCallback() {

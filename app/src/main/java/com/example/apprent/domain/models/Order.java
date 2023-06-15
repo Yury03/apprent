@@ -18,11 +18,37 @@ public class Order {
             this.stateId = stateId;
         }
     }
+    public static enum SendOrderError {
+        ORDER_IS_SEND(0),
+        UID_ERROR(1),
+        FIREBASE_ERROR(2),
+        ;
+        public final int stateId;
 
-    private int id;
-    private final String uid;
-    private boolean isDelivery;
-    private boolean isPaid;
+        SendOrderError(int stateId) {
+            this.stateId = stateId;
+        }
+    }
+
+    private final int id;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getSecondName() {
+        return secondName;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    private final String firstName;
+    private final String secondName;
+    private final String comment;
+    private final boolean isDelivery;
+    private final boolean isPaid;
 
     public State getState() {
         return state;
@@ -33,7 +59,7 @@ public class Order {
     }
 
     private State state;
-    private String phoneNumber;
+    private final String phoneNumber;
 
     public void setDeliveryAddress(String deliveryAddress) {
         this.deliveryAddress = deliveryAddress;
@@ -74,15 +100,18 @@ public class Order {
 
     private List<CartEntity> productList;
 
-    public Order(int id, boolean isDelivery, boolean isPaid, List<CartEntity> productList,
-                 String phoneNumber, State state, String uid) {
+    public Order(int id, boolean isDelivery, boolean isPaid,
+                 List<CartEntity> productList, String phoneNumber,
+                 State state, String firstName, String secondName, String comment) {
         this.id = id;
         this.isDelivery = isDelivery;
         this.isPaid = isPaid;
         this.productList = productList;
         this.phoneNumber = phoneNumber;
         this.state = state;
-        this.uid = uid;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.comment = comment;
         if (productList != null) {
             this.quantityProducts = productList.size();
             this.rentStart = productList.get(0).getDate();
@@ -94,6 +123,7 @@ public class Order {
         this.quantityProducts = productList.size();
         this.rentStart = productList.get(0).getDate();
     }
+
 
     public String getPhoneNumber() {
         return this.phoneNumber;

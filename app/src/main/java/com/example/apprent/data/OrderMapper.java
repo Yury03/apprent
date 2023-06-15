@@ -10,11 +10,10 @@ import java.util.List;
 public class OrderMapper {
     public static OrderJSON getOrderJSONFromOrder(Order order, List<CartEntityJSON> cartEntityJSONList) {
         return new OrderJSON(order.getId(),
-                order.isDelivery(),
-                order.isPaid(),
-                order.getDeliveryAddress(),
-                cartEntityJSONList,
-                order.getPhoneNumber());
+                order.isDelivery(), order.isPaid(),
+                order.getDeliveryAddress(), cartEntityJSONList,
+                order.getPhoneNumber(), order.getFirstName(),
+                order.getSecondName(), order.getComment());
     }
 
     public static Order getOrderFromOrderJSON(OrderJSON orderJSON, List<CartEntity> cartEntityList, String state, String uid) {//todo возможно понадобится uid
@@ -25,11 +24,9 @@ public class OrderMapper {
             case "canceled" -> Order.State.CANCELED;
             default -> throw new IllegalStateException("Unexpected value: " + state);
         };
-        Order result = new Order(orderJSON.id,
-                orderJSON.is_delivery,
-                orderJSON.is_paid,
-                cartEntityList,
-                orderJSON.phone_number, res, uid);
+        Order result = new Order(orderJSON.id, orderJSON.is_delivery, orderJSON.is_paid,
+                cartEntityList, orderJSON.phone_number, res, orderJSON.firstName,
+                orderJSON.secondName, orderJSON.comment);
         if (orderJSON.is_delivery) {
             result.setDeliveryAddress(orderJSON.delivery_address);
         }

@@ -62,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_weight="3"
+        android:layout_weight="0"
         android:orientation="horizontal">
 
         <ImageView
@@ -104,7 +104,28 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="4"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/your_orders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Ваши заказы:"
+            android:textColor="@color/main_text"
+            android:textSize="16sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/user_orders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/order_list_item" />
+    </LinearLayout>
 
 
 </LinearLayout>

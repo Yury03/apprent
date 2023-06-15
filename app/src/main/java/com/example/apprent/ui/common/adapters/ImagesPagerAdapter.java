@@ -25,7 +25,6 @@ public class ImagesPagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         Bundle bundle = new Bundle();
         bundle.putString("link", imagesList.get(position));
-
         return new ImageFragmentForViewPager(bundle);
     }
 

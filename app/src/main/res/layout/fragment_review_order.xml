@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginHorizontal="5dp"
     android:orientation="vertical"
     tools:context=".ui.ordering.ReviewOrderFragment">
@@ -16,12 +16,11 @@
         <TextView
             android:id="@+id/name_hint_review_order"
             style="@style/reviewOrderTextHint"
-            android:text="Имя" />
+            android:text="@string/first_name_review" />
 
         <TextView
             android:id="@+id/name_review_order"
-            style="@style/reviewOrderText."
-            android:text="Иван" />
+            style="@style/reviewOrderText." />
     </LinearLayout>
 
     <LinearLayout
@@ -32,12 +31,11 @@
         <TextView
             android:id="@+id/second_name_hint_review_order"
             style="@style/reviewOrderTextHint"
-            android:text="Фамилия" />
+            android:text="@string/second_name_review" />
 
         <TextView
             android:id="@+id/second_name_review_order"
-            style="@style/reviewOrderText."
-            android:text="Иванов" />
+            style="@style/reviewOrderText." />
     </LinearLayout>
 
     <LinearLayout
@@ -49,12 +47,11 @@
             android:id="@+id/delivery_address_hint_review_order"
             style="@style/reviewOrderTextHint"
 
-            android:text="Адрес" />
+            android:text="@string/user_address_review" />
 
         <TextView
             android:id="@+id/delivery_address_review_order"
-            style="@style/reviewOrderText."
-            android:text="@string/default_delivery_address" />
+            style="@style/reviewOrderText."/>
     </LinearLayout>
 
     <LinearLayout
@@ -65,12 +62,11 @@
         <TextView
             android:id="@+id/phone_hint_review_order"
             style="@style/reviewOrderTextHint"
-            android:text="Номер телефона" />
+            android:text="@string/phone_number_review" />
 
         <TextView
             android:id="@+id/phone_review_order"
-            style="@style/reviewOrderText."
-            android:text="89048636573" />
+            style="@style/reviewOrderText." />
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -84,6 +80,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:hint="Комментарий к заказу" />
+            android:hint="@string/comment_hint" />
     </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>

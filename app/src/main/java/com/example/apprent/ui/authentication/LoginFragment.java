@@ -25,13 +25,12 @@ public class LoginFragment extends Fragment {
     private SharedPreferences sharedPreferences;
     private LoginFragmentVM vm;
     private MainActivityVM mainActivityVM;
-    private static final String Tag = "apprent: LoginFragment";
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         vm = new ViewModelProvider(this).get(LoginFragmentVM.class);
+        vm.initAuthentication(getContext());
         mainActivityVM = ((MainActivity) getActivity()).getVM();//todo   | ? |
         mainActivityVM.getBottomNavigationView().setVisibility(View.INVISIBLE);
         sharedPreferences = mainActivityVM.getSharedPreferences();

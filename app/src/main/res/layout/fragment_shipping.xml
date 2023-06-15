@@ -83,12 +83,13 @@
 
     </LinearLayout>
 
-    <Switch
-        android:id="@+id/switch1"
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/is_pickup"
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="5dp"
-        android:text="Самовывоз по адресу Ленинский проспек, дом 112" />
+        android:text="@string/pickup_address" />
 
 
 
@@ -105,7 +106,7 @@
             android:layout_marginVertical="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Аренда:"
+            android:text="@string/rental_price"
             android:textColor="@color/main_text"
             android:textSize="20sp" />
 
@@ -114,7 +115,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="3dp"
-            android:text="Доставка:"
+            android:text="@string/delivery_price"
             android:textColor="@color/main_text"
             android:textSize="20sp" />
 
@@ -123,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="3dp"
-            android:text="Итого:"
+            android:text="@string/final_price_shipping_fragment"
             android:textColor="@color/main_text"
             android:textSize="24sp" />
     </LinearLayout>

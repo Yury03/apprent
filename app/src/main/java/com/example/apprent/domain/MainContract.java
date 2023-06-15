@@ -33,7 +33,9 @@ public interface MainContract {
     }
 
     interface GetOrders {
-        void getOrders(GetOrdersCallback callback, String group);
+        void getOrdersForAdmin(GetOrdersCallback callback, String group);
+
+        void getOrdersForUser(GetOrdersCallback callback, String group);
     }
 
     interface SendOrders {
