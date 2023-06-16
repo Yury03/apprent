@@ -44,14 +44,13 @@ public class SendOrdersImpl implements MainContract.SendOrders {
         OrderJSON orderJSON = OrderMapper.getOrderJSONFromOrder(order, cartEntityJSONList);
         databaseReferenceForOrders.setValue(orderJSON).addOnSuccessListener(unused -> {
             callback.returnState(Order.SendOrderError.ORDER_IS_SEND);
-        }).addOnFailureListener(e -> {
-            callback.returnState(Order.SendOrderError.FIREBASE_ERROR);
-        });
+        }).addOnFailureListener(e -> callback.returnState(Order.SendOrderError.FIREBASE_ERROR));
 
     }
 
     @Override
     public void sendOrders(SendOrdersCallback callback, Order order) {
-        sendOrders(callback, order, sharedPreferences.getString("UID", "errorUID"));
+        String uid = sharedPreferences.getString("UID", "errorUID");
+        sendOrders(callback, order, uid);
     }
 }

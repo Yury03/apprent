@@ -86,8 +86,8 @@ public class GetOrdersImpl implements MainContract.GetOrders {
 
     @Override
     public void getOrdersForUser(GetOrdersCallback callback, String group) {
-        getOrdersForUser(callback, group,
-                sharedPreferences.getString("UID", "errorUID"));
+        String uid = sharedPreferences.getString("UID", "errorUID");
+        getOrdersForUser(callback, group, uid);
     }
 
     private Order readOrder(DataSnapshot childSnapshot, String group, String uid) {
