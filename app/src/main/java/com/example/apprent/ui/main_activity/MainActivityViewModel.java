@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class MainActivityVM extends ViewModel {
+public class MainActivityViewModel extends ViewModel {
     private final MutableLiveData<Integer> fragmentID = new MutableLiveData<>(R.id.home_page);
     private final MutableLiveData<Boolean> backButtonState = new MutableLiveData<>(false);
 
@@ -236,5 +236,13 @@ public class MainActivityVM extends ViewModel {
 
     public void setOrderingViewModel(OrderingViewModel viewModel) {
         this.orderingViewModel = viewModel;
+    }
+
+    public void clearCart(List<CartEntity> cartEntityList) {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            for (CartEntity cartEntity : cartEntityList){
+                cartDao.delete(cartEntity);
+            }
+        });
     }
 }

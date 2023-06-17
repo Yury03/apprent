@@ -12,6 +12,7 @@ import com.example.apprent.data.cart_database.entity.CartEntity;
 import com.example.apprent.data.network.orders.SendOrdersImpl;
 import com.example.apprent.domain.models.Order;
 import com.example.apprent.domain.usecase.orders.send.SendOrders;
+import com.example.apprent.ui.main_activity.MainActivityViewModel;
 
 import java.util.List;
 
@@ -124,12 +125,13 @@ public class OrderingViewModel extends ViewModel {
 
 
 
-    public void sendOrder(Context context) {
+    public void sendOrder(Context context, MainActivityViewModel mainActivityViewModel) {
         SendOrdersImpl sendOrders = new SendOrdersImpl(context);
         SendOrders sendOrdersUseCase = new SendOrders(sendOrders);
         sendOrdersUseCase.execute(Error -> {
             if (Error == Order.SendOrderError.ORDER_IS_SEND) {
                 Toast.makeText(context, R.string.order_is_send, Toast.LENGTH_LONG).show();
+                mainActivityViewModel.clearCart(productsList.getValue());
             } else {
                 Toast.makeText(context, R.string.order_send_error, Toast.LENGTH_LONG).show();
             }

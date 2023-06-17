@@ -17,7 +17,7 @@ import com.example.apprent.domain.models.ProductItem;
 import com.example.apprent.ui.call_dialog.CallDialogFragment;
 import com.example.apprent.ui.common.adapters.ImagesPagerAdapter;
 import com.example.apprent.ui.main_activity.MainActivity;
-import com.example.apprent.ui.main_activity.MainActivityVM;
+import com.example.apprent.ui.main_activity.MainActivityViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -27,7 +27,7 @@ import java.util.List;
 public class ProductFragment extends Fragment {
 
     private ProductItem product;
-    private MainActivityVM mainActivityVM;
+    private MainActivityViewModel mainActivityViewModel;
     private ProductFragmentVM vm;
 
     @Override
@@ -48,7 +48,7 @@ public class ProductFragment extends Fragment {
         TextView name = view.findViewById(R.id.product_name_fragment);
         TextView description = view.findViewById(R.id.product_description_fragment);
         product = (ProductItem) getArguments().getSerializable("openProduct"); //todo
-        mainActivityVM = ((MainActivity) getActivity()).getVM();
+        mainActivityViewModel = ((MainActivity) getActivity()).getVM();
         List<String> imagesList = product.getImagesPath();
         ImagesPagerAdapter imagesPagerAdapter = new ImagesPagerAdapter(this, imagesList);
         imagesPager.setAdapter(imagesPagerAdapter);
@@ -56,16 +56,16 @@ public class ProductFragment extends Fragment {
         price.setText(product.getMinPrice() + " руб/сутки");
         name.setText(product.getName());
         description.setText(product.getDescription());
-        mainActivityVM.getBottomNavigationView().setVisibility(BottomNavigationView.INVISIBLE);
-        mainActivityVM.getBackButtonState().observe(getViewLifecycleOwner(), aBoolean -> {
+        mainActivityViewModel.getBottomNavigationView().setVisibility(BottomNavigationView.INVISIBLE);
+        mainActivityViewModel.getBackButtonState().observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean) {
-                mainActivityVM.setBackButtonState(false);
+                mainActivityViewModel.setBackButtonState(false);
                 Bundle bundle = new Bundle();
                 bundle.putString("FullPath", getArguments().getString("FullPath"));
-                mainActivityVM.getNavController().navigate(R.id.categoryFragment, bundle);
+                mainActivityViewModel.getNavController().navigate(R.id.categoryFragment, bundle);
             }
         });
-        calendar.setOnClickListener(v -> mainActivityVM.selectDate(product));
+        calendar.setOnClickListener(v -> mainActivityViewModel.selectDate(product));
         reservation.setOnClickListener(v -> {
             CallDialogFragment dialogFragment = new CallDialogFragment();
             dialogFragment.show(getChildFragmentManager(), "dialog");

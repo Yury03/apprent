@@ -14,7 +14,7 @@ import com.example.apprent.domain.usecase.orders.get.GetOrdersUser;
 
 import java.util.List;
 
-public class MainFragmentVM extends ViewModel {
+public class MainFragmentViewModel extends ViewModel {
     private final MutableLiveData<List<String>> bannerLinks = new MutableLiveData<>();
     private final MutableLiveData<List<Order>> ordersList = new MutableLiveData<>();
 

@@ -33,7 +33,6 @@ public class SendOrdersImpl implements MainContract.SendOrders {
             callback.returnState(Order.SendOrderError.UID_ERROR);
             return;
         }
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         String path = "/tests/" + order.getState().toString().toLowerCase();
         DatabaseReference databaseReferenceForOrders = database.getReference(path).child(uid).push();
@@ -45,7 +44,6 @@ public class SendOrdersImpl implements MainContract.SendOrders {
         databaseReferenceForOrders.setValue(orderJSON).addOnSuccessListener(unused -> {
             callback.returnState(Order.SendOrderError.ORDER_IS_SEND);
         }).addOnFailureListener(e -> callback.returnState(Order.SendOrderError.FIREBASE_ERROR));
-
     }
 
     @Override

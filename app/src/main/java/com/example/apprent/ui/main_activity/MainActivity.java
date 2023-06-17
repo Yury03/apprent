@@ -2,20 +2,14 @@ package com.example.apprent.ui.main_activity;
 
 import static com.example.apprent.domain.models.AuraUser.State.USER_NOT_SIGN_IN;
 
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
-import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavBackStackEntry;
 import androidx.navigation.NavController;
@@ -29,11 +23,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MainActivityVM vm;
+    private MainActivityViewModel vm;
     private final String TAG = "Debug: MainActivity";
     private NavController navController;
     private BottomNavigationView bottomNavigationView;
-    private SharedPreferences sp;
     private MaterialToolbar topAppBar;
 
 
@@ -67,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
 //        return true;
 //    }
 
-    public MainActivityVM getVM() {
-        if (this.vm == null) vm = new ViewModelProvider(this).get(MainActivityVM.class);
+    public MainActivityViewModel getVM() {
+        if (this.vm == null) vm = new ViewModelProvider(this).get(MainActivityViewModel.class);
         return this.vm;
     }
 
@@ -77,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         topAppBar = findViewById(R.id.topAppBar);
-        sp = getSharedPreferences(MainActivityVM.APP_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences(MainActivityViewModel.APP_PREFERENCES, Context.MODE_PRIVATE);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         setSupportActionBar(topAppBar);
         vm = this.getVM();
@@ -140,10 +133,10 @@ public class MainActivity extends AppCompatActivity {
                 } else if (navDestination.getId() == R.id.profileFragment) {
                     vm.hideBackButton();
                     vm.setTitleOfTopBar(getResources().getString(R.string.profile_fragment_name));
-                }else if(navDestination.getId() == R.id.adminFragment){
+                } else if (navDestination.getId() == R.id.adminFragment) {
                     vm.hideBackButton();
                     vm.getBottomNavigationView().setVisibility(View.GONE);
-                    topAppBar.setTitle("Администратор 2");
+                    topAppBar.setTitle("Страница администратора");
                 }
             }
         });
@@ -176,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
             vm.getCartDatabase().close();
         }
     }
-
 
 
     public MaterialToolbar getTopAppBar() {

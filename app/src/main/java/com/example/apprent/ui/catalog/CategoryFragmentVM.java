@@ -11,12 +11,12 @@ import com.example.apprent.domain.models.CategoryItem;
 import com.example.apprent.domain.models.ProductItem;
 import com.example.apprent.domain.usecase.get_category.GetCategoryList;
 import com.example.apprent.domain.usecase.get_products.GetProductList;
-import com.example.apprent.ui.main_activity.MainActivityVM;
+import com.example.apprent.ui.main_activity.MainActivityViewModel;
 
 import java.util.List;
 
 public class CategoryFragmentVM extends ViewModel {
-    private MainActivityVM mainActivityVM;
+    private MainActivityViewModel mainActivityViewModel;
     private final GetCategoryList categoryUseCase;
     private final GetProductList productUseCase;
     private final MutableLiveData<ProductItem> openProduct;
@@ -53,7 +53,7 @@ public class CategoryFragmentVM extends ViewModel {
         showProgressBar.postValue(true);
         categoryUseCase.execute(categoryListLiveData::postValue, path);
         fragmentPath = path;
-        mainActivityVM.setPathForCategoryFragment(fragmentPath);
+        mainActivityViewModel.setPathForCategoryFragment(fragmentPath);
         updateBackButton();
     }
 
@@ -72,16 +72,16 @@ public class CategoryFragmentVM extends ViewModel {
             productListLiveData.postValue(productItems);
         }, path);
         fragmentPath = path;
-        mainActivityVM.setPathForCategoryFragment(fragmentPath);
+        mainActivityViewModel.setPathForCategoryFragment(fragmentPath);
         updateBackButton();
     }
 
 
     private void updateBackButton() {
         if (this.fragmentPath.equals("/category")) {
-            mainActivityVM.hideBackButton();
+            mainActivityViewModel.hideBackButton();
         } else {
-            mainActivityVM.showBackButton();
+            mainActivityViewModel.showBackButton();
         }
     }
 
@@ -118,20 +118,20 @@ public class CategoryFragmentVM extends ViewModel {
     }
 
     public void setPath(String fragmentPath) {
-        mainActivityVM.setPathForCategoryFragment(fragmentPath);
+        mainActivityViewModel.setPathForCategoryFragment(fragmentPath);
         this.fragmentPath = fragmentPath;
     }
 
     public void reservation(FragmentManager fragmentManager) {
-        mainActivityVM.reservation(fragmentManager);
+        mainActivityViewModel.reservation(fragmentManager);
     }
 
     public void selectDate(ProductItem productItem) {
-        mainActivityVM.selectDate(productItem);//todo
+        mainActivityViewModel.selectDate(productItem);//todo
     }
 
-    public void setMainVM(MainActivityVM mainActivityVM) {
-        this.mainActivityVM = mainActivityVM;
+    public void setMainVM(MainActivityViewModel mainActivityViewModel) {
+        this.mainActivityViewModel = mainActivityViewModel;
         updateBackButton();
     }
 }

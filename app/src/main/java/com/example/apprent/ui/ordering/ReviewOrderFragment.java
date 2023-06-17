@@ -12,14 +12,19 @@ import androidx.fragment.app.Fragment;
 
 import com.example.apprent.R;
 import com.example.apprent.ui.main_activity.MainActivity;
+import com.example.apprent.ui.main_activity.MainActivityViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 
 
 public class ReviewOrderFragment extends Fragment {
+
+    private MainActivityViewModel mainActivityViewModel;
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        OrderingViewModel orderingVM = ((MainActivity) requireActivity()).getVM().getOrderingViewModel();
+        mainActivityViewModel = ((MainActivity) requireActivity()).getVM();
+        OrderingViewModel orderingVM = mainActivityViewModel.getOrderingViewModel();
 
         TextView userName = view.findViewById(R.id.name_review_order);
         TextView userSecondName = view.findViewById(R.id.second_name_review_order);
@@ -35,12 +40,11 @@ public class ReviewOrderFragment extends Fragment {
         orderingVM.getButtonContinueState().observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean) {
                 orderingVM.setComment(comment.getText().toString());
-                orderingVM.sendOrder(getContext());//todo? получить контекст активити?
+                orderingVM.sendOrder(getContext(), mainActivityViewModel);//todo? получить контекст активити?
                 orderingVM.setButtonContinueState(false);
             }
         });
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

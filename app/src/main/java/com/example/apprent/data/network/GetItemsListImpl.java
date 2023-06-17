@@ -54,8 +54,13 @@ public class GetItemsListImpl implements MainContract.GetListData {
                             name = dataSnapshot.child("name").getValue(String.class);
                             hasChild = dataSnapshot.child("hasChild").getValue(Boolean.class);
                         };
-                        return databaseRef.child(temp).get().addOnSuccessListener(dataSnapshotOnSuccessListener).continueWith(task1 -> new CategoryItem(imageUrl, name, temp.substring(temp.lastIndexOf('/')), hasChild)).addOnFailureListener(e -> {
-                        });
+                        return databaseRef
+                                .child(temp)
+                                .get()
+                                .addOnSuccessListener(dataSnapshotOnSuccessListener)
+                                .continueWith(task1 -> new CategoryItem(imageUrl, name, temp.substring(temp.lastIndexOf('/')), hasChild))
+                                .addOnFailureListener(e -> {
+                                });
                     }));
                 } else {
                     Log.e(TAG, file.getPath());
@@ -179,17 +184,17 @@ public class GetItemsListImpl implements MainContract.GetListData {
                         .child(PATH_STRING_FOR_STORAGE + storagePath);
 
                 /** tasks.add(storageRef.getDownloadUrl().continueWithTask(task -> {
-                    String imageUrl = String.valueOf(task.getResult());
-                    String itemPath = storageRef.getPath()
-                            .substring(0, storageRef.getPath().lastIndexOf('.'));
-                    return databaseRef.child(itemPath).get().addOnSuccessListener(dataSnapshot -> {
-                                name = dataSnapshot.child("name").getValue(String.class);
-                                description = dataSnapshot.child("description").getValue(String.class);
-                                minPrice = dataSnapshot.child("minPrice").getValue(String.class);
-                            }).continueWith(task1 -> new ProductItem(imageUrl, name, description, minPrice, itemPath))
-                            .addOnFailureListener(e -> {
-                            });
-                }));*/
+                 String imageUrl = String.valueOf(task.getResult());
+                 String itemPath = storageRef.getPath()
+                 .substring(0, storageRef.getPath().lastIndexOf('.'));
+                 return databaseRef.child(itemPath).get().addOnSuccessListener(dataSnapshot -> {
+                 name = dataSnapshot.child("name").getValue(String.class);
+                 description = dataSnapshot.child("description").getValue(String.class);
+                 minPrice = dataSnapshot.child("minPrice").getValue(String.class);
+                 }).continueWith(task1 -> new ProductItem(imageUrl, name, description, minPrice, itemPath))
+                 .addOnFailureListener(e -> {
+                 });
+                 }));*/
 
 //                itemSnapshot
 //                new ProductItem()

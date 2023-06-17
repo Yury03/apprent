@@ -19,12 +19,12 @@ import com.example.apprent.data.network.orders.GetOrdersImpl;
 import com.example.apprent.domain.usecase.orders.get.GetOrdersAdmin;
 import com.example.apprent.ui.admin.adapters.OrdersListAdapter;
 import com.example.apprent.ui.main_activity.MainActivity;
-import com.example.apprent.ui.main_activity.MainActivityVM;
+import com.example.apprent.ui.main_activity.MainActivityViewModel;
 
 
 public class AdminFragment extends Fragment {
     private RecyclerView ordersList;
-    private MainActivityVM mainActivityVM;
+    private MainActivityViewModel mainActivityViewModel;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -36,12 +36,12 @@ public class AdminFragment extends Fragment {
             OrdersListAdapter adapter = new OrdersListAdapter(orders, getContext());
             ordersList.setAdapter(adapter);
         }, "expected");
-        mainActivityVM = ((MainActivity) getActivity()).getVM();//todo   | ? |
-        mainActivityVM.getBottomNavigationView().setVisibility(View.GONE);
+        mainActivityViewModel = ((MainActivity) getActivity()).getVM();//todo   | ? |
+        mainActivityViewModel.getBottomNavigationView().setVisibility(View.GONE);
         Button logout = view.findViewById(R.id.logout_button_admin);
         logout.setOnClickListener(v -> {
-            mainActivityVM.getNavController().navigate(R.id.authenticationFragment);
-            mainActivityVM.getSharedPreferences()
+            mainActivityViewModel.getNavController().navigate(R.id.authenticationFragment);
+            mainActivityViewModel.getSharedPreferences()
                     .edit()
                     .putInt(getResources().getString(R.string.saved_log_in_key), USER_NOT_SIGN_IN.stateId)
                     .apply();

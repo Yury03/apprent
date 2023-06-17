@@ -19,12 +19,12 @@ import com.example.apprent.R;
 import com.example.apprent.ui.catalog.adapters.CategoryAdapter;
 import com.example.apprent.ui.catalog.adapters.ProductAdapter;
 import com.example.apprent.ui.main_activity.MainActivity;
-import com.example.apprent.ui.main_activity.MainActivityVM;
+import com.example.apprent.ui.main_activity.MainActivityViewModel;
 
 public class CategoryFragment extends Fragment {
     private RecyclerView recyclerView;
     private CategoryFragmentVM vm;
-    private MainActivityVM mainActivityVM;
+    private MainActivityViewModel mainActivityViewModel;
     private Bundle arguments;
 
 
@@ -46,9 +46,9 @@ public class CategoryFragment extends Fragment {
         StaggeredGridLayoutManager staggeredGridLayoutManager =
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
-        mainActivityVM = ((MainActivity) getActivity()).getVM();//todo   | ? |
+        mainActivityViewModel = ((MainActivity) getActivity()).getVM();//todo   | ? |
         arguments = getArguments();
-        vm.setMainVM(mainActivityVM);
+        vm.setMainVM(mainActivityViewModel);
         vm.getShowProgressBar().observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean) {
                 progressBar.setVisibility(ProgressBar.VISIBLE);
@@ -56,14 +56,14 @@ public class CategoryFragment extends Fragment {
                 progressBar.setVisibility(ProgressBar.GONE);
             }
         });
-        NavBackStackEntry backStackEntry = mainActivityVM.getNavController().getPreviousBackStackEntry();
+        NavBackStackEntry backStackEntry = mainActivityViewModel.getNavController().getPreviousBackStackEntry();
         if (backStackEntry == null) {
             Log.e("MyApp", "backStack is null");
         } else {
             if (backStackEntry.getDestination().getId() != R.id.productFragment) {
                 vm.getCategoryList(vm.getFragmentPath());
             } else {
-                mainActivityVM.getBottomNavigationView().setVisibility(View.VISIBLE);
+                mainActivityViewModel.getBottomNavigationView().setVisibility(View.VISIBLE);
                 vm.setPath(arguments.getString("FullPath"));
                 vm.getProductList(vm.getFragmentPath());
             }
@@ -80,12 +80,12 @@ public class CategoryFragment extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putSerializable("openProduct", productItem);
             bundle.putString("FullPath", vm.getFragmentPath());
-            mainActivityVM.getNavController().navigate(R.id.productFragment, bundle);
+            mainActivityViewModel.getNavController().navigate(R.id.productFragment, bundle);
         });
-        mainActivityVM.getBackButtonState().observe(getViewLifecycleOwner(), aBoolean -> {
+        mainActivityViewModel.getBackButtonState().observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean) {
 //                mainActivityVM.setTitleOfTopBar("");
-                mainActivityVM.setBackButtonState(false);
+                mainActivityViewModel.setBackButtonState(false);
                 String fullPath = vm.getFragmentPath();
                 Log.e("MyApp", fullPath);
                 fullPath = fullPath.substring(0, fullPath.lastIndexOf('/'));
@@ -95,12 +95,12 @@ public class CategoryFragment extends Fragment {
         vm.getAdapter().observe(getViewLifecycleOwner(), adapter -> {
             recyclerView.setAdapter(adapter);//todo skeleton
         });
-        mainActivityVM.getSearchResultsForCategoryFragment().observe(getViewLifecycleOwner(), productItems -> {
+        mainActivityViewModel.getSearchResultsForCategoryFragment().observe(getViewLifecycleOwner(), productItems -> {
             Log.e("OkK", "OkK");
             ProductAdapter adapter = new ProductAdapter(productItems, getContext(), vm, getChildFragmentManager());
             vm.setAdapter(adapter);
         });
-        vm.getTitle().observe(getViewLifecycleOwner(), s -> mainActivityVM.setTitleOfTopBar(s));
+        vm.getTitle().observe(getViewLifecycleOwner(), s -> mainActivityViewModel.setTitleOfTopBar(s));
     }
 
     @Override

@@ -75,7 +75,7 @@
     <string name="hide_bottom_view_on_scroll_behavior" translatable="false">com.google.android.material.behavior.HideBottomViewOnScrollBehavior</string>
     <string name="name">Имя</string>
     <string name="second_name">Фамилия</string>
-    <string name="default_delivery_address">Адрес</string>
+    <string name="user_address">Адрес</string>
     <string name="shipping">Получение</string>
     <string name="pay">Оплата</string>
     <string name="review">Просмотр</string>
@@ -118,5 +118,21 @@
     <string name="pickup_string">Самовывоз</string>
     <string name="order_send_error">Произошла ошибка при отправке заказа!</string>
     <string name="order_is_send">Ваш заказ отправлен!</string>
+    <string name="profile_info">Информация</string>
+    <string name="profile_personal_data">Личные данные</string>
+    <string name="profile_my_cards">Мои карты</string>
+    <string name="profile_go_to_chat">Задать вопрос</string>
+    <string name="save_data">Сохранить данные</string>
+    <string name="like_text_profile">Мы гарантируем отличное состояние техники</string>
+    <string name="support_text_profile">Онлайн поддержка во время аренды</string>
+    <string name="teach_text_profile">Обучаем и рассказываем тонкости техники</string>
+    <string name="office_text_profile">Имеем удобный офис в центре города</string>
+    <string name="delivery_text_profile">Делаем срочную доставку день в день</string>
+    <string name="courier_text_profile">Делаем бесплатную доставку от 25000 руб</string>
+    <string name="wallet_text_profile">Принимаем оплату наличными и по карте</string>
+    <string name="wallet_2_text_profile">Мы работаем без залога. Совсем</string>
+    <string name="about_the_company">О компании</string>
+    <string name="about_the_company_2">Команда AURA-RENT планомерно развивает новые направления аренды с октября 2016 года. Сегодня мы имеем глубокую экспертизу в следующих направлениях:</string>
+    <string name="about_the_company_3">&#8226; аренда технологичных новинок бытовой электроники;\n&#8226; прокат популярного электротранспорта;\n&#8226; аренда оборудования для бизнеса;\n&#8226; аренда полезных вещей для дома;\n&#8226; аренда желанных товаров для детей;\n&#8226; аренда инвентаря для спорта и отдыха;\n&#8226; аренда нужных решений для отпуска и путешествий.</string>
 
 </resources>

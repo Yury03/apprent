@@ -182,14 +182,11 @@ public class CartEntity implements Parcelable {
     public static class StateConverter {
         @TypeConverter
         public static CartEntity.State fromTimestamp(int value) {
-            switch (value) {
-                case 1:
-                    return State.CART;
-                case 2:
-                    return State.IS_PAID;
-                default:
-                    return State.ERROR;
-            }
+            return switch (value) {
+                case 1 -> State.CART;
+                case 2 -> State.IS_PAID;
+                default -> State.ERROR;
+            };
         }
 
         @TypeConverter

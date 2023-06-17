@@ -21,6 +21,7 @@ public interface CartDao {
     @Delete
     void delete(CartEntity cartProduct);
 
+
     @Query("SELECT * FROM cart_products")
     List<CartEntity> getAllCartProducts();
 

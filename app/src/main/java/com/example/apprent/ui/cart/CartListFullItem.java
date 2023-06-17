@@ -20,7 +20,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.apprent.R;
 import com.example.apprent.data.cart_database.entity.CartEntity;
 import com.example.apprent.ui.main_activity.MainActivity;
-import com.example.apprent.ui.main_activity.MainActivityVM;
+import com.example.apprent.ui.main_activity.MainActivityViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,7 +29,7 @@ import java.util.Date;
 public class CartListFullItem extends Fragment {
     private CartEntity cartProduct;
     private CartFragmentVM cartFragmentVM;
-    private MainActivityVM mainActivityVM;
+    private MainActivityViewModel mainActivityViewModel;
     private int index;
     private View mainView;
     private TextView finalPriceText;
@@ -94,7 +94,7 @@ public class CartListFullItem extends Fragment {
                 Log.e("MyApp", "Arg is NULL [CartFragment->CartListFullItem]");
 
         }
-        mainActivityVM = ((MainActivity) getActivity()).getVM();
+        mainActivityViewModel = ((MainActivity) getActivity()).getVM();
         this.mainView = view;
         TextView productName = view.findViewById(R.id.cart_full_item_name);
         ImageView productImage = view.findViewById(R.id.cart_full_item_product_image);
@@ -155,10 +155,10 @@ public class CartListFullItem extends Fragment {
             }
         });
 
-        mainActivityVM.getBackButtonState().observe(getViewLifecycleOwner(), aBoolean -> {
+        mainActivityViewModel.getBackButtonState().observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean) {
-                mainActivityVM.setBackButtonState(false);
-                mainActivityVM.getNavController().popBackStack();
+                mainActivityViewModel.setBackButtonState(false);
+                mainActivityViewModel.getNavController().popBackStack();
                 cartFragmentVM.closeDetails();
             }
         });

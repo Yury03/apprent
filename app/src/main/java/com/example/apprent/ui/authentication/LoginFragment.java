@@ -16,7 +16,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.apprent.R;
 import com.example.apprent.ui.authentication.adapters.LoginPagerAdapter;
 import com.example.apprent.ui.main_activity.MainActivity;
-import com.example.apprent.ui.main_activity.MainActivityVM;
+import com.example.apprent.ui.main_activity.MainActivityViewModel;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -24,16 +24,16 @@ public class LoginFragment extends Fragment {
 
     private SharedPreferences sharedPreferences;
     private LoginFragmentVM vm;
-    private MainActivityVM mainActivityVM;
+    private MainActivityViewModel mainActivityViewModel;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         vm = new ViewModelProvider(this).get(LoginFragmentVM.class);
         vm.initAuthentication(getContext());
-        mainActivityVM = ((MainActivity) getActivity()).getVM();//todo   | ? |
-        mainActivityVM.getBottomNavigationView().setVisibility(View.INVISIBLE);
-        sharedPreferences = mainActivityVM.getSharedPreferences();
+        mainActivityViewModel = ((MainActivity) getActivity()).getVM();//todo   | ? |
+        mainActivityViewModel.getBottomNavigationView().setVisibility(View.INVISIBLE);
+        sharedPreferences = mainActivityViewModel.getSharedPreferences();
         TabLayout tabLayout = view.findViewById(R.id.tab_buttons_authentication);
         ViewPager2 loginPager = view.findViewById(R.id.view_pager);
         LoginPagerAdapter loginPagerAdapter = new LoginPagerAdapter(this, vm);
@@ -50,8 +50,8 @@ public class LoginFragment extends Fragment {
                 case USER_SIGN_IN, SIGN_UP -> {
                     sharedPreferences.edit().putInt(getResources().getString(R.string.saved_log_in_key), state.stateId).apply();
 //                    mainActivityVM.authCompleted();
-                    mainActivityVM.getNavController().navigate(R.id.mainFragment);
-                    mainActivityVM.getBottomNavigationView().setSelectedItemId(R.id.home_page);
+                    mainActivityViewModel.getNavController().navigate(R.id.mainFragment);
+                    mainActivityViewModel.getBottomNavigationView().setSelectedItemId(R.id.home_page);
                 }
                 case RESTORE_ACCESS ->
                         Toast.makeText(getContext(), "Ссылка на восстановление была отправлена на почту", Toast.LENGTH_LONG).show();
@@ -60,8 +60,8 @@ public class LoginFragment extends Fragment {
                 case SIGN_UP_ERROR ->
                         Toast.makeText(getContext(), "Пользователь с такой почтой уже зарегестрирован", Toast.LENGTH_LONG).show();
                 case ADMIN_SIGN_IN -> {
-                    mainActivityVM.getNavController().navigate(R.id.adminFragment);
-                    mainActivityVM.getBottomNavigationView().setVisibility(View.INVISIBLE);
+                    mainActivityViewModel.getNavController().navigate(R.id.adminFragment);
+                    mainActivityViewModel.getBottomNavigationView().setVisibility(View.INVISIBLE);
                     sharedPreferences.edit().putInt(getResources().getString(R.string.saved_log_in_key), state.stateId).apply();
                 }
                 case RESTORE_ACCESS_ERROR, INIT -> {
@@ -79,6 +79,6 @@ public class LoginFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        mainActivityVM.getBottomNavigationView().setVisibility(View.VISIBLE);
+        mainActivityViewModel.getBottomNavigationView().setVisibility(View.VISIBLE);
     }
 }

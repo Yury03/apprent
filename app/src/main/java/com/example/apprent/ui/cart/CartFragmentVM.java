@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.apprent.R;
 import com.example.apprent.data.cart_database.CartDatabase;
 import com.example.apprent.data.cart_database.entity.CartEntity;
-import com.example.apprent.ui.main_activity.MainActivityVM;
+import com.example.apprent.ui.main_activity.MainActivityViewModel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import java.util.concurrent.Executors;
 public class CartFragmentVM extends ViewModel implements Serializable {
 
     private MutableLiveData<ArrayList<CartEntity>> cartProductList = new MutableLiveData<ArrayList<CartEntity>>();
-    private MainActivityVM mainActivityVM;
+    private MainActivityViewModel mainActivityViewModel;
 
     public LiveData<String> getFinalPrice() {
         return finalPrice;
@@ -45,7 +45,7 @@ public class CartFragmentVM extends ViewModel implements Serializable {
 
     public void removeFromCart(int index) {
         CartEntity cartEntity = cartProductList.getValue().get(index);
-        mainActivityVM.removeFromCart(cartEntity);
+        mainActivityViewModel.removeFromCart(cartEntity);
         cartProductList.getValue().remove(index);
         ArrayList<CartEntity> updateList = cartProductList.getValue();
         cartProductList.postValue(updateList);
@@ -55,8 +55,8 @@ public class CartFragmentVM extends ViewModel implements Serializable {
         return cartProductList;
     }
 
-    public void setMainActivity(MainActivityVM mainActivityVM) {
-        this.mainActivityVM = mainActivityVM;
+    public void setMainActivity(MainActivityViewModel mainActivityViewModel) {
+        this.mainActivityViewModel = mainActivityViewModel;
     }
 
     public void openFullItem(CartEntity item, int index) {
@@ -64,18 +64,18 @@ public class CartFragmentVM extends ViewModel implements Serializable {
         bundle.putParcelable("entity", item);
         bundle.putSerializable("CartFragmentVM", this);
         bundle.putInt("index", index);
-        mainActivityVM.getNavController().navigate(R.id.action_cartFragment_to_cartListFullItem, bundle);
-        mainActivityVM.setTitleOfTopBar("Детали");
-        mainActivityVM.getBottomNavigationView().setVisibility(View.GONE);
-        mainActivityVM.showBackButton();
+        mainActivityViewModel.getNavController().navigate(R.id.action_cartFragment_to_cartListFullItem, bundle);
+        mainActivityViewModel.setTitleOfTopBar("Детали");
+        mainActivityViewModel.getBottomNavigationView().setVisibility(View.GONE);
+        mainActivityViewModel.showBackButton();
     }
 
     public void changeDataFromDB(int id, CartEntity cartProduct) {
-        mainActivityVM.changeDataCartDB(id, cartProduct);
+        mainActivityViewModel.changeDataCartDB(id, cartProduct);
     }
 
     public void closeDetails() {
-        mainActivityVM.getBottomNavigationView().setVisibility(View.VISIBLE);
-        mainActivityVM.hideBackButton();
+        mainActivityViewModel.getBottomNavigationView().setVisibility(View.VISIBLE);
+        mainActivityViewModel.hideBackButton();
     }
 }
