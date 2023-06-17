@@ -31,13 +31,16 @@ import org.jetbrains.annotations.Nullable;
 import java.io.Serializable;
 import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> implements Serializable {
+public class ProductAdapter
+        extends RecyclerView.Adapter<ProductAdapter.ViewHolder>
+        implements Serializable {
     private final List<ProductItem> itemArrayList;
     private final Context context;
     private final CategoryFragmentVM categoryFragmentVM;
     private final FragmentManager fragmentManager;
 
-    public ProductAdapter(List<ProductItem> itemArrayList, Context context, CategoryFragmentVM categoryFragmentVM, FragmentManager fragmentManager) {
+    public ProductAdapter(List<ProductItem> itemArrayList, Context context,
+                          CategoryFragmentVM categoryFragmentVM, FragmentManager fragmentManager) {
         this.itemArrayList = itemArrayList;
         this.context = context;
         this.categoryFragmentVM = categoryFragmentVM;
@@ -66,13 +69,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 .apply(requestOptions)
                 .listener(new RequestListener<Drawable>() {
                     @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model,
+                                                Target<Drawable> target, boolean isFirstResource) {
                         return false;
                     }
 
                     @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource
-                            dataSource, boolean isFirstResource) {
+                    public boolean onResourceReady(Drawable resource, Object model,
+                                                   Target<Drawable> target, DataSource dataSource,
+                                                   boolean isFirstResource) {
                         return false;
                     }
                 })

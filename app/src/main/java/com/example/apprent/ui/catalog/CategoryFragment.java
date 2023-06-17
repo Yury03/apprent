@@ -43,7 +43,8 @@ public class CategoryFragment extends Fragment {
         vm = new ViewModelProvider(this).get(CategoryFragmentVM.class);
         ProgressBar progressBar = view.findViewById(R.id.progressBarCategory);
         recyclerView = view.findViewById(R.id.productList);//todo где выполнять поиск по id
-        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager staggeredGridLayoutManager =
+                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
         mainActivityVM = ((MainActivity) getActivity()).getVM();//todo   | ? |
         arguments = getArguments();

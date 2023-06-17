@@ -1,5 +1,6 @@
 package com.example.apprent.data.network;
 
+import android.annotation.SuppressLint;
 import android.util.ArrayMap;
 import android.util.Log;
 
@@ -17,6 +18,7 @@ import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -101,8 +103,7 @@ public class GetItemsListImpl implements MainContract.GetListData {
                 String itemName = productItemsImages.getName();
                 String key = itemName.substring(itemName.lastIndexOf('.'));
                 Log.i(TAG, productItemsImages.getName());
-                List<String> imagesPath;
-                imagesPath = directoryMap.get(key);
+                List<String> imagesPath = directoryMap.get(key);
                 if (imagesPath == null) {
                     imagesPath = new ArrayList<>();
                     directoryMap.put(key, imagesPath);
@@ -156,9 +157,61 @@ public class GetItemsListImpl implements MainContract.GetListData {
         });
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void getSearchResults(ProductListCallback callback, String query, String path) {
-        getProductsList(callback, "/category/subcategory_1/subcategory_2");
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference databaseRef = database.getReference("/aura/category");
+
+        List<ProductItem> productItemList = new ArrayList<>();
+        Query query1 = databaseRef.orderByChild("name").startAt(query).endAt(query + "\uf8ff");
+
+        List<Task<ProductItem>> tasks = new ArrayList<>();
+        query1.get().addOnSuccessListener(dataSnapshot -> {
+            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                String key = snapshot.getKey();
+                DataSnapshot itemSnapshot = snapshot.child(key);
+                String storagePath = itemSnapshot.getRef().getPath().toString().substring(5);//LOG: /category/subcategory_1/item_1
+                StorageReference storageRef = storage
+                        .getReference()
+                        .child(PATH_STRING_FOR_STORAGE + storagePath);
+
+                /** tasks.add(storageRef.getDownloadUrl().continueWithTask(task -> {
+                    String imageUrl = String.valueOf(task.getResult());
+                    String itemPath = storageRef.getPath()
+                            .substring(0, storageRef.getPath().lastIndexOf('.'));
+                    return databaseRef.child(itemPath).get().addOnSuccessListener(dataSnapshot -> {
+                                name = dataSnapshot.child("name").getValue(String.class);
+                                description = dataSnapshot.child("description").getValue(String.class);
+                                minPrice = dataSnapshot.child("minPrice").getValue(String.class);
+                            }).continueWith(task1 -> new ProductItem(imageUrl, name, description, minPrice, itemPath))
+                            .addOnFailureListener(e -> {
+                            });
+                }));*/
+
+//                itemSnapshot
+//                new ProductItem()
+            }
+//            callback.onItemListLoaded();
+        });
+
+//        Tasks.whenAllSuccess(tasks).addOnSuccessListener(results -> {
+//            List<ProductItem> productItemList = new ArrayList<>();
+//            for (Object obj : results) {
+//                if (obj != null) {
+//                    Log.e(TAG, "key is " + ((ProductItem) obj).getFullPath());
+//                    String key = ((ProductItem) obj).getFullPath()
+//                            .substring(((ProductItem) obj).getFullPath().lastIndexOf('/') + 1);
+//                    Log.e(TAG, "key is " + key);
+//                    ((ProductItem) obj).setImagesPath(directoryMap.get(key));
+//                    productItemList.add((ProductItem) obj);
+//                }
+//            }
+//            Log.w(TAG, productItemList.get(0).getName());
+//            callback.onItemListLoaded(productItemList);
+//        });
     }
 
     @Override

@@ -41,7 +41,10 @@ public class AdminFragment extends Fragment {
         Button logout = view.findViewById(R.id.logout_button_admin);
         logout.setOnClickListener(v -> {
             mainActivityVM.getNavController().navigate(R.id.authenticationFragment);
-            mainActivityVM.getSharedPreferences().edit().putInt(getResources().getString(R.string.saved_log_in_key), USER_NOT_SIGN_IN.stateId).apply();
+            mainActivityVM.getSharedPreferences()
+                    .edit()
+                    .putInt(getResources().getString(R.string.saved_log_in_key), USER_NOT_SIGN_IN.stateId)
+                    .apply();
         });
 //        ordersList.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, true));//todo getContext()?
         ordersList.setLayoutManager(new LinearLayoutManager(requireContext()));

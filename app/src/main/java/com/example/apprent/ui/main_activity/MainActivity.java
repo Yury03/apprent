@@ -37,35 +37,35 @@ public class MainActivity extends AppCompatActivity {
     private MaterialToolbar topAppBar;
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {//todo https://developer.android.com/develop/ui/views/search/training/setup
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                vm.search(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return true;
-            }
-
-        });
-        searchView.setOnQueryTextFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                EditText searchEditText = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
-                searchEditText.setHintTextColor(ContextCompat.getColor(getApplicationContext(), R.color.lightGray));
-            }
-        });
-        searchView.setVisibility(View.INVISIBLE);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.main, menu);
+//        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+//        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {//todo https://developer.android.com/develop/ui/views/search/training/setup
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                vm.search(query);
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                return true;
+//            }
+//
+//        });
+//        searchView.setOnQueryTextFocusChangeListener((v, hasFocus) -> {
+//            if (!hasFocus) {
+//                EditText searchEditText = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+//                searchEditText.setHintTextColor(ContextCompat.getColor(getApplicationContext(), R.color.lightGray));
+//            }
+//        });
+//        searchView.setVisibility(View.INVISIBLE);
+//        return true;
+//    }
 
     public MainActivityVM getVM() {
         if (this.vm == null) vm = new ViewModelProvider(this).get(MainActivityVM.class);
@@ -117,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
             CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) bottomNavigationView.getLayoutParams();
             if (navDestination.getId() == R.id.categoryFragment) {
                 layoutParams.setBehavior(hideBottomViewOnScrollBehavior);
-                topAppBar.getMenu().findItem(R.id.action_search).setVisible(true);
                 NavBackStackEntry backStackEntry = navController.getPreviousBackStackEntry();
                 if (backStackEntry != null) {
                     if (backStackEntry.getDestination().getId() != R.id.productFragment) {
@@ -126,8 +125,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             } else {
                 layoutParams.setBehavior(new AppBarLayout.ScrollingViewBehavior());
-                topAppBar.getMenu().findItem(R.id.action_search).setVisible(false);
-                topAppBar.getMenu().findItem(R.id.action_search).collapseActionView();
                 if (navDestination.getId() == R.id.cartFragment) {
                     vm.hideBackButton();
                     vm.setTitleOfTopBar(getResources().getString(R.string.cart_fragment_name));
@@ -169,7 +166,6 @@ public class MainActivity extends AppCompatActivity {
             }
             default -> throw new IllegalStateException("Unexpected value: " + isLogIn);
         }
-        topAppBar.getMenu().findItem(R.id.action_search).setVisible(false);
         //todo -----------------------------------------------------
     }
 

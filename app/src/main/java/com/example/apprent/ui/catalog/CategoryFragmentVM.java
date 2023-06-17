@@ -105,7 +105,8 @@ public class CategoryFragmentVM extends ViewModel {
 
     public void goToProductFragment(ProductItem productItem) {
         showProgressBar.setValue(true);
-        if (this.openProduct.getValue() != null && productItem.getName().equals(this.openProduct.getValue().getName())) {
+        if (this.openProduct.getValue() != null
+                && productItem.getName().equals(this.openProduct.getValue().getName())) {
             this.openProduct.postValue(null);
         }
         this.openProduct.postValue(productItem);
