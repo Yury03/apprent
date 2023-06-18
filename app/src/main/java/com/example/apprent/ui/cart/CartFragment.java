@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -40,7 +39,7 @@ public class CartFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
         vm = new ViewModelProvider(this).get(CartFragmentVM.class);
-        mainActivityViewModel = ((MainActivity) getActivity()).getVM();//todo   | ? |
+        mainActivityViewModel = ((MainActivity) getActivity()).getViewModel();//todo   | ? |
         int marginBottom = mainActivityViewModel.getBottomNavigationView().getHeight();
         CartDatabase cartDatabase = mainActivityViewModel.getCartDatabase();
         RecyclerView recyclerView = view.findViewById(R.id.product_list_cart);

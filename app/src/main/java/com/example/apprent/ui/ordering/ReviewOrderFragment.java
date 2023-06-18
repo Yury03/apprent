@@ -23,7 +23,7 @@ public class ReviewOrderFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mainActivityViewModel = ((MainActivity) requireActivity()).getVM();
+        mainActivityViewModel = ((MainActivity) requireActivity()).getViewModel();
         OrderingViewModel orderingVM = mainActivityViewModel.getOrderingViewModel();
 
         TextView userName = view.findViewById(R.id.name_review_order);

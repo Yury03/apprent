@@ -15,7 +15,7 @@
     <string name="defaultNameProduct">Nikon EOD. Digital Camera For Good Guys</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="preference_file_key">com.example.apprent.PREFERENCE_FILE_KEY</string>
+<!--    <string name="preference_file_key">com.example.apprent.PREFERENCE_FILE_KEY</string>-->
     <string name="saved_log_in_key">UserStateId</string>
     <string name="home_page">Главная</string>
     <string name="search_page">Поиск</string>
@@ -132,7 +132,8 @@
     <string name="wallet_text_profile">Принимаем оплату наличными и по карте</string>
     <string name="wallet_2_text_profile">Мы работаем без залога. Совсем</string>
     <string name="about_the_company">О компании</string>
+    <string name="tab">\u0009</string>
     <string name="about_the_company_2">Команда AURA-RENT планомерно развивает новые направления аренды с октября 2016 года. Сегодня мы имеем глубокую экспертизу в следующих направлениях:</string>
-    <string name="about_the_company_3">&#8226; аренда технологичных новинок бытовой электроники;\n&#8226; прокат популярного электротранспорта;\n&#8226; аренда оборудования для бизнеса;\n&#8226; аренда полезных вещей для дома;\n&#8226; аренда желанных товаров для детей;\n&#8226; аренда инвентаря для спорта и отдыха;\n&#8226; аренда нужных решений для отпуска и путешествий.</string>
+    <string name="about_the_company_3">\u0009&#8226; аренда технологичных новинок бытовой электроники;\n\u0009&#8226; прокат популярного электротранспорта;\n\u0009&#8226; аренда оборудования для бизнеса;\n\u0009&#8226; аренда полезных вещей для дома;\n\u0009&#8226; аренда желанных товаров для детей;\n\u0009&#8226; аренда инвентаря для спорта и отдыха;\n\u0009&#8226; аренда нужных решений для отпуска и путешествий.</string>
 
 </resources>

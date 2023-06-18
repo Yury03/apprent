@@ -1,7 +1,6 @@
 package com.example.apprent.domain.usecase.get_category;
 
 import com.example.apprent.domain.MainContract;
-import com.example.apprent.domain.usecase.get_category.CategoryListCallback;
 
 public class GetCategoryList {
 

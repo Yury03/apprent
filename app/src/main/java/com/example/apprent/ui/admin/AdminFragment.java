@@ -36,7 +36,7 @@ public class AdminFragment extends Fragment {
             OrdersListAdapter adapter = new OrdersListAdapter(orders, getContext());
             ordersList.setAdapter(adapter);
         }, "expected");
-        mainActivityViewModel = ((MainActivity) getActivity()).getVM();//todo   | ? |
+        mainActivityViewModel = ((MainActivity) getActivity()).getViewModel();//todo   | ? |
         mainActivityViewModel.getBottomNavigationView().setVisibility(View.GONE);
         Button logout = view.findViewById(R.id.logout_button_admin);
         logout.setOnClickListener(v -> {

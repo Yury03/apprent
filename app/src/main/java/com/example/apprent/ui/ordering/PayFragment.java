@@ -24,7 +24,7 @@ public class PayFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        OrderingViewModel orderingVM = ((MainActivity) requireActivity()).getVM().getOrderingViewModel();
+        OrderingViewModel orderingVM = ((MainActivity) requireActivity()).getViewModel().getOrderingViewModel();
         SwitchCompat isPostponePayment = view.findViewById(R.id.postpone_payment);
         TextInputEditText cardNumber = view.findViewById(R.id.card_number);
         TextInputEditText cardDate = view.findViewById(R.id.card_date);

@@ -94,7 +94,7 @@ public class CartListFullItem extends Fragment {
                 Log.e("MyApp", "Arg is NULL [CartFragment->CartListFullItem]");
 
         }
-        mainActivityViewModel = ((MainActivity) getActivity()).getVM();
+        mainActivityViewModel = ((MainActivity) getActivity()).getViewModel();
         this.mainView = view;
         TextView productName = view.findViewById(R.id.cart_full_item_name);
         ImageView productImage = view.findViewById(R.id.cart_full_item_product_image);

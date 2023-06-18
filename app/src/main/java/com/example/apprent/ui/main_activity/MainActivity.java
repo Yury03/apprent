@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavBackStackEntry;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 //        return true;
 //    }
 
-    public MainActivityViewModel getVM() {
+    public MainActivityViewModel getViewModel() {
         if (this.vm == null) vm = new ViewModelProvider(this).get(MainActivityViewModel.class);
         return this.vm;
     }
@@ -68,12 +69,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_main);
         topAppBar = findViewById(R.id.topAppBar);
         SharedPreferences sp = getSharedPreferences(MainActivityViewModel.APP_PREFERENCES, Context.MODE_PRIVATE);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         setSupportActionBar(topAppBar);
-        vm = this.getVM();
+        vm = this.getViewModel();
         vm.setAppContext(getApplicationContext());
         vm.setSharedPreferences(sp);
         vm.setMaterialToolbar(topAppBar);

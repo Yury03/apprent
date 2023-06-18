@@ -23,10 +23,17 @@ import com.example.apprent.ui.main_activity.MainActivityViewModel;
 public class ProfileFragment extends Fragment {
     private boolean infoLayoutVisible = false;
     private boolean personalDataLayoutVisible = false;
+    private MainActivityViewModel mainActivityViewModel;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        LinearLayout mainLayout = view.findViewById(R.id.linear_layout_profile);
+        mainActivityViewModel = ((MainActivity) requireActivity()).getViewModel();
+        int marginBottom = mainActivityViewModel.getBottomNavigationView().getHeight();
+        mainLayout.setPadding(0, 0, 0, marginBottom);
+
         Button information = view.findViewById(R.id.information);
         Button personalData = view.findViewById(R.id.personal_data);
         Button myCards = view.findViewById(R.id.my_cards);
@@ -35,7 +42,6 @@ public class ProfileFragment extends Fragment {
         LinearLayout personalDataLayout = view.findViewById(R.id.personal_data_layout);
         LinearLayout informationLayout = view.findViewById(R.id.information_layout);
         logoutButton.setOnClickListener(v -> {
-            MainActivityViewModel mainActivityViewModel = ((MainActivity) getActivity()).getVM();//todo   | ? |
             mainActivityViewModel.getNavController().navigate(R.id.authenticationFragment);
             mainActivityViewModel.getSharedPreferences()
                     .edit()
@@ -73,7 +79,8 @@ public class ProfileFragment extends Fragment {
         Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.collapse_animation);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation) {}
+            public void onAnimationStart(Animation animation) {
+            }
 
             @Override
             public void onAnimationEnd(Animation animation) {
@@ -81,7 +88,8 @@ public class ProfileFragment extends Fragment {
             }
 
             @Override
-            public void onAnimationRepeat(Animation animation) {}
+            public void onAnimationRepeat(Animation animation) {
+            }
         });
         informationLayout.startAnimation(animation);
     }

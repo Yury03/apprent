@@ -48,7 +48,7 @@ public class ProductFragment extends Fragment {
         TextView name = view.findViewById(R.id.product_name_fragment);
         TextView description = view.findViewById(R.id.product_description_fragment);
         product = (ProductItem) getArguments().getSerializable("openProduct"); //todo
-        mainActivityViewModel = ((MainActivity) getActivity()).getVM();
+        mainActivityViewModel = ((MainActivity) getActivity()).getViewModel();
         List<String> imagesList = product.getImagesPath();
         ImagesPagerAdapter imagesPagerAdapter = new ImagesPagerAdapter(this, imagesList);
         imagesPager.setAdapter(imagesPagerAdapter);

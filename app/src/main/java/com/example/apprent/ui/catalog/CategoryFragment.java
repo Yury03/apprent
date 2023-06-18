@@ -46,7 +46,7 @@ public class CategoryFragment extends Fragment {
         StaggeredGridLayoutManager staggeredGridLayoutManager =
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
-        mainActivityViewModel = ((MainActivity) getActivity()).getVM();//todo   | ? |
+        mainActivityViewModel = ((MainActivity) getActivity()).getViewModel();//todo   | ? |
         arguments = getArguments();
         vm.setMainVM(mainActivityViewModel);
         vm.getShowProgressBar().observe(getViewLifecycleOwner(), aBoolean -> {

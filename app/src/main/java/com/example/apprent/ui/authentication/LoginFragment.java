@@ -31,7 +31,7 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         vm = new ViewModelProvider(this).get(LoginFragmentVM.class);
         vm.initAuthentication(getContext());
-        mainActivityViewModel = ((MainActivity) getActivity()).getVM();//todo   | ? |
+        mainActivityViewModel = ((MainActivity) getActivity()).getViewModel();//todo   | ? |
         mainActivityViewModel.getBottomNavigationView().setVisibility(View.INVISIBLE);
         sharedPreferences = mainActivityViewModel.getSharedPreferences();
         TabLayout tabLayout = view.findViewById(R.id.tab_buttons_authentication);

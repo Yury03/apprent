@@ -33,7 +33,7 @@ public class OrderingFragment extends Fragment {
         if (arguments != null) {
             vm.setProductList(arguments.getParcelableArrayList("CartProductsList"));
         }
-        MainActivityViewModel mainActivityViewModel = ((MainActivity) getActivity()).getVM();
+        MainActivityViewModel mainActivityViewModel = ((MainActivity) getActivity()).getViewModel();
         mainActivityViewModel.getBottomNavigationView().setVisibility(View.GONE);
         mainActivityViewModel.setTitleOfTopBar(getString(R.string.title_top_bar_ordering));
         mainActivityViewModel.showBackButton();

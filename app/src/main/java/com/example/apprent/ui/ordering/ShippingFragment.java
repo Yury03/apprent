@@ -30,7 +30,7 @@ public class ShippingFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        OrderingViewModel orderingVM = ((MainActivity) requireActivity()).getVM().getOrderingViewModel();
+        OrderingViewModel orderingVM = ((MainActivity) requireActivity()).getViewModel().getOrderingViewModel();
         userFirstName = view.findViewById(R.id.user_name_ordering);
         userSecondName = view.findViewById(R.id.user_second_name_ordering);
         deliveryAddress = view.findViewById(R.id.delivery_address);
