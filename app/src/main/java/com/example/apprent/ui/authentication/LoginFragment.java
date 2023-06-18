@@ -47,11 +47,19 @@ public class LoginFragment extends Fragment {
         }).attach();
         vm.getUserLiveData().observe(getViewLifecycleOwner(), state -> {
             switch (state) {
-                case USER_SIGN_IN, SIGN_UP -> {
+                case USER_SIGN_IN -> {
+                    sharedPreferences.edit().putInt(getResources().getString(R.string.saved_log_in_key), state.stateId).apply();
+//                    mainActivityVM.authCompleted();
+//                    vm.authCompleted(getContext(), state)
+                    mainActivityViewModel.getNavController().navigate(R.id.mainFragment);
+                    mainActivityViewModel.getBottomNavigationView().setSelectedItemId(R.id.home_page);
+                }
+                case SIGN_UP -> {
                     sharedPreferences.edit().putInt(getResources().getString(R.string.saved_log_in_key), state.stateId).apply();
 //                    mainActivityVM.authCompleted();
                     mainActivityViewModel.getNavController().navigate(R.id.mainFragment);
                     mainActivityViewModel.getBottomNavigationView().setSelectedItemId(R.id.home_page);
+                    Toast.makeText(getContext(), "Спасибо за регистрацию!", Toast.LENGTH_LONG).show();
                 }
                 case RESTORE_ACCESS ->
                         Toast.makeText(getContext(), "Ссылка на восстановление была отправлена на почту", Toast.LENGTH_LONG).show();

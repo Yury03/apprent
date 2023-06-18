@@ -111,10 +111,9 @@ public class MainActivity extends AppCompatActivity {
             if (navDestination.getId() == R.id.categoryFragment) {
                 layoutParams.setBehavior(hideBottomViewOnScrollBehavior);
                 NavBackStackEntry backStackEntry = navController.getPreviousBackStackEntry();
-                if (backStackEntry != null) {
-                    if (backStackEntry.getDestination().getId() != R.id.productFragment) {
-                        vm.setTitleOfTopBar(getResources().getString(R.string.category_fragment_name));
-                    }
+                if (backStackEntry != null
+                        && backStackEntry.getDestination().getId() != R.id.productFragment) {
+                    vm.setTitleOfTopBar(getResources().getString(R.string.category_fragment_name));
                 }
             } else {
                 layoutParams.setBehavior(new AppBarLayout.ScrollingViewBehavior());
@@ -147,8 +146,9 @@ public class MainActivity extends AppCompatActivity {
         vm.createDatabase(getApplicationContext());
         //todo -----------------------------------------------------
         int isLogIn = sp.getInt(getResources().getString(R.string.saved_log_in_key), USER_NOT_SIGN_IN.stateId);
+        Log.i("IS_LOG_IN_STATE: ", String.valueOf(isLogIn));
         switch (isLogIn) {
-            case 1 -> {//USER_SIGN_IN
+            case 0, 1, 2, 3 -> {//USER_SIGN_IN//todo
 //                navController.navigate(R.id.home_page);
             }
             case 4 -> {//ADMIN_SIGN_IN
@@ -177,10 +177,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
 //        navController.navigate(R.id.mainFragment);
 //        bottomNavigationView.setSelectedItemId(R.id.home_page);
 //        bottomNavigationView.performClick();
         //   todo bottomNavigationView.show???
+        if (topAppBar.getNavigationIcon() != null) {
+            vm.setBackButtonState(true);
+        } else if (navController.getCurrentDestination().getId() == R.id.mainFragment) {
+            super.onBackPressed();
+        } else {
+            bottomNavigationView.setSelectedItemId(R.id.home_page);
+        }
+
     }
 }

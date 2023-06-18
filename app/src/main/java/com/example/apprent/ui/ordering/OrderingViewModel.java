@@ -17,11 +17,7 @@ import com.example.apprent.ui.main_activity.MainActivityViewModel;
 import java.util.List;
 
 public class OrderingViewModel extends ViewModel {
-
-
     private boolean isPaid;
-
-
     private final MutableLiveData<List<CartEntity>> productsList = new MutableLiveData<>();
 
     public void setComment(String comment) {
@@ -124,10 +120,12 @@ public class OrderingViewModel extends ViewModel {
     }
 
 
-
     public void sendOrder(Context context, MainActivityViewModel mainActivityViewModel) {
         SendOrdersImpl sendOrders = new SendOrdersImpl(context);
         SendOrders sendOrdersUseCase = new SendOrders(sendOrders);
+        Order order = new Order(131, isDelivery, isPaid, productsList.getValue(), phoneNumber,
+                Order.State.EXPECTED, firstName, secondName, comment);
+        order.setDeliveryAddress(address);
         sendOrdersUseCase.execute(Error -> {
             if (Error == Order.SendOrderError.ORDER_IS_SEND) {
                 Toast.makeText(context, R.string.order_is_send, Toast.LENGTH_LONG).show();
@@ -135,7 +133,6 @@ public class OrderingViewModel extends ViewModel {
             } else {
                 Toast.makeText(context, R.string.order_send_error, Toast.LENGTH_LONG).show();
             }
-        }, new Order(131, isDelivery, isPaid, productsList.getValue(), phoneNumber,
-                Order.State.EXPECTED, firstName, secondName, comment));
+        }, order);
     }
 }

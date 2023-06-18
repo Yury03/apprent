@@ -50,7 +50,7 @@ public class ShippingFragment extends Fragment {
         });
         orderingVM.getButtonContinueState().observe(getViewLifecycleOwner(), aBoolean -> {
             if (aBoolean && fieldsAreValidity()) {
-                if (deliveryAddress.getText().toString().isEmpty()) {
+                if (isPickup) {
                     orderingVM.setAddress(getString(R.string.pickup_string));
                     orderingVM.setDelivery(false);
                 } else {

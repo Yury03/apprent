@@ -52,7 +52,6 @@ public class CartFragment extends Fragment {
         vm.loadCartProductList(cartDatabase);
         vm.setMainActivity(mainActivityViewModel);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-
         orderingButton.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putParcelableArrayList("CartProductsList", (ArrayList<? extends Parcelable>) cartEntityList);
@@ -77,17 +76,6 @@ public class CartFragment extends Fragment {
             }
         });
 
-
-        Button testButton = view.findViewById(R.id.test_button);
-
-//        testButton.setOnClickListener(v -> {
-//            Order order = new Order(1224, true, false, cartEntityList,
-//                    "89048666474", Order.State.EXPECTED, "uid");
-//            SendOrdersImpl sendOrders = new SendOrdersImpl(getContext());
-//            SendOrders sendOrdersUseCase = new SendOrders(sendOrders);
-//            sendOrdersUseCase.execute(isError -> Toast.makeText(getContext(), "Order is send",
-//                    Toast.LENGTH_LONG).show(), order);
-//        });
         return view;
     }
 
