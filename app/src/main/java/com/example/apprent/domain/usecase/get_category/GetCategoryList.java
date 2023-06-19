@@ -10,7 +10,7 @@ public class GetCategoryList {
         this.getItemsListData = getItemsListData;
     }
 
-    public void execute(CategoryListCallback callback, String subcategory) {//todo нужен ли тут параметр и правильно ли что он передается в качестве параметра уже другой функции?
+    public void execute(CategoryListCallback callback, String subcategory) {
         getItemsListData.getCategoryList(callback, subcategory);
     }
 }

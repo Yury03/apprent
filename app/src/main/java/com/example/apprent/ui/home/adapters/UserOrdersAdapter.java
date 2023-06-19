@@ -2,7 +2,6 @@ package com.example.apprent.ui.home.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.apprent.R;
-
-
 import com.example.apprent.domain.models.Order;
 
 import java.util.List;
 
 public class UserOrdersAdapter extends RecyclerView.Adapter<UserOrdersAdapter.ViewHolder> {
     private final List<Order> orders;
-    private final Context context;
     private final String counterText;
     private final String idText;
     private final String startRentText;
@@ -32,7 +28,6 @@ public class UserOrdersAdapter extends RecyclerView.Adapter<UserOrdersAdapter.Vi
 
     public UserOrdersAdapter(List<Order> orders, Context context) {
         this.orders = orders;
-        this.context = context;
         counterText = context.getString(R.string.order_item_number_products);
         idText = context.getString(R.string.order_item_id);
         startRentText = context.getString(R.string.order_item_rent_start);
@@ -56,7 +51,7 @@ public class UserOrdersAdapter extends RecyclerView.Adapter<UserOrdersAdapter.Vi
         Order order = orders.get(position);
         holder.id.setText(idText + order.getId());
         holder.counter.setText(counterText + order.getQuantityProducts());
-        holder.startRent.setText(startRentText + " 08.06.23");//todo
+        holder.startRent.setText(startRentText + order.getRentStart());//todo
 
         if (order.isDelivery()) {
             holder.isDelivery.setText(isDeliveryText);
@@ -73,7 +68,6 @@ public class UserOrdersAdapter extends RecyclerView.Adapter<UserOrdersAdapter.Vi
 
     @Override
     public int getItemCount() {
-        Log.e("getorders", String.valueOf(orders.size()));
         return orders.size();
     }
 

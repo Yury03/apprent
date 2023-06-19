@@ -10,7 +10,7 @@ public class GetSearchResults {
         this.getItemsListData = getItemsListData;
     }
 
-    public void execute(ProductListCallback callback, String query, String path) { //todo нужен ли тут параметр и правильно ли что он передается в качестве параметра уже другой функции?
+    public void execute(ProductListCallback callback, String query, String path) {
         getItemsListData.getSearchResults(callback, query, path);
     }
 }

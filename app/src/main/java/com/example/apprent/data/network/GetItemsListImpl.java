@@ -75,10 +75,12 @@ public class GetItemsListImpl implements MainContract.GetListData {
         return Tasks.whenAllSuccess(tasks).addOnSuccessListener(results -> {
             List<CategoryItem> categoryItemList = new ArrayList<>();
             for (Object obj : results) {
+                if(obj==null)Log.e(TAG, "NPE");
                 if (obj instanceof CategoryItem) {
                     categoryItemList.add((CategoryItem) obj);
                 } else {
                     throw new IllegalStateException("Описание ошибки про херовый каст");
+
                 }
             }
             callback.onItemListLoaded(categoryItemList);
@@ -156,7 +158,7 @@ public class GetItemsListImpl implements MainContract.GetListData {
                         productItemList.add((ProductItem) obj);
                     }
                 }
-                Log.w(TAG, productItemList.get(0).getName());
+
                 callback.onItemListLoaded(productItemList);
             });
         });

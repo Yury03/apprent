@@ -9,7 +9,7 @@ public class GetProductList {
         this.getItemsListData = getItemsListData;
     }
 
-    public void execute(ProductListCallback callback, String category) { //todo нужен ли тут параметр и правильно ли что он передается в качестве параметра уже другой функции?
+    public void execute(ProductListCallback callback, String category) {
         getItemsListData.getProductsList(callback, category);
     }
 

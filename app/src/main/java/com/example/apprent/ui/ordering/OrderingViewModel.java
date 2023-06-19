@@ -123,7 +123,8 @@ public class OrderingViewModel extends ViewModel {
     public void sendOrder(Context context, MainActivityViewModel mainActivityViewModel) {
         SendOrdersImpl sendOrders = new SendOrdersImpl(context);
         SendOrders sendOrdersUseCase = new SendOrders(sendOrders);
-        Order order = new Order(131, isDelivery, isPaid, productsList.getValue(), phoneNumber,
+        int id = (int) (Math.random() * 1000000) % 1000000;
+        Order order = new Order(id, isDelivery, false, productsList.getValue(), phoneNumber,
                 Order.State.EXPECTED, firstName, secondName, comment);
         order.setDeliveryAddress(address);
         sendOrdersUseCase.execute(Error -> {
