@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.ordering.OrderingFragment">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/top_image_ordering_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ordering_step_1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView9"
+                style="@style/OrderingText"
+                android:gravity="center"
+                android:text="@string/shipping"
+                android:textColor="@color/main_text" />
+
+            <TextView
+                android:id="@+id/textView14"
+                style="@style/OrderingText"
+                android:gravity="center"
+                android:text="@string/pay" />
+
+            <TextView
+                android:id="@+id/textView15"
+                style="@style/OrderingText"
+                android:gravity="center"
+                android:text="@string/review" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView16"
+                style="@style/OrderingText"
+                android:text="@string/shipping_description"
+                android:textColor="@color/lightGray" />
+
+            <TextView
+                android:id="@+id/textView17"
+                style="@style/OrderingText"
+                android:text="@string/pay_description"
+                android:textColor="@color/lightGray" />
+
+            <TextView
+                android:id="@+id/textView18"
+                style="@style/OrderingText"
+                android:text="@string/review_description"
+                android:textColor="@color/lightGray" />
+        </LinearLayout>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/ordering_fragment_container"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            android:layout_weight="1"
+            app:navGraph="@navigation/nav_graph_ordering"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/continue_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/continue_button"
+            android:layout_marginBottom="30dp"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</FrameLayout>

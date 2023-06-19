@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.product.ProductFragment">
+    <!--        <com.smarteist.autoimageslider.SliderView-->
+    <!--            android:id="@+id/slider"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="150dp"-->
+    <!--            android:layout_centerInParent="true"-->
+    <!--            app:sliderAnimationDuration="600"-->
+    <!--            app:sliderAutoCycleDirection="back_and_forth"-->
+    <!--            app:sliderIndicatorAnimationDuration="600"-->
+    <!--            app:sliderIndicatorEnabled="true"-->
+    <!--            app:sliderIndicatorGravity="center_horizontal|bottom"-->
+    <!--            app:sliderIndicatorMargin="15dp"-->
+    <!--            app:sliderIndicatorOrientation="horizontal"-->
+    <!--            app:sliderIndicatorPadding="3dp"-->
+    <!--            app:sliderIndicatorRadius="2dp"-->
+    <!--            app:sliderIndicatorSelectedColor="#5A5A5A"-->
+    <!--            app:sliderIndicatorUnselectedColor="#BCB8B8"-->
+    <!--            app:sliderScrollTimeInSec="1" />-->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/images_pager"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:padding="3dp">
+
+            </androidx.viewpager2.widget.ViewPager2>
+
+            <TextView
+                android:id="@+id/product_name_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="@color/main_text"
+                android:textSize="34sp" />
+
+            <TextView
+                android:id="@+id/product_price_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="3dp"
+                android:text="TextView"
+                android:textColor="@color/main_text"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/product_description_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="3dp"
+                android:text="TextView" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/setProduct"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:orientation="horizontal">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/reservation_action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:src="@drawable/phone_action_button"
+            app:useCompatPadding="true" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/calendar_action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:src="@drawable/calendar_action_button"
+            app:useCompatPadding="true" />
+    </LinearLayout>
+
+</FrameLayout>

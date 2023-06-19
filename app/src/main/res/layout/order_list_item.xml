@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="20dp"
+    app:cardUseCompatPadding="true"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="3dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/order_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/order_item_id"
+            android:textColor="@color/main_text"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/is_delivery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/order_item_is_delivery"
+            android:textColor="@color/main_text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/is_paid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/order_item_is_paid"
+            android:textColor="@color/main_text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/start_rent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/order_item_rent_start"
+            android:textColor="@color/main_text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/number_products"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/order_item_number_products"
+            android:textColor="@color/main_text"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    app:cardBackgroundColor="#EAEAEA"
+    app:cardCornerRadius="15dp"
+    style="@style/RoundedDialog"
+    app:cardElevation="0dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:padding="8dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:gravity="center_vertical"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:text="@string/request_a_call"
+                android:textColor="@color/main_text"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/fragment_call_close"
+                android:background="@color/alpha_null"
+                android:foregroundGravity="right"
+
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:minHeight="48dp"
+                android:minWidth="48dp"
+                app:srcCompat="@drawable/close"
+                tools:ignore="ContentDescription" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="@string/request_a_call2"
+            android:textColor="@color/main_text"
+            android:textSize="18sp" />
+
+        <EditText
+            android:ems="10"
+            android:hint="@string/request_a_call_your_name"
+            android:id="@+id/fragment_call_name"
+            android:inputType="text"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
+
+        <EditText
+            android:ems="10"
+            android:hint="@string/request_a_call_your_phone"
+            android:id="@+id/fragment_call_phone"
+            android:inputType="phone"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
+
+        <FrameLayout
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:minHeight="48dp">
+
+            <ImageButton
+                android:background="@color/alpha_null"
+                android:id="@+id/fragment_call_request_a_call"
+                android:layout_gravity="center"
+
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:minHeight="48dp"
+                app:srcCompat="@drawable/request_a_call_button" />
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/textView12"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp"
+                android:text="@string/request_a_call"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="@string/privacy_policy"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AuraButton" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="background">@drawable/button_style</item>
+        <item name="colorButtonNormal">#0BC965</item>
+        <item name="colorControlHighlight">#0BC965</item>
+    </style>
+
+    <style name="RoundedDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@drawable/dialog_rounded_background</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="CalendarFullscreenTheme" parent="ThemeOverlay.MaterialComponents">
+        <!-- Customize the style properties for fullscreen calendar if needed -->
+    </style>
+
+    <style name="OrderingText" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+
+    </style>
+    <style name="reviewOrderText." parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_weight">4</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginTop">4dp</item>
+
+    </style>
+    <style name="reviewOrderTextHint" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/hint_text_review_order</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginTop">4dp</item>
+    </style>
+
+    <color name="hint_text_review_order">#171717</color>
+    <style name="infoTextProfile" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/main_text</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginTop">4dp</item>
+    </style>
+</resources>
